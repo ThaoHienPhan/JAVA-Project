@@ -1,5 +1,8 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Auth from "./Features/Auth/Auth";
+import LoginForm from "./Features/Auth/components/LoginForm/LoginForm";
+import RegisterForm from "./Features/Auth/components/RegisterForm/RegisterForm";
 import HomePage from "./Features/Home/components/HomePage";
 import ListView from "./ListView";
 import Footer from "./components/Footer/Footer";
@@ -8,13 +11,13 @@ import Header from "./components/Header/Header";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <HomePage />
-      {/* <Auth /> */}
-      <Footer/>
-      {/* <ListView /> */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="login" element={<Auth />} />
+        <Route path="register" element={<Auth />} />
+      </Routes>
     </div>
-  );
+  );  
 }
 
 export default App;

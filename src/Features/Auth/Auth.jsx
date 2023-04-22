@@ -4,6 +4,7 @@ import HomePage from "../../utils/Image/HomePage.png";
 import LoginForm from "./components/LoginForm/LoginForm";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/material";
+import {useMatch } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 
 Auth.propTypes = {};
@@ -32,17 +33,30 @@ const useStyles = makeStyles(() => ({
 
 function Auth(props) {
   const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <Box className={classes.left}>
-        <img src={HomePage} alt="Hình ảnh trang chủ" />
-      </Box>
-      <Box className={classes.right}>
-        {/* <LoginForm /> */}
-        <RegisterForm />
-      </Box>
-    </div>
-  );
+  const match = useMatch("/login");
+  if (match) {
+    return (
+      <div className={classes.root}>
+        <Box className={classes.left}>
+          <img src={HomePage} alt="Hình ảnh trang chủ" />
+        </Box>
+        <Box className={classes.right}>
+          <LoginForm />
+        </Box>
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.root}>
+        <Box className={classes.left}>
+          <img src={HomePage} alt="Hình ảnh trang chủ" />
+        </Box>
+        <Box className={classes.right}>
+          <RegisterForm />
+        </Box>
+      </div>
+    );
+  }
 }
 
 export default Auth;

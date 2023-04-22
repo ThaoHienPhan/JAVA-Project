@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Icon, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -96,6 +97,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Header(props) {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const [status, setStatus] = useState("");
+  const handleLogIn = () => {
+    setStatus("login");
+    navigate(`/${status}`);
+  };
+  const handleRegister = () => {
+    setStatus("register");
+    navigate(`/${status}`);
+  };
   return (
     <Box className={classes.root}>
       <Box className={classes.header}>
@@ -125,8 +136,8 @@ function Header(props) {
           <LocationOnIcon />
           <HelpOutlineIcon />
           <ShoppingCartIcon />
-          <Button>Đăng Nhập</Button>
-          <Button>Đăng Ký</Button>
+          <Button onClick={handleLogIn}>Đăng Nhập</Button>
+          <Button onClick={handleRegister}>Đăng Ký</Button>
         </Box>
       </Box>
       <Box className={classes.navigate}>
