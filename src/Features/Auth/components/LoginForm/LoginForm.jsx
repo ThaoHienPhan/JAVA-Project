@@ -118,7 +118,7 @@ function LoginForm(props) {
         <Typography>Hoặc đăng nhập bằng</Typography>
         <Box className={classes.social}>
           <FacebookIcon color="primary" />
-          <EmailIcon color="primary" />
+          <img src="https://img.icons8.com/color/60/null/gmail-new.png"/>
           <TwitterIcon color="primary" />
         </Box>
       </Box>

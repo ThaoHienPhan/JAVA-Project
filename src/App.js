@@ -7,6 +7,7 @@ import HomePage from "./Features/Home/components/HomePage";
 import ListView from "./ListView";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import Sale from "./Features/Sale/Sale";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="login" element={<Auth />} />
         <Route path="register" element={<Auth />} />
+        <Route path="sale" element={<Sale />} />
+
       </Routes>
     </div>
   );  

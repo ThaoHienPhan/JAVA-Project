@@ -98,14 +98,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Header(props) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [status, setStatus] = useState("");
+  // const handleLogIn = () => {
+  //   setStatus("login", () => {
+  //     navigate(`/${status}`);
+  //   });
+  // };
   const handleLogIn = () => {
-    setStatus("login");
-    navigate(`/${status}`);
+    navigate("/login");
   };
   const handleRegister = () => {
-    setStatus("register");
-    navigate(`/${status}`);
+    navigate("/register");
   };
   return (
     <Box className={classes.root}>

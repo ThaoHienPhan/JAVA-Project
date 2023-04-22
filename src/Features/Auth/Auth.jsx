@@ -4,7 +4,7 @@ import HomePage from "../../utils/Image/HomePage.png";
 import LoginForm from "./components/LoginForm/LoginForm";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/material";
-import {useMatch } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 
 Auth.propTypes = {};
@@ -12,20 +12,20 @@ const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     width: "100%",
+    minHeight: "100vh",
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
   },
   left: {
+    width: "60%",
+    height: "100%",
     "& img": {
-      maxWidth: "534px",
-      maxHeight: "605px",
-      overflow: "hidden",
+      width: "100%",
     },
-    flex: "1",
   },
   right: {
-    margin: "10px 70px 0 70px",
+    margin: "10px 50px 0 50px",
     position: "relative",
     flex: "1",
   },
