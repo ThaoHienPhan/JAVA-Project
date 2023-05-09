@@ -15,8 +15,8 @@ function InputField(props) {
   const {
     formState: { errors, ...formState },
   } = form;
-  const hasError = errors[name];
-
+//formState.errors : error của cả state
+//fieldState.errors : error của field
   return (
     <Controller
       name={name}
@@ -31,8 +31,8 @@ function InputField(props) {
           variant="outlined"
           label={label}
           fullWidth
-          error={!!hasError}
-          helperText={errors[name]?.message}
+          error={!!fieldState.error}
+          helperText={fieldState.error?.message}
         />
       )}
     />

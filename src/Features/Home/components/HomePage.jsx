@@ -178,22 +178,7 @@ function HomePage(props) {
             </Typography>
           </Box>
           <Box className={classes.product_container}>
-            <div className={classes.product}>
-              <img src={Mac} alt="" />
-              <Typography>Mac</Typography>
-            </div>
-            <div className={`iPhone ${classes.product}`}>
-              <img src={Iphone} alt="" />
-              <Typography>iPhone</Typography>
-            </div>
-            <div className={classes.product}>
-              <img src={AirPod} alt="" />
-              <Typography>AirPod</Typography>
-            </div>
-            <div className={`appleWatch ${classes.product}`}>
-              <img src={AppleWatch} alt="" />
-              <Typography>Watch</Typography>
-            </div>
+          
           </Box>
         </Box>
         <Box className={classes.locate}>

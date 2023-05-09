@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Box, Button, LinearProgress, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { makeStyles } from "@mui/styles";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockIcon from "@mui/icons-material/Lock";
@@ -27,10 +27,10 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     margin: "15px 0px",
     gap: "15px",
-    "& svg":{
-      width:"3.4rem",
-      height:"4.5rem",
-    }
+    "& svg": {
+      width: "3.4rem",
+      height: "4.5rem",
+    },
   },
   socialLogin: {
     marginTop: "30px",
@@ -54,10 +54,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    "& svg":{
-      width:"2.4rem",
-      height:"3.5rem",
-    }
+    "& svg": {
+      width: "2.4rem",
+      height: "3.5rem",
+    },
   },
 }));
 
@@ -94,10 +94,22 @@ function LoginForm(props) {
         <Typography>Hãy đăng nhập vào tài khoản của bạn</Typography>
       </Box>
       <Box>
-        <form>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
           <Box className={classes.input}>
             <PersonOutlineIcon />
             <InputField name="identifier" label="Email" form={form} />
+            {/* <Controller
+              name="identifier"
+              control={form.control}
+              render={({ field, fieldState }) => {
+                return (
+                  <div>
+                    <input {...field} />
+                    <p>{fieldState.error?.message}</p>
+                  </div>
+                );
+              }}
+            /> */}
           </Box>
           <Box className={classes.input}>
             <LockIcon />
@@ -118,7 +130,7 @@ function LoginForm(props) {
         <Typography>Hoặc đăng nhập bằng</Typography>
         <Box className={classes.social}>
           <FacebookIcon color="primary" />
-          <img src="https://img.icons8.com/color/60/null/gmail-new.png"/>
+          <img src="https://img.icons8.com/color/60/null/gmail-new.png" />
           <TwitterIcon color="primary" />
         </Box>
       </Box>
