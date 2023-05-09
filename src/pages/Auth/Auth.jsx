@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import HomePage from '../../assets/images/HomePage.png';
 import LoginForm from './components/LoginForm/LoginForm';
 import { makeStyles } from '@mui/styles';

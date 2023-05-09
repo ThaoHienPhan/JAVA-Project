@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import topSlider from '../../assets/images/Group 44.png';
 import store1 from '../../assets/images/store1.png';
