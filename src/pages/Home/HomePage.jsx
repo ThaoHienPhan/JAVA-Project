@@ -1,43 +1,43 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Box, Typography } from "@mui/material";
-import topSlider from "../../../utils/Image/Group 44.png";
-import store1 from "../../../utils/Image/store1.png";
-import store2 from "../../../utils/Image/store2.png";
-import Mac from "../../../utils/Image/image 11.png";
-import AirPod from "../../../utils/Image/image 10.png";
-import AppleWatch from "../../../utils/Image/image 9.png";
-import Ipad from "../../../utils/Image/image 7.png";
-import Iphone from "../../../utils/Image/iphone.png";
-import TV from "../../../utils/Image/image 5.png";
-import Accessory from "../../../utils/Image/accessory.png";
-import Sale from "../../../utils/Image/sale.png";
-import Authentic from "../../../utils/Image/auth.png";
-import FastDeliver from "../../../utils/Image/fastDeli.png";
-import middleSlider from "../../../utils/Image/Slider.png";
-import { makeStyles } from "@mui/styles";
-import Header from "../../../components/Header/Header";
-import Footer from "../../../components/Footer/Footer";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Box, Typography } from '@mui/material';
+import topSlider from '../../assets/images/Group 44.png';
+import store1 from '../../assets/images/store1.png';
+import store2 from '../../assets/images/store2.png';
+import Mac from '../../assets/images/image 11.png';
+import AirPod from '../../assets/images/image 10.png';
+import AppleWatch from '../../assets/images/image 9.png';
+import Ipad from '../../assets/images/image 7.png';
+import Iphone from '../../assets/images/iphone.png';
+import TV from '../../assets/images/image 5.png';
+import Accessory from '../../assets/images/accessory.png';
+import Sale from '../../assets/images/sale.png';
+import Authentic from '../../assets/images/auth.png';
+import FastDeliver from '../../assets/images/fastDeli.png';
+import middleSlider from '../../assets/images/Slider.png';
+import { makeStyles } from '@mui/styles';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
 HomePage.propTypes = {};
 const useStyles = makeStyles(() => ({
   root: {},
   top_slider: {
-    "& img": {
-      maxWidth: "100%",
-      height: "auto",
-    },
+    '& img': {
+      maxWidth: '100%',
+      height: 'auto'
+    }
   },
   product_container: {
-    display: "flex",
-    flexWrap: "wrap",
-    position: "relative",
-    justifyContent: "space-between",
-    "& .iPhone": {
-      "& img": {
-        width: "43%",
-      },
-    },
+    display: 'flex',
+    flexWrap: 'wrap',
+    position: 'relative',
+    justifyContent: 'space-between',
+    '& .iPhone': {
+      '& img': {
+        width: '43%'
+      }
+    }
     // "& .appleWatch": {
     //   "& img": {
     //     width: "49%",
@@ -51,52 +51,52 @@ const useStyles = makeStyles(() => ({
   },
 
   product: {
-    flex: "1 0 16%",
-    backgroundColor: "#C4C4C4",
-    padding: "10px",
-    margin: "20px 25px",
-    boxSizing: "border-box",
-    borderRadius: "10px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    cursor: "pointer",
-    "& img": {
-      width: "80%",
-      height: "auto",
+    flex: '1 0 16%',
+    backgroundColor: '#C4C4C4',
+    padding: '10px',
+    margin: '20px 25px',
+    boxSizing: 'border-box',
+    borderRadius: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    cursor: 'pointer',
+    '& img': {
+      width: '80%',
+      height: 'auto'
     },
-    "& .MuiTypography-root": {
-      position: "relative",
-      top: "20px",
-    },
+    '& .MuiTypography-root': {
+      position: 'relative',
+      top: '20px'
+    }
   },
   newest_product: {
-    padding: "20px 20px",
+    padding: '20px 20px'
   },
   locate: {
-    padding: "5px 20px",
-    marginBottom: "30px",
+    padding: '5px 20px',
+    marginBottom: '30px'
   },
   locate_img: {
-    display: "flex",
-    width: "100%",
-    marginTop: "30px",
-    "& img": {
-      width: "80%",
-      flex: "1 0 40%",
-    },
+    display: 'flex',
+    width: '100%',
+    marginTop: '30px',
+    '& img': {
+      width: '80%',
+      flex: '1 0 40%'
+    }
   },
   middle_slider: {
-    "& img": {
-      maxWidth: "100%",
-      height: "auto",
+    '& img': {
+      maxWidth: '100%',
+      height: 'auto'
     },
-    marginTop: "20px",
+    marginTop: '20px'
   },
   storeDistinction: {
-    padding: "5px 20px",
-    marginBottom: "30px",
+    padding: '5px 20px',
+    marginBottom: '30px'
   },
   distinction_col: {
     // display: "flex",
@@ -105,24 +105,24 @@ const useStyles = makeStyles(() => ({
     // "& img": {
     //   flex: "1 0 30%",
     // },
-    display: "flex",
-    width: "100%",
-    marginTop: "30px",
-    alignItems: "center",
-    justifyContent: "space-around",
-    "& img": {
-      width: "30%",
-      flex: "1 0 40%",
-      marginBottom:"20px",
-    },
+    display: 'flex',
+    width: '100%',
+    marginTop: '30px',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    '& img': {
+      width: '30%',
+      flex: '1 0 40%',
+      marginBottom: '20px'
+    }
   },
   col_item: {
-    width: "250px",
-    height: "150px",
-    padding: "20px 0px",
-    border: "1px solid #ccc",
-    boxShadow: "2px 2px 5px #888",
-  },
+    width: '250px',
+    height: '150px',
+    padding: '20px 0px',
+    border: '1px solid #ccc',
+    boxShadow: '2px 2px 5px #888'
+  }
 }));
 
 function HomePage(props) {
@@ -177,9 +177,7 @@ function HomePage(props) {
               Sản phẩm mới nhất. Khám phá ngay!
             </Typography>
           </Box>
-          <Box className={classes.product_container}>
-          
-          </Box>
+          <Box className={classes.product_container}></Box>
         </Box>
         <Box className={classes.locate}>
           <Typography variant="h5" textAlign="left">
@@ -188,9 +186,7 @@ function HomePage(props) {
           <Box className={classes.locate_img}>
             <Box>
               <img src={store1} alt="" />
-              <Typography>
-                Địa chỉ: 123, Nguyễn Trãi, Quận Bình Thạnh, TP.HCM{" "}
-              </Typography>
+              <Typography>Địa chỉ: 123, Nguyễn Trãi, Quận Bình Thạnh, TP.HCM </Typography>
             </Box>
             <Box>
               <img src={store2} alt="" />
@@ -205,9 +201,7 @@ function HomePage(props) {
           <Box className={classes.distinction_col}>
             <Box className={classes.col_item}>
               <img src={FastDeliver} alt="" />
-              <Typography>
-                Giao hàng nhanh trong 2h tại thành phố HCM
-              </Typography>
+              <Typography>Giao hàng nhanh trong 2h tại thành phố HCM</Typography>
             </Box>
             <Box className={classes.col_item}>
               <img src={Authentic} alt="" />
