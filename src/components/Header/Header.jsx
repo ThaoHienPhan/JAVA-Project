@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Icon, Typography } from '@mui/material';
@@ -10,34 +10,40 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { useTranslation } from 'react-i18next';
+import {
+  GlobalContextProvider,
+  GlobalStoreContext,
+} from 'assets/context/StoreContext';
+import LangSelect from 'components/LangSelect/LangSelect';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-    height: '100px'
+    height: '100px',
   },
   header: {
     display: 'flex',
     alignItems: 'center',
     padding: '0 20px',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   left: { display: 'flex', alignItems: 'center', gap: '40px' },
   about: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     textAlign: 'left',
     '& .MuiTypography-root': {
-      fontWeight: 'bold'
-    }
+      fontWeight: 'bold',
+    },
   },
   right: {
     display: 'flex',
     alignItems: 'center',
-    gap: '15px'
+    gap: '15px',
   },
   navigate: {
     display: 'flex',
@@ -46,12 +52,13 @@ const useStyles = makeStyles(() => ({
     padding: '0 200px',
     '& .MuiButtonBase-root': {
       color: '#FFFFFF !important',
-      textTransform: 'capitalize'
-    }
+      textTransform: 'capitalize',
+    },
+    zIndex: 7,
   },
   text_content: {
-    fontSize: '0.5rem !important' // sử dụng con của text đi
-  }
+    fontSize: '0.5rem !important', // sử dụng con của text đi
+  },
 }));
 
 const Search = styled('div')(({ theme }) => ({
@@ -59,13 +66,13 @@ const Search = styled('div')(({ theme }) => ({
   borderRadius: '15px',
   backgroundColor: '#E5E5E5',
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25)
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: 'auto'
-  }
+    width: 'auto',
+  },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -77,7 +84,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   right: '7px',
   top: '0',
-  color: '#8F8F8F'
+  color: '#8F8F8F',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -90,39 +97,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch'
-    }
-  }
+      width: '20ch',
+    },
+  },
 }));
 
 function Header(props) {
+  const { t, i18n } = useTranslation();
+  const { language, setLanguage } = useContext(GlobalContextProvider);
   const classes = useStyles();
   const navigate = useNavigate();
-  // const handleLogIn = () => {
-  //   setStatus("login", () => {
-  //     navigate(`/${status}`);
-  //   });
-  // };
-  const handleLogIn = () => {
-    navigate('/login');
-  };
-  const handleRegister = () => {
-    navigate('/register');
-  };
+
   return (
-    <Box className={classes.root}>
+    <>
       <Box className={classes.header}>
         <Box className={classes.left}>
           <Box className={classes.about}>
             <img src={logo} alt="LogoShop" />
             <Box className={classes.text}>
               <Typography>i-Tech Store</Typography>
-              <Typography className={classes.text_content}>Apple Authorised Reseller</Typography>
+              <Typography className={classes.text_content}>
+                Apple Authorised Reseller
+              </Typography>
             </Box>
           </Box>
           <Box className="search">
             <Search>
-              <StyledInputBase placeholder="Tìm kiếm mọi sản phẩm " inputProps={{ 'aria-label': 'search' }} />
+              <StyledInputBase
+                placeholder="Tìm kiếm mọi sản phẩm "
+                inputProps={{ 'aria-label': 'search' }}
+              />
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -133,20 +137,42 @@ function Header(props) {
           <LocationOnIcon />
           <HelpOutlineIcon />
           <ShoppingCartIcon />
-          <Button onClick={handleLogIn}>Đăng Nhập</Button>
-          <Button onClick={handleRegister}>Đăng Ký</Button>
+          {/* <Button onClick={handleLogIn}>Đăng Nhập</Button> */}
+          <div className="w-28">
+            <button
+              onClick={() => navigate('/login')}
+              className="rounded-full text-[#FBFBFB] border-2 border-solid border-black bg-[#363636]/[.94] px-3 py-2 font-medium w-full"
+            >
+              {t('login_btn')}
+            </button>
+          </div>
+          <div className="w-28">
+            <button
+              onClick={() => navigate('/register')}
+              className="rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-full"
+            >
+              {t('signup_btn')}
+            </button>
+          </div>
+          <LangSelect />
         </Box>
       </Box>
       <Box className={classes.navigate}>
-        <Button>Khuyến mãi </Button>
-        <Button>Mac</Button>
-        <Button>iPad</Button>
-        <Button>iPhone</Button>
-        <Button>Watch</Button>
-        <Button>Airpods</Button>
-        <Button>Phụ kiện</Button>
+        {[
+          'sale',
+          'mac',
+          'ipad',
+          'iphone',
+          'watch',
+          'airpods',
+          'accessories',
+        ].map((value, i) => (
+          <Button key={i} onClick={() => navigate(`/${value}`)}>
+            {t(value)}
+          </Button>
+        ))}
       </Box>
-    </Box>
+    </>
   );
 }
 
