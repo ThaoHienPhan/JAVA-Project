@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     minHeight: '100vh',
     overflow: 'hidden',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   left: {
     width: '60%',
@@ -22,8 +22,8 @@ const useStyles = makeStyles(() => ({
     maxHeight: '100vh',
     '& img': {
       width: '100%',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   right: {
     // margin: "10px 50px 0 50px",
@@ -31,13 +31,14 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    flex: '1'
-  }
+    flex: '1',
+  },
 }));
 
 function Auth(props) {
   const classes = useStyles();
   const match = useMatch('/login');
+  console.log(match);
   if (match) {
     return (
       <div className={classes.root}>

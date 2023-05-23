@@ -4,10 +4,7 @@ import { makeStyles } from '@mui/styles';
 import TopSlider from '../../assets/images/Slider.png';
 import SecondSlider from '../../assets/images/secondSlider.png';
 import LastSlider from '../../assets/images/LastSlider.png';
-import Image1 from '../../assets/images/image 25.png';
-import Image2 from '../../assets/images/image 26.png';
-import Image3 from '../../assets/images/1.png';
-import Image4 from '../../assets/images/image 7.png';
+import ProductItem from '~/components/Products/ProductItem/ProductItem';
 
 Sale.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -15,15 +12,15 @@ const useStyles = makeStyles(() => ({
   Slider: {
     '& img': {
       maxWidth: '100%',
-      height: 'auto'
+      height: 'auto',
     },
-    marginTop: '20px'
+    marginTop: '20px',
   },
   saleProduct: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    alignContent: 'space-between'
+    alignContent: 'space-between',
   },
   saleItem: {
     backgroundColor: '#ccc',
@@ -31,45 +28,33 @@ const useStyles = makeStyles(() => ({
     height: '50%',
     marginBottom: ' 2%',
     '& img': {
-      width: '100%'
-    }
-  }
+      width: '100%',
+    },
+  },
 }));
 function Sale(props) {
-  const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <Typography variant="h4">Tưng bừng khai trương. Giảm giá cực sốc!</Typography>
-      <Box className={classes.Slider}>
-        <img src={TopSlider} alt="" />
-      </Box>
-      <Box className={classes.Slider}>
-        <Typography variant="h4">Back to school</Typography>
+    <div className="container-wrapper text-center text-4xl">
+      <h2 className="drop-shadow-lg py-6">
+        Tưng bừng khai trương.
+        <span className="text-red-500">Giảm giá cực sốc!</span>
+      </h2>
+      <img src={TopSlider} alt="" />
+      <div className="mt-8">
+        <h2 className="drop-shadow-lg pb-6">Back to school</h2>
         <img src={SecondSlider} alt="" />
-      </Box>
-      <Box className={classes.Slider}>
-        <Typography variant="h4">Sale sập sàn 12.12</Typography>
+      </div>
+      <div className="mt-8">
+        <h2 className="drop-shadow-lg pb-6">Sale sập sàn 12.12</h2>
         <img src={LastSlider} alt="" />
-      </Box>
-      <Box className={classes.saleProduct}>
-        <Box className={classes.saleItem}>
-          <img src={Image1} alt="" />
-          <Typography>Bán hàng không lợi nhuận</Typography>
-        </Box>
-        <Box className={classes.saleItem}>
-          <img src={Image2} alt="" />
-          <Typography>Ưu đãi cho thành viên</Typography>
-        </Box>
-        <Box className={classes.saleItem}>
-          <img src={Image3} alt="" />
-          <Typography>Macbook pro 2021 giảm sốc </Typography>
-        </Box>
-        <Box className={classes.saleItem}>
-          <img src={Image4} alt="" />
-          <Typography>iPad giảm giá trong tháng 12 </Typography>
-        </Box>
-      </Box>
-    </Box>
+      </div>
+      <div className="mt-8 py-6 px-20 inline-grid grid-cols-2 gap-16 w-full">
+        <ProductItem />
+        <ProductItem />
+        <ProductItem />
+        <ProductItem />
+      </div>
+    </div>
   );
 }
 
