@@ -1,15 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-export const content = ['./src/**/*.{js,jsx,ts,tsx}'];
-export const theme = {
-  extend: {
-    colors: {
-      gray: {
-        custom: '#EEEEEE',
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        gray: {
+          custom: '#EEEEEE',
+        },
+      },
+      spacing: {
+        22: '22%',
       },
     },
-    spacing: {
-      22: '22%',
-    },
   },
+  plugins: [],
 };
-export const plugins = [];

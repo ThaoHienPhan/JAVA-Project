@@ -1,12 +1,12 @@
-import HomePage from 'pages/Home/HomePage';
-import Mac from 'pages/MAC/Mac';
-import Sale from 'pages/Sale/Sale';
-import Auth from 'pages/Auth/Auth';
-import AirPods from 'pages/AirPods/AirPods';
-import Iphone from 'pages/Iphone/Iphone';
-import Ipad from 'pages/Ipad/Ipad';
-import Watch from 'pages/Watch/Watch';
-import Accessories from 'pages/Accessories/Accessories';
+import HomePage from '~/pages/Home/HomePage';
+import Mac from '~/pages/MAC/Mac';
+import Sale from '~/pages/Sale/Sale';
+import Auth from '~/pages/Auth/Auth';
+import AirPods from '~/pages/AirPods/AirPods';
+import Iphone from '~/pages/Iphone/Iphone';
+import Ipad from '~/pages/Ipad/Ipad';
+import Watch from '~/pages/Watch/Watch';
+import Accessories from '~/pages/Accessories/Accessories';
 
 const publicRoutes = [
   { path: '/', component: HomePage },

@@ -11,11 +11,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useTranslation } from 'react-i18next';
-import {
-  GlobalContextProvider,
-  GlobalStoreContext,
-} from 'assets/context/StoreContext';
-import LangSelect from 'components/LangSelect/LangSelect';
+
+import LangSelect from '~/components/LangSelect/LangSelect';
+import { GlobalContextProvider } from '~/context/StoreContext';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({

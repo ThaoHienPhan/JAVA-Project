@@ -1,8 +1,8 @@
 import React from 'react';
 import AirpodBanner from '../../assets/images/AP_Banner.png';
-import BannerWithBtn from 'components/Products/ProductItem/BannerWithBtn';
-import HotSale from 'components/Products/ProductItem/HotSale';
-import OtherProducts from 'components/Products/ProductItem/OtherProducts';
+import BannerWithBtn from '~/components/Products/ProductItem/BannerWithBtn';
+import HotSale from '~/components/Products/ProductItem/HotSale';
+import OtherProducts from '~/components/Products/ProductItem/OtherProducts';
 
 const AirPods = () => {
   return (

@@ -4,11 +4,7 @@ import { makeStyles } from '@mui/styles';
 import TopSlider from '../../assets/images/Slider.png';
 import SecondSlider from '../../assets/images/secondSlider.png';
 import LastSlider from '../../assets/images/LastSlider.png';
-import Image1 from '../../assets/images/image 25.png';
-import Image2 from '../../assets/images/image 26.png';
-import Image3 from '../../assets/images/1.png';
-import Image4 from '../../assets/images/image 7.png';
-import ProductItem from 'components/Products/ProductItem/ProductItem';
+import ProductItem from '~/components/Products/ProductItem/ProductItem';
 
 Sale.propTypes = {};
 const useStyles = makeStyles(() => ({

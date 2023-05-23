@@ -3,11 +3,11 @@ import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 
 import Slider from '../../assets/images/Mac slider.png';
-import ProductItem from 'components/Products/ProductItem/ProductItem';
-import ProductWithPrice from 'components/Products/ProductItem/ProductWithPrice';
-import OtherProducts from 'components/Products/ProductItem/OtherProducts';
-import HotSale from 'components/Products/ProductItem/HotSale';
-import BannerWithBtn from 'components/Products/ProductItem/BannerWithBtn';
+import ProductItem from '~/components/Products/ProductItem/ProductItem';
+import ProductWithPrice from '~/components/Products/ProductItem/ProductWithPrice';
+import OtherProducts from '~/components/Products/ProductItem/OtherProducts';
+import HotSale from '~/components/Products/ProductItem/HotSale';
+import BannerWithBtn from '~/components/Products/ProductItem/BannerWithBtn';
 
 Mac.propTypes = {};
 const useStyles = makeStyles(() => ({

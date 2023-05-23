@@ -14,7 +14,7 @@ import Logout from '@mui/icons-material/Logout';
 import { VN, GB } from 'country-flag-icons/react/3x2';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { GlobalContextProvider } from 'assets/context/StoreContext';
+import { GlobalContextProvider } from '~/context/StoreContext';
 export default function AccountMenu() {
   const { i18n } = useTranslation();
   const { setLanguage } = React.useContext(GlobalContextProvider);
