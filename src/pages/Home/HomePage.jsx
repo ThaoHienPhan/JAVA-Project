@@ -20,6 +20,7 @@ import Footer from '~/components/Footer/Footer';
 import ProductItem from '~/components/Products/ProductItem/ProductItem';
 import Store from './components/Store';
 import Experience from './components/Experience';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -131,6 +132,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function HomePage() {
+  const { t } = useTranslation();
   const classes = useStyles();
   // const navigate = useNavigate();
   // const handleMacClick = () => {
@@ -138,105 +140,6 @@ function HomePage() {
   // };
 
   return (
-    // <Box>
-    //   <Header />
-    //   <Box>
-    //     <Box className="flex justify-end">
-    //       <img src={topSlider} alt="" />
-    //     </Box>
-
-    //     <div className="flex flex-wrap gap-5">
-    //       <ProductItem />
-    //       <ProductItem />
-    //       <ProductItem />
-    //       <ProductItem />
-    //     </div>
-    //     <Box className={classes.product_container}>
-    //       {/* <div className={classes.product}>
-    //       </div> */}
-    //       <div className={`iPhone ${classes.product}`}>
-    //         <img src={Iphone} alt="" />
-    //         <Typography>iPhone</Typography>
-    //       </div>
-    //       <div className={classes.product}>
-    //         <img src={AirPod} alt="" />
-    //         <Typography>AirPod</Typography>
-    //       </div>
-    //       <div className={`appleWatch ${classes.product}`}>
-    //         <img src={AppleWatch} alt="" />
-    //         <Typography>Watch</Typography>
-    //       </div>
-    //       <div className={`iPad ${classes.product}`}>
-    //         <img src={Ipad} alt="" />
-    //         <Typography>Ipad</Typography>
-    //       </div>
-    //       <div className={classes.product}>
-    //         <img src={TV} alt="" />
-    //         <Typography>TV</Typography>
-    //       </div>
-    //       <div className={classes.product}>
-    //         <img src={Accessory} alt="Apple Accessory" />
-    //         <Typography>Accessory</Typography>
-    //       </div>
-    //       <div className={classes.product}>
-    //         <img src={Accessory} alt="Apple Accessory" />
-    //         <Typography>Accessory</Typography>
-    //       </div>
-    //     </Box>
-    //     <Box className={classes.middle_slider}>
-    //       <img src={middleSlider} alt="" />
-    //     </Box>
-    //     <Box className={classes.newest_product}>
-    //       <Box>
-    //         <Typography variant="h5" textAlign="left">
-    //           Sản phẩm mới nhất. Khám phá ngay!
-    //         </Typography>
-    //       </Box>
-    //       {/* <Box className={classes.product_container}></Box> */}
-    //     </Box>
-    //     <Box className={classes.locate}>
-    //       <Typography variant="h5" textAlign="left">
-    //         Hãy đến cửa hàng để trải nghiệm tốt hơn
-    //       </Typography>
-    //       <Box className={classes.locate_img}>
-    //         <Box>
-    //           <img src={store1} alt="" />
-    //           <Typography className={classes.address}>
-    //             Địa chỉ: 123, Nguyễn Trãi, Quận Bình Thạnh, TP.HCM{' '}
-    //           </Typography>
-    //         </Box>
-    //         <Box>
-    //           <img src={store2} alt="" />
-    //           <Typography className={classes.address}>
-    //             Địa chỉ: 18A, Nguyễn Huệ, TP.Thủ Đức{' '}
-    //           </Typography>
-    //         </Box>
-    //       </Box>
-    //     </Box>
-    //     <Box className={classes.storeDistinction}>
-    //       <Typography variant="h5" textAlign="left">
-    //         Sự khác biệt của iTech Store
-    //       </Typography>
-    //       <Box className={classes.distinction_col}>
-    //         <Box className={classes.col_item}>
-    //           <img src={FastDeliver} alt="" />
-    //           <Typography>
-    //             Giao hàng nhanh trong 2h tại thành phố HCM
-    //           </Typography>
-    //         </Box>
-    //         <Box className={classes.col_item}>
-    //           <img src={Authentic} alt="" />
-    //           <Typography>Cam kết hàng chính hãng 100%</Typography>
-    //         </Box>
-    //         <Box className={classes.col_item}>
-    //           <img src={Sale} alt="" />
-    //           <Typography>Nhiều ưu đãi, nhiều chương trình giảm sốc</Typography>
-    //         </Box>
-    //       </Box>
-    //     </Box>
-    //   </Box>
-    //   <Footer />
-    // </Box>
     <>
       <div className="flex justify-end my-8">
         <img src={topSlider} alt="" />{' '}
@@ -258,22 +161,22 @@ function HomePage() {
         <Store />
         <div className="mt-8">
           <h2 className="drop-shadow-lg font-medium text-3xl mb-3">
-            Hãy đến cửa hàng để trải nghiệm
+            {t('come_to_store')}
           </h2>
           <div className="flex justify-between gap-14 px-8 py-4 drop-shadow-lg">
             <Card className="w-1/3">
               <CardContent>
-                <Experience image={FastDeliver} />
+                <Experience image={FastDeliver} message={t('fast_deli')} />
               </CardContent>
             </Card>
             <Card className="w-1/3">
               <CardContent>
-                <Experience image={Authentic} />
+                <Experience image={Authentic} message={t('auth_commit')} />
               </CardContent>
             </Card>
             <Card className="w-1/3">
               <CardContent>
-                <Experience image={Sale} />
+                <Experience image={Sale} message={t('sale_programs')} />
               </CardContent>
             </Card>
           </div>

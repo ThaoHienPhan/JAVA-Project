@@ -31,6 +31,7 @@ const useStyles = makeStyles(() => ({
   about: {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
   },
   text: {
     textAlign: 'left',
@@ -110,7 +111,7 @@ function Header(props) {
     <>
       <Box className={classes.header}>
         <Box className={classes.left}>
-          <Box className={classes.about}>
+          <Box className={classes.about} onClick={() => navigate('/')}>
             <img src={logo} alt="LogoShop" />
             <Box className={classes.text}>
               <Typography>i-Tech Store</Typography>
@@ -122,7 +123,7 @@ function Header(props) {
           <Box className="search">
             <Search>
               <StyledInputBase
-                placeholder="Tìm kiếm mọi sản phẩm "
+                placeholder={t('product_search')}
                 inputProps={{ 'aria-label': 'search' }}
               />
               <SearchIconWrapper>

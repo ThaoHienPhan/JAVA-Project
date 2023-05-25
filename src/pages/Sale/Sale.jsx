@@ -5,6 +5,7 @@ import TopSlider from '../../assets/images/Slider.png';
 import SecondSlider from '../../assets/images/secondSlider.png';
 import LastSlider from '../../assets/images/LastSlider.png';
 import ProductItem from '~/components/Products/ProductItem/ProductItem';
+import { useTranslation } from 'react-i18next';
 
 Sale.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -33,11 +34,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 function Sale(props) {
+  const { t } = useTranslation();
   return (
     <div className="container-wrapper text-center text-4xl">
       <h2 className="drop-shadow-lg py-6">
-        Tưng bừng khai trương.
-        <span className="text-red-500">Giảm giá cực sốc!</span>
+        {t('grand_open_1')}
+        <span className="text-red-500"> {t('grand_open_2')}</span>
       </h2>
       <img src={TopSlider} alt="" />
       <div className="mt-8">
@@ -45,7 +47,7 @@ function Sale(props) {
         <img src={SecondSlider} alt="" />
       </div>
       <div className="mt-8">
-        <h2 className="drop-shadow-lg pb-6">Sale sập sàn 12.12</h2>
+        <h2 className="drop-shadow-lg pb-6">{t('hot_sale_12_12')}</h2>
         <img src={LastSlider} alt="" />
       </div>
       <div className="mt-8 py-6 px-20 inline-grid grid-cols-2 gap-16 w-full">

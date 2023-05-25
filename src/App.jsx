@@ -1,5 +1,4 @@
 // import { Route, Routes } from 'react-router-dom';
-import '~/assets/styles/app.css';
 import '~/assets/styles/main.scss';
 import './i18n';
 
