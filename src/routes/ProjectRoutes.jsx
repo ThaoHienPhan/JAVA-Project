@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { authRoutes, publicRoutes } from './routes';
-import DefaultLayout from '~/layout/DefaultLayout';
-import NotFound from '~/pages/NotFound/NotFound';
+import DefaultLayout from 'layout/DefaultLayout';
+import NotFound from 'pages/NotFound/NotFound';
 
 const ProjectRoute = () => {
   return (

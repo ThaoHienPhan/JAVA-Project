@@ -1,8 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import vi from '~/assets/translation/vi.json';
-import en from '~/assets/translation/en.json';
+import vi from 'assets/translation/vi.json';
+import en from 'assets/translation/en.json';
 
 i18n.use(initReactI18next).init({
   fallbackLng: 'VI',

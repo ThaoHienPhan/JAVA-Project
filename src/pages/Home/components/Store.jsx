@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import store1 from '~/assets/images/store1.png';
-import store2 from '~/assets/images/store2.png';
+import store1 from 'assets/images/store1.png';
+import store2 from 'assets/images/store2.png';
 
 const Store = () => {
   const { t } = useTranslation();

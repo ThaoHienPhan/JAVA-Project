@@ -1,4 +1,4 @@
-import { loginSuccess, loginFailure } from '../store/slices/authSlice';
+import { loginSuccess, loginFailure } from 'store/slices/authSlice';
 import axiosClient from './axios';
 
 export const login = (username, password) => {

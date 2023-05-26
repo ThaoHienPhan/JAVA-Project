@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, LinearProgress, Typography } from '@mui/material';
-import InputField from '../../../../components/form-control/inputField/InputField';
-import PasswordField from '../../../../components/form-control/passwordField/PasswordField';
+import InputField from 'components/form-control/inputField/InputField';
+import PasswordField from 'components/form-control/passwordField/PasswordField';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LockIcon from '@mui/icons-material/Lock';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -15,11 +15,11 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 RegisterForm.propTypes = {};
 const useStyles = makeStyles(() => ({
   root: {
-    padding: '30px 20px'
+    padding: '30px 20px',
   },
   header: {
     textAlign: 'center',
-    marginBottom: '30px'
+    marginBottom: '30px',
   },
   social: {
     display: 'flex',
@@ -28,14 +28,14 @@ const useStyles = makeStyles(() => ({
     gap: '15px',
     '& svg': {
       width: '3.4rem',
-      height: '4.5rem'
-    }
+      height: '4.5rem',
+    },
   },
   socialLogin: {
-    marginTop: '30px'
+    marginTop: '30px',
   },
   btn: {
-    marginTop: '30px !important'
+    marginTop: '30px !important',
   },
   copyRight: {
     position: 'absolute',
@@ -46,8 +46,8 @@ const useStyles = makeStyles(() => ({
       position: 'relative',
       bottom: 'auto',
       transform: 'none',
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   },
   input: {
     display: 'flex',
@@ -55,24 +55,27 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     '& svg': {
       width: '2.4rem',
-      height: '3.5rem'
-    }
-  }
+      height: '3.5rem',
+    },
+  },
 }));
 function RegisterForm(props) {
   const classes = useStyles();
   const schema = yup
     .object({
-      identifier: yup.string().required('Please enter your email address').email('Please enter a valid email address'),
-      password: yup.string().required('Please enter your password')
+      identifier: yup
+        .string()
+        .required('Please enter your email address')
+        .email('Please enter a valid email address'),
+      password: yup.string().required('Please enter your password'),
     })
     .required();
   const form = useForm({
     defaultValues: {
       identifier: '',
-      password: ''
+      password: '',
     },
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
   // const handleSubmit = async (values) => {
   //   const { onSubmit } = props;
@@ -104,9 +107,19 @@ function RegisterForm(props) {
           </Box>
           <Box className={classes.input}>
             <LockIcon />
-            <PasswordField name="retypePassword" label="Retype Password" form={form} />
+            <PasswordField
+              name="retypePassword"
+              label="Retype Password"
+              form={form}
+            />
           </Box>
-          <Button disable={isSubmitting} className={classes.btn} type="submit" variant="contained" size="large">
+          <Button
+            disable={isSubmitting}
+            className={classes.btn}
+            type="submit"
+            variant="contained"
+            size="large"
+          >
             Đăng Nhập
           </Button>
         </form>

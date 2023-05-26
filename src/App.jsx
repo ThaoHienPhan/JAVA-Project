@@ -1,11 +1,11 @@
 // import { Route, Routes } from 'react-router-dom';
-import '~/assets/styles/main.scss';
+import 'assets/styles/main.scss';
 import './i18n';
 
-import ProjectRoute from './routes/ProjectRoutes';
-import { GlobalStoreContext } from '~/context/StoreContext';
+import ProjectRoute from 'routes/ProjectRoutes';
+import { GlobalStoreContext } from 'context/StoreContext';
 import { Provider } from 'react-redux';
-import store from '~/store/store';
+import store from 'store/store';
 
 function App() {
   return (

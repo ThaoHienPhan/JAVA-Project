@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import Mac from '~/assets/images/image 11.png';
+import Mac from 'assets/images/image 11.png';
 
 const ProductWithPrice = ({ background = '' }) => {
   return (

@@ -8,10 +8,10 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LockIcon from '@mui/icons-material/Lock';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import InputField from '../../../../components/form-control/inputField/InputField';
-import PasswordField from '../../../../components/form-control/passwordField/PasswordField';
+import InputField from 'components/form-control/inputField/InputField';
+import PasswordField from 'components/form-control/passwordField/PasswordField';
 import { useDispatch } from 'react-redux';
-import { login } from '~/api/authApi';
+import { login } from 'api/authApi';
 import { useNavigate } from 'react-router-dom';
 
 LoginForm.propTypes = {};

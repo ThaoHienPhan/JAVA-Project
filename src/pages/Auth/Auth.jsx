@@ -1,5 +1,5 @@
 import React from 'react';
-import HomePage from '../../assets/images/HomePage.png';
+import HomePage from 'assets/images/HomePage.png';
 import LoginForm from './components/LoginForm/LoginForm';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/material';

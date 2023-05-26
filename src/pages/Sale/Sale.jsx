@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import TopSlider from '../../assets/images/Slider.png';
-import SecondSlider from '../../assets/images/secondSlider.png';
-import LastSlider from '../../assets/images/LastSlider.png';
-import ProductItem from '~/components/Products/ProductItem/ProductItem';
+import TopSlider from 'assets/images/Slider.png';
+import SecondSlider from 'assets/images/secondSlider.png';
+import LastSlider from 'assets/images/LastSlider.png';
+import ProductItem from 'components/Products/ProductItem/ProductItem';
 import { useTranslation } from 'react-i18next';
 
 Sale.propTypes = {};

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Icon, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import logo from '../../assets/images/logo.png';
+import logo from 'assets/images/logo.png';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,8 +12,8 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useTranslation } from 'react-i18next';
 
-import LangSelect from '~/components/LangSelect/LangSelect';
-import { GlobalContextProvider } from '~/context/StoreContext';
+import LangSelect from 'components/LangSelect/LangSelect';
+import { GlobalContextProvider } from 'context/StoreContext';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
