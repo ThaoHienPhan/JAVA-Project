@@ -10,6 +10,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InputField from '../../../../components/form-control/inputField/InputField';
 import PasswordField from '../../../../components/form-control/passwordField/PasswordField';
+import { useDispatch } from 'react-redux';
+import { login } from '~/api/authApi';
+import { useNavigate } from 'react-router-dom';
 
 LoginForm.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -61,28 +64,38 @@ const useStyles = makeStyles(() => ({
 
 function LoginForm(props) {
   const classes = useStyles();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const schema = yup
     .object({
-      identifier: yup
-        .string()
-        .required('Please enter your email address')
-        .email('Please enter a valid email address'),
-      password: yup.string().required('Please enter your password'),
+      username: yup.string().required('Please enter your email address').min(6),
+      password: yup.string().required('Please enter your password').min(6),
     })
     .required();
+
   const form = useForm({
     defaultValues: {
-      identifier: '',
+      username: '',
       password: '',
     },
     resolver: yupResolver(schema),
   });
-  const handleSubmit = async values => {
-    const { onSubmit } = props;
-    if (onSubmit) {
-      await onSubmit(values);
+
+  const handleLogin = async values => {
+    try {
+      await dispatch(login(values.username, values.password));
+      navigate('/');
+    } catch (err) {
+      console.log('Loi ne:', err);
     }
   };
+
+  const handleSubmit = async values => {
+    await handleLogin(values);
+  };
+
   const { isSubmitting } = form.formState;
   return (
     <div className={classes.root}>
@@ -95,9 +108,9 @@ function LoginForm(props) {
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <Box className={classes.input}>
             <PersonOutlineIcon />
-            <InputField name="identifier" label="Email" form={form} />
+            <InputField name="username" label="Username" form={form} />
             {/* <Controller
-              name="identifier"
+              name="username"
               control={form.control}
               render={({ field, fieldState }) => {
                 return (

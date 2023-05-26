@@ -4,13 +4,17 @@ import './i18n';
 
 import ProjectRoute from './routes/ProjectRoutes';
 import { GlobalStoreContext } from '~/context/StoreContext';
+import { Provider } from 'react-redux';
+import store from '~/store/store';
 
 function App() {
   return (
     <div className="App">
-      <GlobalStoreContext>
-        <ProjectRoute />
-      </GlobalStoreContext>
+      <Provider store={store}>
+        <GlobalStoreContext>
+          <ProjectRoute />
+        </GlobalStoreContext>
+      </Provider>
     </div>
   );
 }
