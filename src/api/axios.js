@@ -1,11 +1,15 @@
 import axios from 'axios';
 
+const token = localStorage.getItem('accessToken');
+
 const axiosClient = axios.create({
   baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
+    Authorization: token && `Bearer ${token}`,
   },
 });
+
 axiosClient.interceptors.response.use(
   function (response) {
     return response.data;

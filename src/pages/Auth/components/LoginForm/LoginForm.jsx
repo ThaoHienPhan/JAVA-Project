@@ -10,9 +10,10 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InputField from 'components/form-control/inputField/InputField';
 import PasswordField from 'components/form-control/passwordField/PasswordField';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'api/authApi';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 LoginForm.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -64,6 +65,7 @@ const useStyles = makeStyles(() => ({
 
 function LoginForm(props) {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -88,7 +90,7 @@ function LoginForm(props) {
       await dispatch(login(values.username, values.password));
       navigate('/');
     } catch (err) {
-      console.log('Loi ne:', err);
+      console.log('Loi ne:', t(err));
     }
   };
 

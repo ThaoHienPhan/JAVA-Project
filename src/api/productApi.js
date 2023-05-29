@@ -1,25 +1,13 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axios';
 
 const productApi = {
-    getAll(params) {
-    const url = "/products";
-    return axiosClient.get(url, { params: params });
-  },
-  get(id) {
-    const url = `/products/${id}`;
+  getAll() {
+    const url = '/api/product';
     return axiosClient.get(url);
-  }, //get 1 item
-  add(data) {
-    const url = `/products`;
-    return axiosClient.post(url, data);
   },
-  update(data) {
-    const url = `/products/${data.id}`;
-    return axiosClient.patch(url, data);
-  },
-  remove(id) {
-    const url = `/products/${id}`;
-    return axiosClient.delete(url);
+  getType(params) {
+    const url = '/api/product/byType';
+    return axiosClient.get(url, { params: { type: params } });
   },
 };
 

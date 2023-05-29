@@ -5,7 +5,7 @@ const BannerWithBtn = ({ banner }) => {
   const { t } = useTranslation();
   return (
     <>
-      <img src={banner} alt="" />
+      <img src={banner} alt="" className="w-full" />
       <div className="flex justify-center items-center mt-5">
         <button className="rounded-lg text-[#FBFBFB] bg-[#363636]/[.94] px-3 py-2 text-xl">
           {t('register_order')}

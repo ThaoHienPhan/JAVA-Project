@@ -8,10 +8,10 @@ export const login = (username, password) => {
         username,
         password,
       });
-      dispatch(loginSuccess(response.data));
-      return response.data;
+      dispatch(loginSuccess(response));
+      return response;
     } catch (error) {
-      dispatch(loginFailure(error.message));
+      dispatch(loginFailure(error.response.data.error));
       throw error; // Ném lỗi để được xử lý bên ngoài
     }
   };

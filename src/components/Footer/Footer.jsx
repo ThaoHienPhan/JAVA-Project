@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import logo from 'assets/images/logo.png';
 import payment from 'assets/images/payment.png';
 import confirm from 'assets/images/confirm.png';
+import { useTranslation } from 'react-i18next';
 
 Footer.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -64,6 +65,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Footer(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -80,48 +82,60 @@ function Footer(props) {
           </Box>
           <Box className={classes.content}>
             <Typography className={classes.subheader}>
-              Tư vấn mua hàng (miễn phí)
+              {t('shopping_consultant')}
             </Typography>
             <Typography>190031201</Typography>
             <Typography className={classes.subheader}>
-              Hỗ trợ kỹ thuật (miễn phí)
+              {t('technical_support')}
             </Typography>
             <Typography>190031201</Typography>
             <Typography className={classes.subheader}>
-              Góp ý, khiếu nại:
+              {t('feedback_complaints')}
             </Typography>
             <Typography>190031201</Typography>
           </Box>
         </Box>
         <Box className="info">
-          <Typography className={classes.header}>Thông tin </Typography>
+          <Typography className={classes.header}>{t('information')}</Typography>
           <Box className={classes.content}>
-            <Typography>Giới thiệu về công ty</Typography>
-            <Typography>Câu hỏi thường gặp mua hàng</Typography>
-            <Typography>Chính sách bảo mật</Typography>
-            <Typography>Kiểm tra hóa đơn điện tử</Typography>
-            <Typography>Tra cứu thông tin bảo hành</Typography>
+            {[
+              'company_intro',
+              'FAQ',
+              'privacy_policy',
+              'electronic_verification',
+              'warranty_info',
+            ].map((data, i) => (
+              <Typography key={i} sx={{ marginTop: '4px' }}>
+                {t(data)}
+              </Typography>
+            ))}
           </Box>
         </Box>
         <Box className="policy">
-          <Typography className={classes.header}>Chính sách</Typography>
+          <Typography className={classes.header}>{t('policies')}</Typography>
           <Box className={classes.content}>
-            <Typography>Chính sách đổi trả</Typography>
-            <Typography>Chính sách bảo mật</Typography>
-            <Typography>Chính sách trả góp</Typography>
-            <Typography>Chính sách bảo hành</Typography>
-            <Typography>Chính sách hoạt động chung</Typography>
+            {[
+              'return_policy',
+              'privacy_policy',
+              'installment_policy',
+              'warranty_policy',
+              'general_terms',
+            ].map((data, i) => (
+              <Typography key={i} sx={{ marginTop: '4px' }}>
+                {t(data)}
+              </Typography>
+            ))}
           </Box>
         </Box>
         <Box className={classes.license}>
           <img src={confirm} alt="Xác nhận của bộ công thương" />
-          <Typography>Hỗ trợ thanh toán</Typography>
+          <Typography>{t('payment_assits')}</Typography>
 
           <img src={payment} alt="Phương thức thanh toán" />
-          <Typography>Đăng kí nhận thông tin</Typography>
+          <Typography>{t('receive_info')}</Typography>
           <TextField
             className={classes.input}
-            placeholder="Nhập email..."
+            placeholder={t('email_fill')}
           ></TextField>
         </Box>
       </Box>

@@ -11,6 +11,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import EmailIcon from '@mui/icons-material/Email';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import testComponent from '../TestComponent/TestComponent';
+import { useTranslation } from 'react-i18next';
 
 RegisterForm.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -60,6 +62,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 function RegisterForm(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const schema = yup
     .object({
@@ -86,6 +89,7 @@ function RegisterForm(props) {
   const { isSubmitting } = form.formState;
   return (
     <div className={classes.root}>
+      <testComponent />
       {isSubmitting && <LinearProgress className={classes.progress} />}
       <Box className={classes.header}>
         <Typography variant="h2">Tạo tài khoản</Typography>
@@ -120,7 +124,7 @@ function RegisterForm(props) {
             variant="contained"
             size="large"
           >
-            Đăng Nhập
+            {t('signup_btn')}
           </Button>
         </form>
       </Box>

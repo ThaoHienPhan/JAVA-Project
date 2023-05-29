@@ -1,39 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
-import PropTypes from 'prop-types';
 
 import Slider from 'assets/images/Mac slider.png';
 import OtherProducts from 'components/Products/ProductItem/OtherProducts';
 import HotSale from 'components/Products/ProductItem/HotSale';
 import BannerWithBtn from 'components/Products/ProductItem/BannerWithBtn';
 
-Mac.propTypes = {};
-const useStyles = makeStyles(() => ({
-  slider: {
-    '& img': {
-      maxWidth: '100%',
-      height: 'auto',
-    },
-  },
-  btnContainer: {
-    width: '100%',
-    position: 'relative',
-  },
-  btn: {
-    padding: '10px',
-    borderRadius: '6px',
-    border: '1px solid  rgba(0, 0, 0, 0.2)',
-    backgroundColor: 'rgba(0, 0, 0, 0.76)',
-    color: '#FFFFFF',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-}));
-function Mac(props) {
-  const classes = useStyles();
-
+const Mac = () => {
   return (
     <div className="container-wrapper mb-6">
       <BannerWithBtn banner={Slider} />
@@ -41,6 +13,6 @@ function Mac(props) {
       <OtherProducts />
     </div>
   );
-}
+};
 
 export default Mac;
