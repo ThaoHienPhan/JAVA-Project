@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Box, Button, Icon, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,7 +13,8 @@ import InputBase from '@mui/material/InputBase';
 import { useTranslation } from 'react-i18next';
 
 import LangSelect from 'components/LangSelect/LangSelect';
-import { GlobalContextProvider } from 'context/StoreContext';
+import { useDispatch } from 'react-redux';
+import { logout } from '~/store/slices/authSlice';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -102,10 +103,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Header(props) {
-  const { t, i18n } = useTranslation();
-  const { language, setLanguage } = useContext(GlobalContextProvider);
+  const { t } = useTranslation();
   const classes = useStyles();
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      setIsLoggedIn(true);
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -123,6 +132,7 @@ function Header(props) {
           <Box className="search">
             <Search>
               <StyledInputBase
+                className="hover:bg-[#E5E5E5] hover:rounded-[15px]"
                 placeholder={t('product_search')}
                 inputProps={{ 'aria-label': 'search' }}
               />
@@ -136,23 +146,39 @@ function Header(props) {
           <LocationOnIcon />
           <HelpOutlineIcon />
           <ShoppingCartIcon />
-          {/* <Button onClick={handleLogIn}>Đăng Nhập</Button> */}
-          <div className="w-28">
-            <button
-              onClick={() => navigate('/login')}
-              className="rounded-full text-[#FBFBFB] border-2 border-solid border-black bg-[#363636]/[.94] px-3 py-2 font-medium w-full"
-            >
-              {t('login_btn')}
-            </button>
-          </div>
-          <div className="w-28">
-            <button
-              onClick={() => navigate('/register')}
-              className="rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-full"
-            >
-              {t('signup_btn')}
-            </button>
-          </div>
+          {!isLoggedIn ? (
+            <>
+              <div className="w-28">
+                <button
+                  onClick={() => navigate('/login')}
+                  className="rounded-full text-[#FBFBFB] border-2 border-solid border-black bg-[#363636]/[.94] px-3 py-2 font-medium w-full"
+                >
+                  {t('login_btn')}
+                </button>
+              </div>
+              <div className="w-28">
+                <button
+                  onClick={() => navigate('/register')}
+                  className="rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-full"
+                >
+                  {t('signup_btn')}
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="w-28">
+              <button
+                onClick={() => {
+                  dispatch(logout());
+                  setIsLoggedIn(false);
+                }}
+                className="rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-full"
+              >
+                {t('logout_btn')}
+              </button>
+            </div>
+          )}
+
           <LangSelect />
         </Box>
       </Box>

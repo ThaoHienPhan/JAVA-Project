@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { login } from '~/api/authApi';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -8,21 +9,34 @@ const authSlice = createSlice({
     error: null,
   },
   reducers: {
-    loginSuccess: (state, action) => {
-      state.loggedIn = true;
-      state.user = action.payload;
-      state.error = null;
-      localStorage.setItem('accessToken', action.payload?.accessToken);
-    },
-
-    loginFailure: (state, action) => {
+    logout: state => {
       state.loggedIn = false;
       state.user = null;
-      state.error = action.payload;
+      state.error = null;
+      localStorage.removeItem('accessToken');
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(login.pending, state => {
+        state.loading = true;
+        state.loggedIn = false;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loggedIn = true;
+        state.user = action.payload;
+        localStorage.setItem('accessToken', action.payload?.accessToken);
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        state.loggedIn = false;
+      });
   },
 });
 
-export const { loginSuccess, loginFailure } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

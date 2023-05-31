@@ -87,15 +87,25 @@ function LoginForm(props) {
 
   const handleLogin = async values => {
     try {
-      await dispatch(login(values.username, values.password));
+      await dispatch(
+        login({ username: values.username, password: values.password })
+      );
       navigate('/');
     } catch (err) {
       console.log('Loi ne:', t(err));
     }
   };
 
-  const handleSubmit = async values => {
-    await handleLogin(values);
+  const handleSubmit = values => {
+    dispatch(login({ username: values.username, password: values.password }))
+      .then(() => {
+        // Đăng nhập thành công, điều hướng đến trang '/'
+        navigate('/');
+      })
+      .catch(error => {
+        // Xử lý lỗi nếu có
+        console.log('Đăng nhập thất bại:', error);
+      });
   };
 
   const { isSubmitting } = form.formState;

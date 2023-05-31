@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Slider from 'assets/images/banner-ipad.webp';
 import OtherProducts from 'components/Products/ProductItem/OtherProducts';
@@ -7,6 +7,9 @@ import BannerWithBtn from 'components/Products/ProductItem/BannerWithBtn';
 import productApi from '~/api/productApi';
 
 const Ipad = () => {
+  const [iPadList, setIPadList] = useState([]);
+
+  console.log(iPadList);
   useEffect(() => {
     getProducts();
   }, []);
@@ -14,7 +17,7 @@ const Ipad = () => {
   const getProducts = async () => {
     try {
       const res = await productApi.getType('IPAD');
-      console.log(res.data);
+      setIPadList(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -24,8 +27,8 @@ const Ipad = () => {
       <div className="w-full">
         <BannerWithBtn banner={Slider} />
       </div>
-      <HotSale />
-      <OtherProducts />
+      <HotSale product={iPadList} />
+      <OtherProducts product={iPadList} />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import Store from './components/Store';
 import Experience from './components/Experience';
 import { useTranslation } from 'react-i18next';
 import productApi from '~/api/productApi';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -126,20 +127,28 @@ const useStyles = makeStyles(() => ({
 function HomePage() {
   const { t } = useTranslation();
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { products } = useSelector(state => state.product);
+  const { language } = useSelector(state => state.language);
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    // getProducts();
+    dispatch(productApi.getAll());
+  }, [dispatch]);
 
-  const getProducts = async () => {
-    try {
-      const res = await productApi.getAll();
-      console.log(res.data);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  useEffect(() => {
+    console.log(products);
+  }, [language]);
+  // const getProducts = async () => {
+  //   try {
+  //     const res = await productApi.getAll();
+  //     console.log(res.data);
+  //     return res.data;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <>
@@ -148,14 +157,7 @@ function HomePage() {
       </div>
       <div className="container-wrapper my-8">
         <div className="inline-grid grid-cols-4 gap-10">
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
+          {/* {!!products && <ProductItem item={products[0]} />} */}
         </div>
         <div className="mt-8">
           <img src={middleSlider} alt="" />
