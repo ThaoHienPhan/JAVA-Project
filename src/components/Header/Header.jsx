@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import LangSelect from 'components/LangSelect/LangSelect';
 import { useDispatch } from 'react-redux';
 import { logout } from '~/store/slices/authSlice';
+import Logo from '../Logo';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -120,15 +121,7 @@ function Header(props) {
     <>
       <Box className={classes.header}>
         <Box className={classes.left}>
-          <Box className={classes.about} onClick={() => navigate('/')}>
-            <img src={logo} alt="LogoShop" />
-            <Box className={classes.text}>
-              <Typography>i-Tech Store</Typography>
-              <Typography className={classes.text_content}>
-                Apple Authorised Reseller
-              </Typography>
-            </Box>
-          </Box>
+          <Logo />
           <Box className="search">
             <Search>
               <StyledInputBase

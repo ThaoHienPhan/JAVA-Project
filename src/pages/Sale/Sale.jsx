@@ -6,6 +6,7 @@ import SecondSlider from 'assets/images/secondSlider.png';
 import LastSlider from 'assets/images/LastSlider.png';
 import ProductItem from 'components/Products/ProductItem/ProductItem';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 Sale.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -35,6 +36,8 @@ const useStyles = makeStyles(() => ({
 }));
 function Sale(props) {
   const { t } = useTranslation();
+  const { products } = useSelector(state => state.product);
+
   return (
     <div className="container-wrapper text-center text-4xl">
       <h2 className="drop-shadow-lg py-6">
@@ -51,10 +54,9 @@ function Sale(props) {
         <img src={LastSlider} alt="" />
       </div>
       <div className="mt-8 py-6 px-20 inline-grid grid-cols-2 gap-16 w-full">
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
+        {products.slice(0, 4).map((item, i) => (
+          <ProductItem key={`${item.id}_${i}`} item={item} />
+        ))}
       </div>
     </div>
   );

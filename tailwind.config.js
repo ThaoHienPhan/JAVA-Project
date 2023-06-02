@@ -11,6 +11,9 @@ export default {
       spacing: {
         22: '22%',
       },
+      maxWidth: {
+        img: '300px',
+      },
     },
   },
   plugins: [],

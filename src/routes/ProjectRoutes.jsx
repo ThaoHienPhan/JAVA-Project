@@ -17,7 +17,11 @@ const ProjectRoute = () => {
               path={route.path}
               element={
                 <DefaultLayout>
-                  <Page />
+                  {route.product && route.slider ? (
+                    <Page product={route.product} slider={route.slider} />
+                  ) : (
+                    <Page />
+                  )}
                 </DefaultLayout>
               }
             />

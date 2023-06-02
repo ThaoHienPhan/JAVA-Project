@@ -7,9 +7,6 @@ const HotSale = ({ product }) => {
       {product.slice(0, 4).map((prod, idx) => (
         <ProductItem key={`${prod.id}_${idx}`} item={prod} />
       ))}
-      {/* <ProductItem />
-      <ProductItem />
-      <ProductItem /> */}
     </div>
   );
 };

@@ -13,6 +13,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import testComponent from '../TestComponent/TestComponent';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { register } from '~/api/authApi';
+import { useNavigate } from 'react-router-dom';
 
 RegisterForm.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -63,47 +66,61 @@ const useStyles = makeStyles(() => ({
 }));
 function RegisterForm(props) {
   const { t } = useTranslation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const classes = useStyles();
   const schema = yup
     .object({
-      identifier: yup
+      username: yup
         .string()
-        .required('Please enter your email address')
-        .email('Please enter a valid email address'),
-      password: yup.string().required('Please enter your password'),
+        .min(6)
+        .max(20)
+        .required('Please enter your email address'),
+      password: yup.string().min(6).required('Please enter your password'),
+      retypePassword: yup
+        .string()
+        .oneOf([yup.ref('password'), null], 'Passwords must match'),
     })
     .required();
   const form = useForm({
     defaultValues: {
-      identifier: '',
+      username: '',
       password: '',
     },
     resolver: yupResolver(schema),
   });
-  // const handleSubmit = async (values) => {
-  //   const { onSubmit } = props;
-  //   if (onSubmit) {
-  //     await onSubmit(values);
-  //   }
-  // };
+
+  const handleSubmit = async values => {
+    // const { onSubmit } = props;
+    // if (onSubmit) {
+    //   await onSubmit(values);
+    // }
+    dispatch(register({ username: values.username, password: values.password }))
+      .then(() => {
+        // Đăng nhập thành công, điều hướng đến trang '/'
+        navigate('/login');
+      })
+      .catch(error => {
+        // Xử lý lỗi nếu có
+        console.log('Đăng kí thất bại:', error);
+      });
+  };
   const { isSubmitting } = form.formState;
   return (
     <div className={classes.root}>
       <testComponent />
       {isSubmitting && <LinearProgress className={classes.progress} />}
       <Box className={classes.header}>
-        <Typography variant="h2">Tạo tài khoản</Typography>
-        <Typography>Dễ dàng theo dõi - tiện lợi mua sắm</Typography>
+        <Typography variant="h2">{t('register')}</Typography>
+        <Typography>{t('register_note_1')}</Typography>
       </Box>
       <Box>
-        <form>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
           <Box className={classes.input}>
             <PersonOutlineIcon />
-            <InputField name="identifier" label="Email" form={form} />
-          </Box>
-          <Box className={classes.input}>
-            <PersonOutlineIcon />
-            <InputField name="identifier" label="Email" form={form} />
+            <InputField name="username" label="Username" form={form} />
           </Box>
           <Box className={classes.input}>
             <LockIcon />
@@ -117,22 +134,24 @@ function RegisterForm(props) {
               form={form}
             />
           </Box>
-          <Button
-            disable={isSubmitting}
-            className={classes.btn}
+          <button
+            disabled={isSubmitting}
             type="submit"
-            variant="contained"
-            size="large"
+            onClick={() => navigate('/register')}
+            className="mt-3 rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-2/3"
           >
             {t('signup_btn')}
-          </Button>
+          </button>
         </form>
       </Box>
       <Box className={classes.socialLogin}>
-        <Typography>Hoặc đăng nhập bằng</Typography>
+        <Typography>{t('register_note_2')}</Typography>
         <Box className={classes.social}>
           <FacebookIcon color="primary" />
-          <EmailIcon color="primary" />
+          <img
+            src="https://img.icons8.com/color/60/null/gmail-new.png"
+            alt="gmail"
+          />
           <TwitterIcon color="primary" />
         </Box>
       </Box>

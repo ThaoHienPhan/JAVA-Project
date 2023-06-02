@@ -1,25 +1,24 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import Mac from 'assets/images/image 11.png';
+import { useNavigate } from 'react-router-dom';
 
-const ProductWithPrice = ({ background = '', item }) => {
+const ProductWithPrice = ({ item, setLoading = () => {} }) => {
   const baseUrl = 'http://localhost:8080/files';
+  const navigate = useNavigate();
   return (
     <div
-      className={`flex flex-col flex-wrap items-center ${background} p-5 rounded-lg drop-shadow-md`}
+      className={`flex flex-col justify-between flex-nowrap items-center bg-white p-5 rounded-2xl ct-shadow cursor-pointer h-[350px] w-56`}
+      onClick={() => {
+        navigate(`/product/detail/${item.id}`);
+        setLoading(true);
+      }}
     >
-      <img src={`${baseUrl}/${item.url}`} alt="" width={200} />
-      <h2 className="mt-3 text-lg">{item.name}</h2>
-      {/* <div className="flex w-full justify-evenly">
-        <button className="rounded-lg bg-[#c4c4c4]/[.68] py-1 px-2 text-sm">
-          8GB
-        </button>
-        <button className="rounded-lg bg-[#FF8787] py-1 px-2 text-sm">
-          16GB
-        </button>
-      </div> */}
-      <div className="mt-3 relative w-full text-center">
+      <div>
+        <img src={`${baseUrl}/${item.url}`} alt="" width={200} height={184} />
+        <h2 className="mt-3 text-md font-semibold">{item.name}</h2>
+      </div>
+      <div className="relative w-full text-left flex justify-center">
         <span className="text-base text-red-500">{`${item.lastPrice.toLocaleString()}₫`}</span>
+        <span className="ml-3 line-through">{`${item.price.toLocaleString()}₫`}</span>
       </div>
     </div>
   );

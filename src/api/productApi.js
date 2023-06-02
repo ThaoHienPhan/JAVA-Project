@@ -10,6 +10,11 @@ const productApi = {
     const url = '/api/product/byType';
     return axiosClient.get(url, { params: { type: params } });
   },
+  getDetail: id => {
+    const url = `/api/product/${id}`;
+    return axiosClient.get(url);
+    // return res.data;
+  },
 };
 
 export default productApi;

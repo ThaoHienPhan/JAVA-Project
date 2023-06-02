@@ -38,5 +38,22 @@
   "payment_assits": "Payment Assistance",
   "receive_info": "Sign up for receiving information",
   "email_fill": "Fill email",
-  "wrong_info": "There is something wrong, please try again"
+  "wrong_info": "There is something wrong, please try again",
+  "register": "Register",
+  "register_note_1": "Easy to follow - Convenient shopping",
+  "register_note_2": "Or register with",
+  "slogan": "Specializing in providing genuine Apple products.",
+  "welcome": "Welcome!",
+  "login_note_1": "Login with your account",
+  "login_note_2": "Or login with",
+  "description": "Description",
+  "detail_information": "Detail information",
+  "new_product": "New",
+  "choose_color": "Pick a color",
+  "choose_memory": "Pick memory",
+  "check_apple_care": "You want to add Apple Care.",
+  "total": "Total",
+  "suggestion": "Suggestion",
+  "add_cart": "Add to cart",
+  "buy_now": "Buy now"
 }

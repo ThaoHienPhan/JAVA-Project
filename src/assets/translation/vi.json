@@ -38,5 +38,22 @@
   "payment_assits": "Hỗ trợ thanh toán",
   "receive_info": "Đăng kí nhận thông tin",
   "email_fill": "Nhập email",
-  "wrong_info": "Sai tài khoản hoặc mật khẩu"
+  "wrong_info": "Sai tài khoản hoặc mật khẩu",
+  "register": "Tạo tài khoản",
+  "register_note_1": "Dễ dàng theo dõi - tiện lợi mua sắm",
+  "register_note_2": "Hoặc đăng nhập bằng",
+  "slogan": "Chuyên cung cấp các sản phẩm chính hãng của Apple",
+  "welcome": "Chào mừng!",
+  "login_note_1": "Hãy đăng nhập vào tài khoản của bạn",
+  "login_note_2": "Hoặc đăng nhập bằng",
+  "description": "Mô tả",
+  "detail_information": "Thông tin chi tiết",
+  "new_product": "Mới ra mắt",
+  "choose_color": "Chọn màu sắc",
+  "choose_memory": "Chọn bộ nhớ",
+  "check_apple_care": "Bạn muốn đăng ký Apple Care.",
+  "total": "Tổng cộng",
+  "suggestion": "Một vài đề xuất",
+  "add_cart": "Thêm vào giỏ hàng",
+  "buy_now": "Mua ngay"
 }

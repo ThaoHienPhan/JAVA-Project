@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login } from '~/api/authApi';
+import { login, register } from '~/api/authApi';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -7,6 +7,7 @@ const authSlice = createSlice({
     loggedIn: !!localStorage.getItem('accessToken'),
     user: null,
     error: null,
+    success: null,
   },
   reducers: {
     logout: state => {
@@ -33,6 +34,17 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
         state.loggedIn = false;
+      })
+      .addCase(register.pending, state => {
+        state.loading = true;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = action.payload;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });

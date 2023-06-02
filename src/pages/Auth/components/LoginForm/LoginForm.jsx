@@ -113,44 +113,31 @@ function LoginForm(props) {
     <div className={classes.root}>
       {isSubmitting && <LinearProgress className={classes.progress} />}
       <Box className={classes.header}>
-        <Typography variant="h2">Chào mừng!</Typography>
-        <Typography>Hãy đăng nhập vào tài khoản của bạn</Typography>
+        <Typography variant="h2">{t('welcome')}</Typography>
+        <Typography>{t('login_note_1')}</Typography>
       </Box>
       <Box>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <Box className={classes.input}>
             <PersonOutlineIcon />
             <InputField name="username" label="Username" form={form} />
-            {/* <Controller
-              name="username"
-              control={form.control}
-              render={({ field, fieldState }) => {
-                return (
-                  <div>
-                    <input {...field} />
-                    <p>{fieldState.error?.message}</p>
-                  </div>
-                );
-              }}
-            /> */}
           </Box>
           <Box className={classes.input}>
             <LockIcon />
             <PasswordField name="password" label="Password" form={form} />
           </Box>
-          <Button
-            disable={isSubmitting}
-            className={classes.btn}
+
+          <button
+            disabled={isSubmitting}
             type="submit"
-            variant="contained"
-            size="large"
+            className="mt-3 rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-2/3"
           >
-            Đăng Nhập
-          </Button>
+            {t('login_btn')}
+          </button>
         </form>
       </Box>
       <Box className={classes.socialLogin}>
-        <Typography>Hoặc đăng nhập bằng</Typography>
+        <Typography>{t('login_note_2')}</Typography>
         <Box className={classes.social}>
           <FacebookIcon color="primary" />
           <img

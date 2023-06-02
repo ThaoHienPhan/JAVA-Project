@@ -1,33 +1,37 @@
 import axiosClient from './axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// export const login = (username, password) => {
-//   return async dispatch => {
-//     try {
-//       const response = await axiosClient.post('/auth/login', {
-//         username,
-//         password,
-//       });
-//       dispatch(loginSuccess(response));
-//       return response;
-//     } catch (error) {
-//       dispatch(loginFailure(error.response.data.error));
-//       throw error; // Ném lỗi để được xử lý bên ngoài
-//     }
-//   };
-// };
+const authUrl = {
+  loginUrl: '/auth/login',
+  registerUrl: '/api/user/register',
+};
 
 export const login = createAsyncThunk(
-  '/auth/login',
+  authUrl.loginUrl,
   async ({ username, password }) => {
     try {
-      const response = await axiosClient.post('/auth/login', {
+      const response = await axiosClient.post(authUrl.loginUrl, {
         username,
         password,
       });
       return response;
     } catch (error) {
       throw new Error(error.response.data.message);
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  authUrl.registerUrl,
+  async ({ username, password }) => {
+    try {
+      const res = await axiosClient.post(authUrl.registerUrl, {
+        username,
+        password,
+      });
+      return res;
+    } catch (error) {
+      throw new Error(error);
     }
   }
 );
