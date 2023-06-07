@@ -1,6 +1,7 @@
 .container-wrapper {
   width: 100%;
   margin: 0 auto;
+  min-height: calc(100vh - 280px - 57px - 36.5px);
 }
 
 @media (min-width: 640px) {

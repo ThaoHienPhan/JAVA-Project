@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { Box, Button, Icon, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import logo from 'assets/images/logo.png';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -16,6 +13,9 @@ import LangSelect from 'components/LangSelect/LangSelect';
 import { useDispatch } from 'react-redux';
 import { logout } from '~/store/slices/authSlice';
 import Logo from '../Logo';
+import { ShoppingCart } from '@mui/icons-material';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getMyCart } from '~/api/cartApi';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -76,7 +76,8 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+// eslint-disable-next-line no-empty-pattern
+const SearchIconWrapper = styled('div')(({}) => ({
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
@@ -103,11 +104,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Header(props) {
+function Header() {
   const { t } = useTranslation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery(['userCart'], getMyCart, { retry: 1 });
+
   const classes = useStyles();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -116,6 +121,14 @@ function Header(props) {
       setIsLoggedIn(true);
     }
   }, [isLoggedIn]);
+
+  const handleLogout = useMutation({
+    mutationFn: () => localStorage.removeItem('accessToken'),
+    onSuccess: () => {
+      queryClient.removeQueries(['userCart']);
+      navigate('/');
+    },
+  });
 
   return (
     <>
@@ -136,9 +149,19 @@ function Header(props) {
           </Box>
         </Box>
         <Box className={classes.right}>
-          <LocationOnIcon />
-          <HelpOutlineIcon />
-          <ShoppingCartIcon />
+          <LocationOnIcon fontSize="large" />
+          <HelpOutlineIcon fontSize="large" />
+          <div className="relative">
+            <ShoppingCart
+              style={{ color: '#6c757d' }}
+              fontSize="large"
+              className="cursor-pointer"
+              onClick={() => navigate('/cart')}
+            />
+            <div className="absolute -top-1 -right-2 text-white bg-red-500 rounded-full text-sm px-2">
+              {data?.cartItemList.length}
+            </div>
+          </div>
           {!isLoggedIn ? (
             <>
               <div className="w-28">
@@ -164,6 +187,7 @@ function Header(props) {
                 onClick={() => {
                   dispatch(logout());
                   setIsLoggedIn(false);
+                  handleLogout.mutate();
                 }}
                 className="rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black w-full"
               >

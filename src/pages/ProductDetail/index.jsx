@@ -11,11 +11,36 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CircularProgress } from '@mui/material';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addToCart } from '~/api/cartApi';
+
+const breakpoints = {
+  320: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+  },
+  480: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  768: {
+    slidesPerView: 3,
+    spaceBetween: 30,
+  },
+  1024: {
+    slidesPerView: 4,
+    spaceBetween: 10,
+  },
+  1196: {
+    slidesPerView: 5,
+    spaceBetween: 10,
+  },
+};
 
 const ProductDetail = () => {
   const { t } = useTranslation();
-  const { id, type } = useParams();
-  console.log(type);
+  const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const imgUrl = 'http://localhost:8080/files';
   const { products } = useSelector(state => state.product);
@@ -54,28 +79,12 @@ const ProductDetail = () => {
     }
   };
 
-  const breakpoints = {
-    320: {
-      slidesPerView: 1,
-      spaceBetween: 10,
+  const mutation = useMutation({
+    mutationFn: addToCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userCart']);
     },
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    },
-    1024: {
-      slidesPerView: 4,
-      spaceBetween: 10,
-    },
-    1196: {
-      slidesPerView: 5,
-      spaceBetween: 10,
-    },
-  };
+  });
 
   return loading ? (
     <div className="w-full flex justify-center items-center my-8">
@@ -139,8 +148,24 @@ const ProductDetail = () => {
                 : product.lastPrice?.toLocaleString()}
             </div>
             <div className="flex gap-3">
-              <button className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold">
-                {t('add_cart')}
+              <button
+                className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold"
+                onClick={() => {
+                  mutation.mutate({
+                    productId: product.id,
+                    quantity: 1,
+                  });
+                }}
+              >
+                {mutation.isLoading ? (
+                  <div className=" w-36">
+                    <CircularProgress
+                      style={{ width: '18px', height: '18px' }}
+                    />
+                  </div>
+                ) : (
+                  t('add_cart')
+                )}
               </button>
               <button className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold">
                 {t('buy_now')}

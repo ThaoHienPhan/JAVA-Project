@@ -14,6 +14,7 @@ export const login = createAsyncThunk(
         username,
         password,
       });
+      localStorage.setItem('accessToken', response.accessToken);
       return response;
     } catch (error) {
       throw new Error(error.response.data.message);
