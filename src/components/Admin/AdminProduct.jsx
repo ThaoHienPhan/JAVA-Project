@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import productApi from '~/api/productApi';
+import EditProduct from './AdminProduct/EditProduct';
 
 AdminProduct.propTypes = {
     
@@ -16,8 +17,8 @@ function AdminProduct(props) {
         dispatch(productApi.getAll())
     },[])
     return (
-        <div>
-            
+        <div  className='grow'>
+           <EditProduct />
         </div>
     );
 }
