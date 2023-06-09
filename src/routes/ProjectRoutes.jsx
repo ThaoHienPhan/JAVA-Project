@@ -1,9 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { authRoutes, publicRoutes } from './routes';
+import { adminRoutes, authRoutes, publicRoutes } from './routes';
 import DefaultLayout from 'layout/DefaultLayout';
 import NotFound from 'pages/NotFound/NotFound';
 import AuthRoute from './AuthRoute';
+import AdminLayout from '~/layout/AdminLayout';
+import AdminDashboard from '~/pages/AdminDashboard';
 
 const ProjectRoute = () => {
   return (
@@ -41,6 +43,21 @@ const ProjectRoute = () => {
             />
           );
         })}
+        {adminRoutes.map((route, index) => {
+          const Page = route.component;
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                <AdminLayout>
+                  <Page />
+                </AdminLayout>
+              }
+            />
+          );
+        })}
+
         <Route
           path="/*"
           element={

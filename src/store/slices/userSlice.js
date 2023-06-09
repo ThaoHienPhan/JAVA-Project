@@ -2,35 +2,34 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import productApi from '~/api/productApi';
-
+import userApi from '~/api/userApi';
 
 // Khởi tạo slice
-const productSlice = createSlice({
-  name: 'product',
+const userSlice = createSlice({
+  name: 'user',
   initialState: {
-    products: [],
+    users: [],
     loading: false,
     error: null,
   },
   reducers: {
-    getAllProd: (state, action) => {
-      state.products = action.payload;
+    getAllUser: (state, action) => {
+      state.users = action.payload;
     },
     // Các reducers khác nếu cần
   },
   extraReducers: builder => {
     // Xử lý action async
     builder
-      .addCase(productApi.getAll.pending, state => {
+      .addCase(userApi.getAll.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(productApi.getAll.fulfilled, (state, action) => {
+      .addCase(userApi.getAll.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.users = action.payload;
       })
-      .addCase(productApi.getAll.rejected, (state, action) => {
+      .addCase(userApi.getAll.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -38,5 +37,5 @@ const productSlice = createSlice({
 });
 
 // Export các action và reducer
-export const { getAllProd } = productSlice.actions;
-export default productSlice.reducer;
+export const { getAllUser } = userSlice.actions;
+export default userSlice.reducer;
