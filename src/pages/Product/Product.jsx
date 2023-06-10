@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import OtherProducts from 'components/Products/ProductItem/OtherProducts';
 import HotSale from 'components/Products/ProductItem/HotSale';
@@ -7,9 +7,11 @@ import productApi from '~/api/productApi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 const Product = ({ product, slider }) => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   const { data, isLoading } = useQuery(['productsList', pathname], () =>
     productApi.getType(product)
@@ -30,7 +32,7 @@ const Product = ({ product, slider }) => {
         className="flex justify-center w-full"
         onClick={() => navigate(`/product/type/${product}`)}
       >
-        <button className=" ct-button !px-6">Xem thêm</button>
+        <button className=" ct-button !px-6">{t('see_more')}</button>
       </div>
     </div>
   );

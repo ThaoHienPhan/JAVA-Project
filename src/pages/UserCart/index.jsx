@@ -1,4 +1,4 @@
-import { DeleteOutline } from '@mui/icons-material';
+import { Close, DeleteOutline } from '@mui/icons-material';
 import {
   Box,
   CircularProgress,
@@ -9,12 +9,14 @@ import {
 } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Divider } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { getMyCart } from '~/api/cartApi';
 
 const UserCart = () => {
   const imgUrl = 'http://localhost:8080/files';
+  const { t } = useTranslation();
   const navigate = useNavigate();
   // const queryClient = useQueryClient();
 
@@ -27,6 +29,8 @@ const UserCart = () => {
   //   },
   // });
 
+  const [appleCard, setAppleCard] = useState(true);
+
   return !localStorage.getItem('accessToken') ? (
     <div className="container-wrapper flex w-full justify-center text-2xl mt-8">
       Please login to see this feature
@@ -35,14 +39,26 @@ const UserCart = () => {
     data && (
       <>
         <div className="container-wrapper min-h-0 mt-8">
-          <h2 className="font-bold text-xl">Xem giỏ hàng của bạn</h2>
-          <p className="mt-3">Miễn phí giao hàng và hoàn trả</p>
+          <h2 className="font-bold text-xl">{t('user_cart')}</h2>
+          <p className="mt-3">{t('cart_ads')}</p>
         </div>
         <div className="container-wrapper my-8 flex gap-8 justify-between">
           <div className="w-2/3">
-            <div className="text-center bg-[#f2f2f2] p-4">
-              Trả góp 680.000.vnd/tháng với lãi suất 0% với Apple Card.{' '}
-              <span className="text-blue-400">Tìm hiểu thêm.</span>
+            <div
+              className={`text-center bg-[#f2f2f2] p-4 relative hidden mb-8 ${
+                appleCard && 'lg:block'
+              }`}
+            >
+              {t('apple_card_ads')}{' '}
+              <span className="text-blue-400 hover:underline cursor-pointer">
+                {t('learn_more')}
+              </span>
+              <span
+                className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer"
+                onClick={() => setAppleCard(false)}
+              >
+                <Close />
+              </span>
             </div>
 
             {localStorage.getItem('accessToken') && isLoading && (
@@ -51,7 +67,7 @@ const UserCart = () => {
               </div>
             )}
             {data?.cartItemList?.map((item, i) => (
-              <div className={i === 0 ? 'mt-8' : 'mt-0'} key={i}>
+              <div key={i}>
                 {i !== 0 && <Divider />}
                 <div className="flex gap-5">
                   <img
@@ -73,12 +89,12 @@ const UserCart = () => {
                         <Box className="w-1/5">
                           <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">
-                              Quantity
+                              {t('quantity')}
                             </InputLabel>
                             <Select
                               size="small"
                               value={item.quantity}
-                              label="Quantity"
+                              label={t('quantity')}
                               onChange={e => {
                                 console.log(e.target.value);
                               }}
@@ -104,21 +120,21 @@ const UserCart = () => {
             ))}
           </div>
           <div className="w-1/3">
-            <div className="font-bold text-2xl">Summary</div>
+            <div className="font-bold text-2xl">{t('summary')}</div>
             <div className="mt-6">
               <div className="flex justify-between">
-                <h2>Subtotal</h2>
+                <h2>{t('subtotal')}</h2>
                 <h2>{data?.total.toLocaleString()}đ</h2>
               </div>
               <div className="flex justify-between mt-3">
-                <h2 className="w-3/5">Estimated Delivery & Handling</h2>
+                <h2 className="w-3/5">{t('delivery_handling')}</h2>
                 <h2>Free</h2>
               </div>
             </div>
             <Divider />
             <div className="mt-6">
               <div className="flex justify-between">
-                <h2>Total</h2>
+                <h2>{t('total_price')}</h2>
                 <h2>{data?.total.toLocaleString()}đ</h2>
               </div>
             </div>

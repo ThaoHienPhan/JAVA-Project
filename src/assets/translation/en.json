@@ -55,5 +55,17 @@
   "total": "Total",
   "suggestion": "Suggestion",
   "add_cart": "Add to cart",
-  "buy_now": "Buy now"
+  "buy_now": "Buy now",
+  "user_cart": "Your cart",
+  "cart_ads": "Free delivery and returns.",
+  "apple_card_ads": "Finance with 680,000VND/month at 0% interest rate with Apple Card.",
+  "learn_more": "Learn more.",
+  "see_more": "See more",
+  "summary": "Summary",
+  "subtotal": "Subtotal",
+  "total_price": "Total price",
+  "delivery_handling": "Estimated Delivery & Handling",
+  "checkout": "Checkout",
+  "free": "Free",
+  "quantity": "Quantity"
 }

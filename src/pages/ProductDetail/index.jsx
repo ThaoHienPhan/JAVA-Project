@@ -14,29 +14,6 @@ import { CircularProgress } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addToCart } from '~/api/cartApi';
 
-const breakpoints = {
-  320: {
-    slidesPerView: 1,
-    spaceBetween: 10,
-  },
-  480: {
-    slidesPerView: 2,
-    spaceBetween: 20,
-  },
-  768: {
-    slidesPerView: 3,
-    spaceBetween: 30,
-  },
-  1024: {
-    slidesPerView: 4,
-    spaceBetween: 10,
-  },
-  1196: {
-    slidesPerView: 5,
-    spaceBetween: 10,
-  },
-};
-
 const ProductDetail = () => {
   const { t } = useTranslation();
   const { id } = useParams();
@@ -50,6 +27,54 @@ const ProductDetail = () => {
   const [selectedRom, setSelectedRom] = useState(0);
   const [selectedTab, setSelectedTab] = useState(0);
   const [suggestList, setSuggestList] = useState([]);
+
+  const [breakpoints, setBreakPoints] = useState({
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    },
+    480: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 10,
+    },
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 10,
+    },
+    1196: {
+      slidesPerView: 5,
+      spaceBetween: 10,
+    },
+  });
+
+  useEffect(() => {
+    setBreakPoints({
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+      480: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 10,
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 10,
+      },
+      1196: {
+        slidesPerView: suggestList.length < 5 ? suggestList.length : 5,
+        spaceBetween: 10,
+      },
+    });
+  }, [suggestList]);
 
   const [appleCareChecked, setAppleCareChecked] = useState(false);
 
@@ -97,10 +122,10 @@ const ProductDetail = () => {
       </div>
       <div className="container-wrapper my-6">
         <div className="flex justify-center gap-8">
-          <div>
-            <img src={`${imgUrl}/${product.url}`} />
+          <div className="w-1/5">
+            <img src={`${imgUrl}/${product.url}`} width={300} height={300} />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-2/5">
             <div>
               <div className="text-[#F00101] text-xl">{t('new_product')}</div>
               <div className="font-bold text-2xl">{product.name}</div>
@@ -198,15 +223,15 @@ const ProductDetail = () => {
           <div className="overflow-hidden rounded-xl flex flex-nowrap w-full">
             <Swiper
               modules={[Navigation]}
-              spaceBetween={10}
-              slidesPerView={5}
+              spaceBetween={0}
+              slidesPerView={suggestList.length}
               navigation={true}
               breakpoints={breakpoints}
             >
               {suggestList.length &&
                 suggestList.map((prod, i) => (
                   <SwiperSlide key={`${prod.id}_${i}`}>
-                    <div className="p-3">
+                    <div className="">
                       <ProductWithPrice setLoading={setLoading} item={prod} />
                     </div>
                   </SwiperSlide>
