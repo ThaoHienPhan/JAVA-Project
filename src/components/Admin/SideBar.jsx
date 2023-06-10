@@ -8,8 +8,8 @@ SideBar.propTypes = {};
 
 function SideBar(props) {
   return (
-    <div className="bg-slate-200 w-[200px] h-screen">
-      <div className="flex text-xl justify-center gap-[10px] mt-[20px]">
+    <div className="bg-slate-200 w-[200px] min-h-screen">
+      <div className="flex text-xl justify-center gap-[10px]">
         <div>
           <GrUserAdmin />
         </div>
