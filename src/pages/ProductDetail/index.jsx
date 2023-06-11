@@ -23,7 +23,7 @@ const ProductDetail = () => {
   const { products } = useSelector(state => state.product);
 
   const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedRom, setSelectedRom] = useState(0);
   const [selectedTab, setSelectedTab] = useState(0);
   const [suggestList, setSuggestList] = useState([]);
@@ -86,7 +86,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     getProductDetail(id);
-  }, [products, loading]);
+  }, [products]);
 
   const getProductDetail = async id => {
     try {
@@ -118,17 +118,23 @@ const ProductDetail = () => {
   ) : (
     <>
       <div className="p-3 w-full border-b-2 shadow font-bold">
-        <div className="ml-8">{product.name}</div>
+        <div className="ml-8">{product.productName}</div>
       </div>
       <div className="container-wrapper my-6">
         <div className="flex justify-center gap-8">
           <div className="w-1/5">
-            <img src={`${imgUrl}/${product.url}`} width={300} height={300} />
+            <img
+              src={`${imgUrl}/${product.productUrl}`}
+              width={300}
+              height={300}
+            />
           </div>
           <div className="flex flex-col gap-4 w-2/5">
             <div>
               <div className="text-[#F00101] text-xl">{t('new_product')}</div>
-              <div className="font-bold text-2xl">{product.name}</div>
+              <div className="font-bold text-2xl">
+                {product.productLastPrice?.toLocaleString()}đ
+              </div>
             </div>
             <div>
               <div>{t('choose_color')}</div>
@@ -169,15 +175,15 @@ const ProductDetail = () => {
             <div className="font-bold">
               {t('total')}:{' '}
               {appleCareChecked
-                ? (product.lastPrice + 4750000)?.toLocaleString()
-                : product.lastPrice?.toLocaleString()}
+                ? (product.productLastPrice + 4750000)?.toLocaleString()
+                : product.productLastPrice?.toLocaleString()}
             </div>
             <div className="flex gap-3">
               <button
                 className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold"
                 onClick={() => {
                   mutation.mutate({
-                    productId: product.id,
+                    productId: product.productId,
                     quantity: 1,
                   });
                 }}

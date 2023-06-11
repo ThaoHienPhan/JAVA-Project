@@ -1,17 +1,7 @@
 // productSlice.js
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import productApi from '~/api/productApi';
-
-// Tạo action async để gọi API
-export const fetchProduct = createAsyncThunk(
-  'product/fetchProduct',
-  async () => {
-    const response = await axios.get('/api/products');
-    return response.data;
-  }
-);
 
 // Khởi tạo slice
 const productSlice = createSlice({
