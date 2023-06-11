@@ -11,20 +11,70 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CircularProgress } from '@mui/material';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addToCart } from '~/api/cartApi';
 
 const ProductDetail = () => {
   const { t } = useTranslation();
-  const { id, type } = useParams();
-  console.log(type);
+  const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const imgUrl = 'http://localhost:8080/files';
   const { products } = useSelector(state => state.product);
 
   const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedRom, setSelectedRom] = useState(0);
   const [selectedTab, setSelectedTab] = useState(0);
   const [suggestList, setSuggestList] = useState([]);
+
+  const [breakpoints, setBreakPoints] = useState({
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    },
+    480: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 10,
+    },
+    1024: {
+      slidesPerView: 4,
+      spaceBetween: 10,
+    },
+    1196: {
+      slidesPerView: 5,
+      spaceBetween: 10,
+    },
+  });
+
+  useEffect(() => {
+    setBreakPoints({
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+      480: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 10,
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 10,
+      },
+      1196: {
+        slidesPerView: suggestList.length < 5 ? suggestList.length : 5,
+        spaceBetween: 10,
+      },
+    });
+  }, [suggestList]);
 
   const [appleCareChecked, setAppleCareChecked] = useState(false);
 
@@ -36,7 +86,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     getProductDetail(id);
-  }, [products, loading]);
+  }, [products]);
 
   const getProductDetail = async id => {
     try {
@@ -54,28 +104,12 @@ const ProductDetail = () => {
     }
   };
 
-  const breakpoints = {
-    320: {
-      slidesPerView: 1,
-      spaceBetween: 10,
+  const mutation = useMutation({
+    mutationFn: addToCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userCart']);
     },
-    480: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    },
-    1024: {
-      slidesPerView: 4,
-      spaceBetween: 10,
-    },
-    1196: {
-      slidesPerView: 5,
-      spaceBetween: 10,
-    },
-  };
+  });
 
   return loading ? (
     <div className="w-full flex justify-center items-center my-8">
@@ -84,17 +118,23 @@ const ProductDetail = () => {
   ) : (
     <>
       <div className="p-3 w-full border-b-2 shadow font-bold">
-        <div className="ml-8">{product.name}</div>
+        <div className="ml-8">{product.productName}</div>
       </div>
       <div className="container-wrapper my-6">
         <div className="flex justify-center gap-8">
-          <div>
-            <img src={`${imgUrl}/${product.url}`} />
+          <div className="w-1/5">
+            <img
+              src={`${imgUrl}/${product.productUrl}`}
+              width={300}
+              height={300}
+            />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-2/5">
             <div>
               <div className="text-[#F00101] text-xl">{t('new_product')}</div>
-              <div className="font-bold text-2xl">{product.name}</div>
+              <div className="font-bold text-2xl">
+                {product.productLastPrice?.toLocaleString()}đ
+              </div>
             </div>
             <div>
               <div>{t('choose_color')}</div>
@@ -135,12 +175,28 @@ const ProductDetail = () => {
             <div className="font-bold">
               {t('total')}:{' '}
               {appleCareChecked
-                ? (product.lastPrice + 4750000)?.toLocaleString()
-                : product.lastPrice?.toLocaleString()}
+                ? (product.productLastPrice + 4750000)?.toLocaleString()
+                : product.productLastPrice?.toLocaleString()}
             </div>
             <div className="flex gap-3">
-              <button className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold">
-                {t('add_cart')}
+              <button
+                className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold"
+                onClick={() => {
+                  mutation.mutate({
+                    productId: product.productId,
+                    quantity: 1,
+                  });
+                }}
+              >
+                {mutation.isLoading ? (
+                  <div className=" w-36">
+                    <CircularProgress
+                      style={{ width: '18px', height: '18px' }}
+                    />
+                  </div>
+                ) : (
+                  t('add_cart')
+                )}
               </button>
               <button className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold">
                 {t('buy_now')}
@@ -173,15 +229,15 @@ const ProductDetail = () => {
           <div className="overflow-hidden rounded-xl flex flex-nowrap w-full">
             <Swiper
               modules={[Navigation]}
-              spaceBetween={10}
-              slidesPerView={5}
+              spaceBetween={0}
+              slidesPerView={suggestList.length}
               navigation={true}
               breakpoints={breakpoints}
             >
               {suggestList.length &&
                 suggestList.map((prod, i) => (
                   <SwiperSlide key={`${prod.id}_${i}`}>
-                    <div className="p-3">
+                    <div className="">
                       <ProductWithPrice setLoading={setLoading} item={prod} />
                     </div>
                   </SwiperSlide>

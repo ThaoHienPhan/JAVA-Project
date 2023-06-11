@@ -4,11 +4,17 @@ import axiosClient from './axios';
 const productApi = {
   getAll: createAsyncThunk('product/getAllProduct', async () => {
     const res = await axiosClient.get('/api/product');
-    return res.data;
+    return res;
   }),
-  getType(params) {
-    const url = '/api/product/byType';
-    return axiosClient.get(url, { params: { type: params } });
+  getAllProducts: async () => {
+    const res = await axiosClient.get('/api/product');
+    return res.data;
+  },
+  getType: async params => {
+    const { data } = await axiosClient.get('/api/product/byType', {
+      params: { type: params },
+    });
+    return data;
   },
   getDetail: id => {
     const url = `/api/product/${id}`;

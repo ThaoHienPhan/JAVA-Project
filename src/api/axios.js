@@ -1,14 +1,33 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('accessToken');
-
 const axiosClient = axios.create({
   baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token && `Bearer ${token}`,
+    Authorization: localStorage.getItem('accessToken')
+      ? `Bearer ${localStorage.getItem('accessToken')}`
+      : '',
   },
 });
+
+axiosClient.interceptors.request.use(
+  function (config) {
+    const isLoggedOut = !localStorage.getItem('accessToken');
+
+    if (isLoggedOut) {
+      delete config.headers.Authorization;
+    } else {
+      config.headers.Authorization = localStorage.getItem('accessToken')
+        ? `Bearer ${localStorage.getItem('accessToken')}`
+        : '';
+    }
+
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 axiosClient.interceptors.response.use(
   function (response) {

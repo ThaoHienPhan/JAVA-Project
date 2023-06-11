@@ -2,7 +2,6 @@ import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import productApi from '~/api/productApi';
 import userApi from '~/api/userApi';
 
@@ -16,9 +15,11 @@ const DefaultLayout = ({ children }) => {
 
   return (
     <React.Fragment>
-      <Header />
-      {children}
-      <Footer />
+      <div className="flex flex-col h-full">
+        <Header />
+        {children}
+        <Footer />
+      </div>
     </React.Fragment>
   );
 };

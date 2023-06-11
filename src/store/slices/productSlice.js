@@ -1,9 +1,7 @@
 // productSlice.js
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import productApi from '~/api/productApi';
-
 
 // Khởi tạo slice
 const productSlice = createSlice({
