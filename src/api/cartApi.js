@@ -10,10 +10,21 @@ const addToCart = async ({ productId, quantity }) => {
   });
 };
 
-const updateCart = async ({ productId, quantity }) => {
-  return await axiosClient.put(`/api/cart/mycart/update/${productId}`, null, {
-    params: { quantity: quantity },
+const updateCart = async ({ id, quantity }) => {
+  return await axiosClient.put(`/api/cart/mycart/updateItems`, [
+    {
+      id,
+      quantity,
+    },
+  ]);
+};
+
+const makeOrderFromCart = async ({ address, phoneNumber, receiveName }) => {
+  return await axiosClient.post('/api/cart/mycart/makeorder', {
+    address,
+    phoneNumber,
+    receiveName,
   });
 };
 
-export { addToCart, getMyCart, updateCart };
+export { addToCart, getMyCart, updateCart, makeOrderFromCart };

@@ -7,33 +7,33 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Divider } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { getMyCart } from '~/api/cartApi';
+import { getMyCart, updateCart } from '~/api/cartApi';
 
 const UserCart = () => {
   const imgUrl = 'http://localhost:8080/files';
   const { t } = useTranslation();
   const navigate = useNavigate();
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery(['userCart'], getMyCart, { retry: 1 });
 
-  // const mutation = useMutation({
-  //   mutationFn: updateCart,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(['userCart']);
-  //   },
-  // });
+  const mutation = useMutation({
+    mutationFn: updateCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userCart']);
+    },
+  });
 
   const [appleCard, setAppleCard] = useState(true);
 
   return !localStorage.getItem('accessToken') ? (
     <div className="container-wrapper flex w-full justify-center text-2xl mt-8">
-      Please login to see this feature
+      {t('login_to_access')}
     </div>
   ) : (
     data && (
@@ -96,7 +96,10 @@ const UserCart = () => {
                               value={item.quantity}
                               label={t('quantity')}
                               onChange={e => {
-                                console.log(e.target.value);
+                                mutation.mutate({
+                                  id: item?.id,
+                                  quantity: e.target.value,
+                                });
                               }}
                             >
                               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
@@ -141,9 +144,13 @@ const UserCart = () => {
             <Divider />
             <button
               className="rounded-full border-2 border-solid bg-black text-white w-full px-3 py-2 text-lg border-black"
-              onClick={() => navigate('/checkout')}
+              onClick={() => {
+                data.cartItemList?.length > 0
+                  ? navigate('/checkout')
+                  : console.warn('Chua co gi');
+              }}
             >
-              Checkout
+              {t('checkout')}
             </button>
           </div>
         </div>

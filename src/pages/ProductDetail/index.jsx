@@ -2,7 +2,7 @@ import { Checkbox, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import productApi from '~/api/productApi';
 import ProductWithPrice from '~/components/Products/ProductItem/ProductWithPrice';
 
@@ -11,22 +11,37 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CircularProgress } from '@mui/material';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addToCart } from '~/api/cartApi';
+
+const imgUrl = 'http://localhost:8080/files';
 
 const ProductDetail = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const queryClient = useQueryClient();
-
-  const imgUrl = 'http://localhost:8080/files';
   const { products } = useSelector(state => state.product);
-
   const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(true);
+  const pathname = useLocation();
+
+  const productData = useQuery(
+    ['productDetail', products, pathname],
+    () => productApi.getDetail(id),
+    { staleTime: 0 }
+  );
+
+  const suggestProducts = useQuery(
+    ['suggestList', product],
+    () => productApi.getType(product?.type),
+    { enabled: !!product, retry: 0, staleTime: 0 }
+  );
+
+  useEffect(() => {
+    setProduct(productData.data);
+  }, [productData]);
+
   const [selectedRom, setSelectedRom] = useState(0);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [suggestList, setSuggestList] = useState([]);
 
   const [breakpoints, setBreakPoints] = useState({
     320: {
@@ -70,11 +85,12 @@ const ProductDetail = () => {
         spaceBetween: 10,
       },
       1196: {
-        slidesPerView: suggestList.length < 5 ? suggestList.length : 5,
+        slidesPerView:
+          suggestProducts.data?.length < 5 ? suggestProducts.data?.length : 5,
         spaceBetween: 10,
       },
     });
-  }, [suggestList]);
+  }, [suggestProducts.data]);
 
   const [appleCareChecked, setAppleCareChecked] = useState(false);
 
@@ -84,26 +100,6 @@ const ProductDetail = () => {
     setAppleCareChecked(false);
   }, [id]);
 
-  useEffect(() => {
-    getProductDetail(id);
-  }, [products]);
-
-  const getProductDetail = async id => {
-    try {
-      const res = await productApi.getDetail(id);
-      setProduct(res.data);
-      setSuggestList(
-        products.filter(
-          prod => prod.type === res.data.type && prod.id !== res.data.id
-        )
-      );
-      setLoading(false);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const mutation = useMutation({
     mutationFn: addToCart,
     onSuccess: () => {
@@ -111,20 +107,20 @@ const ProductDetail = () => {
     },
   });
 
-  return loading ? (
+  return productData.isLoading ? (
     <div className="w-full flex justify-center items-center my-8">
       <CircularProgress color="secondary" />
     </div>
   ) : (
     <>
       <div className="p-3 w-full border-b-2 shadow font-bold">
-        <div className="ml-8">{product.productName}</div>
+        <div className="ml-8">{product?.productName}</div>
       </div>
       <div className="container-wrapper my-6">
         <div className="flex justify-center gap-8">
           <div className="w-1/5">
             <img
-              src={`${imgUrl}/${product.productUrl}`}
+              src={`${imgUrl}/${product?.productUrl}`}
               width={300}
               height={300}
             />
@@ -133,7 +129,7 @@ const ProductDetail = () => {
             <div>
               <div className="text-[#F00101] text-xl">{t('new_product')}</div>
               <div className="font-bold text-2xl">
-                {product.productLastPrice?.toLocaleString()}đ
+                {product?.productLastPrice?.toLocaleString()}đ
               </div>
             </div>
             <div>
@@ -175,15 +171,15 @@ const ProductDetail = () => {
             <div className="font-bold">
               {t('total')}:{' '}
               {appleCareChecked
-                ? (product.productLastPrice + 4750000)?.toLocaleString()
-                : product.productLastPrice?.toLocaleString()}
+                ? (product?.productLastPrice + 4750000)?.toLocaleString()
+                : product?.productLastPrice?.toLocaleString()}
             </div>
             <div className="flex gap-3">
               <button
                 className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold"
                 onClick={() => {
                   mutation.mutate({
-                    productId: product.productId,
+                    productId: product?.productId,
                     quantity: 1,
                   });
                 }}
@@ -223,25 +219,28 @@ const ProductDetail = () => {
             </div>
           ))}
         </div>
-        {selectedTab === 0 && <div className="mt-4">{product.describe}</div>}
+        {selectedTab === 0 && <div className="mt-4">{product?.describe}</div>}
         <div className="flex justify-center items-center mt-8 flex-col">
           <h3 className="font-bold text-2xl">{t('suggestion')}</h3>
           <div className="overflow-hidden rounded-xl flex flex-nowrap w-full">
             <Swiper
               modules={[Navigation]}
               spaceBetween={0}
-              slidesPerView={suggestList.length}
+              slidesPerView={suggestProducts.data?.length}
               navigation={true}
               breakpoints={breakpoints}
             >
-              {suggestList.length &&
-                suggestList.map((prod, i) => (
+              {suggestProducts.isLoading ? (
+                <CircularProgress />
+              ) : (
+                suggestProducts.data?.map((prod, i) => (
                   <SwiperSlide key={`${prod.id}_${i}`}>
                     <div className="">
-                      <ProductWithPrice setLoading={setLoading} item={prod} />
+                      <ProductWithPrice item={prod} />
                     </div>
                   </SwiperSlide>
-                ))}
+                ))
+              )}
               ...
             </Swiper>
           </div>

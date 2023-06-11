@@ -16,10 +16,10 @@ const productApi = {
     });
     return data;
   },
-  getDetail: id => {
+  getDetail: async id => {
     const url = `/api/product/${id}`;
-    return axiosClient.get(url);
-    // return res.data;
+    const res = await axiosClient.get(url);
+    return res.data;
   },
 };
 
