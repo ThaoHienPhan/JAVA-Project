@@ -10,8 +10,15 @@ import AirpodsSlider from 'assets/images/AP_Banner.png';
 import AccessSlider from 'assets/images/Accessories_Banner.jpg';
 import ProductDetail from '~/pages/ProductDetail';
 import ProductType from '~/pages/ProductType';
+
 import UserCart from '~/pages/UserCart';
 import CheckOut from '~/pages/Checkout';
+
+import AdminLayout from '~/layout/AdminLayout';
+import AdminHome from '~/components/Admin/AdminHome';
+import AdminProduct from '~/components/Admin/AdminProduct';
+import AdminUser from '~/components/Admin/AdminUser';
+
 
 const publicRoutes = [
   { path: '/', component: HomePage },
@@ -48,4 +55,11 @@ const authRoutes = [
   { path: '/register', component: Auth },
 ];
 
-export { publicRoutes, authRoutes };
+const adminRoutes = [
+  { path: '/admin', component: AdminHome},
+  { path: '/admin/products', component: AdminProduct},
+  { path: '/admin/users', component: AdminUser}
+
+]
+
+export { publicRoutes, authRoutes , adminRoutes};
