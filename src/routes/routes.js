@@ -18,7 +18,7 @@ import AdminLayout from '~/layout/AdminLayout';
 import AdminHome from '~/components/Admin/AdminHome';
 import AdminProduct from '~/components/Admin/AdminProduct';
 import AdminUser from '~/components/Admin/AdminUser';
-
+import UserOrder from '~/pages/UserOrder';
 
 const publicRoutes = [
   { path: '/', component: HomePage },
@@ -48,6 +48,7 @@ const publicRoutes = [
   { path: '/product/type/:type', component: ProductType },
   { path: '/cart', component: UserCart },
   { path: '/checkout', component: CheckOut },
+  { path: '/order/my', component: UserOrder },
 ];
 
 const authRoutes = [
@@ -56,10 +57,9 @@ const authRoutes = [
 ];
 
 const adminRoutes = [
-  { path: '/admin', component: AdminHome},
-  { path: '/admin/products', component: AdminProduct},
-  { path: '/admin/users', component: AdminUser}
+  { path: '/admin', component: AdminHome },
+  { path: '/admin/products', component: AdminProduct },
+  { path: '/admin/users', component: AdminUser },
+];
 
-]
-
-export { publicRoutes, authRoutes , adminRoutes};
+export { publicRoutes, authRoutes, adminRoutes };

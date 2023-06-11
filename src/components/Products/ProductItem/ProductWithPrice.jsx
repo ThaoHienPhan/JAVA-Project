@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ProductWithPrice = ({ item, setLoading = () => {} }) => {
+const ProductWithPrice = ({ item }) => {
   const baseUrl = 'http://localhost:8080/files';
   const navigate = useNavigate();
   return (
@@ -9,7 +9,6 @@ const ProductWithPrice = ({ item, setLoading = () => {} }) => {
       className={`flex flex-col justify-between flex-nowrap items-center bg-white p-5 rounded-2xl ct-shadow cursor-pointer h-[350px] w-56`}
       onClick={() => {
         navigate(`/product/detail/${item.id}`);
-        setLoading(true);
       }}
     >
       <div>
