@@ -1,13 +1,14 @@
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Divider } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { cancelOrder, getOrderById } from '~/api/orderApi';
 
 const imgUrl = 'http://localhost:8080/files';
 
-const CollapseData = ({ itemId, cancel }) => {
+const CollapseData = ({ itemId, cancel, expanded }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -15,6 +16,7 @@ const CollapseData = ({ itemId, cancel }) => {
     ['orderDetails', itemId],
     () => getOrderById(itemId),
     {
+      enabled: !!itemId,
       staleTime: 5000000,
       cacheTime: 5000000,
       refetchOnWindowFocus: false,
@@ -22,11 +24,16 @@ const CollapseData = ({ itemId, cancel }) => {
     }
   );
 
+  useEffect(() => {
+    console.log(expanded);
+  }, []);
+
   const mutation = useMutation({
     mutationFn: cancelOrder(itemId),
     onSuccess: () => {
       queryClient.invalidateQueries(['userOrder']);
       queryClient.invalidateQueries(['orderDetails']);
+      toast.success(t('order_cancel_success'));
     },
   });
 

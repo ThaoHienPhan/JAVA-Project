@@ -8,16 +8,16 @@ const ProductItem = ({ item }) => {
   return (
     <div
       className="flex flex-col flex-wrap items-center bg-white p-5 rounded-lg cursor-pointer ct-shadow"
-      onClick={() => navigate(`/product/detail/${item.id}`)}
+      onClick={() => navigate(`/product/detail/${item.productId || item.id}`)}
     >
       {item ? (
         <>
           <img
-            src={item ? `${imgUrl}/${item.url}` : Mac}
+            src={item ? `${imgUrl}/${item.productUrl || item.url}` : Mac}
             alt=""
             className="p-3"
           />
-          <p className="mt-3 text-lg">{item.name || 'Mac'}</p>
+          <p className="mt-3 text-lg">{item.productName || item.name}</p>
         </>
       ) : null}
     </div>

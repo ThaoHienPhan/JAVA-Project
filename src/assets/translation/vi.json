@@ -87,5 +87,14 @@
   "address_1_request": "Không được để trống số nhà, tên đường",
   "address_2_request": "Không được để trống Phường/ Xã",
   "city_request": "Hãy chọn tỉnh/ thành",
-  "phone_request": "Hãy nhập số điện thoại"
+  "phone_request": "Hãy nhập số điện thoại",
+  "cart_empty": "Chưa có gì trong giỏ hàng của bạn",
+  "sale_price": "Giảm",
+  "high_to_low": "Giá cao - thấp",
+  "low_to_high": "Giá thấp - cao",
+  "hot_deals": "% khuyến mãi",
+  "delete_success": "Đã xóa khỏi giỏ hàng",
+  "add_cart_success": "Thêm vào giỏ thành công",
+  "order_success": "Đặt hàng thành công",
+  "order_cancel_success": "Đã hủy đơn hàng"
 }

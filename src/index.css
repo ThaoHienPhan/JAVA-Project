@@ -30,6 +30,11 @@ code {
   @apply cursor-pointer py-1 after:w-full after:bottom-0 after:left-0 after:h-0.5 after:transition-all after:absolute after:bg-black;
 }
 
+.swiper-wrapper {
+  min-height: 360px;
+  padding: 5px;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   font-size: 14px;
@@ -52,6 +57,10 @@ code {
 
 .ct-button {
   @apply rounded-full border-2 border-solid bg-[#F8BF2D]/[.35] px-3 py-2 font-medium border-black;
+}
+
+.ct-sort-btn {
+  @apply bg-gray-300 p-2 rounded-xl;
 }
 
 .swiper-container {

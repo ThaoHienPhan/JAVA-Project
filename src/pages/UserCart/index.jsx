@@ -12,7 +12,8 @@ import { Divider } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { getMyCart, updateCart } from '~/api/cartApi';
+import { toast } from 'react-toastify';
+import { deleteItem, getMyCart, updateCart } from '~/api/cartApi';
 
 const UserCart = () => {
   const imgUrl = 'http://localhost:8080/files';
@@ -22,10 +23,18 @@ const UserCart = () => {
 
   const { data, isLoading } = useQuery(['userCart'], getMyCart, { retry: 1 });
 
-  const mutation = useMutation({
+  const updateUserCart = useMutation({
     mutationFn: updateCart,
     onSuccess: () => {
       queryClient.invalidateQueries(['userCart']);
+    },
+  });
+
+  const deleteItemFromCart = useMutation({
+    mutationFn: deleteItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userCart']);
+      toast.success(t('delete_success'));
     },
   });
 
@@ -61,11 +70,18 @@ const UserCart = () => {
               </span>
             </div>
 
+            {data?.cartItemList.length === 0 && (
+              <div className="text-red-500 font-semibold w-full text-center text-lg">
+                {t('cart_empty')}
+              </div>
+            )}
+
             {localStorage.getItem('accessToken') && isLoading && (
               <div className="flex w-full justify-center">
                 <CircularProgress />
               </div>
             )}
+
             {data?.cartItemList?.map((item, i) => (
               <div key={i}>
                 {i !== 0 && <Divider />}
@@ -96,7 +112,7 @@ const UserCart = () => {
                               value={item.quantity}
                               label={t('quantity')}
                               onChange={e => {
-                                mutation.mutate({
+                                updateUserCart.mutate({
                                   id: item?.id,
                                   quantity: e.target.value,
                                 });
@@ -114,9 +130,16 @@ const UserCart = () => {
                         </Box>
                       </div>
                     </div>
-                    <button className="text-start">
-                      <DeleteOutline onClick={() => console.log(item)} />
-                    </button>
+                    <div className="text-end">
+                      <button
+                        className="text-center bg-red-500 p-3 w-24 rounded-sm"
+                        onClick={() => {
+                          deleteItemFromCart.mutate(item.id);
+                        }}
+                      >
+                        <DeleteOutline />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

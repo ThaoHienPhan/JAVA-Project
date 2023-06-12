@@ -3,7 +3,7 @@ import axiosClient from './axios';
 
 const productApi = {
   getAll: createAsyncThunk('product/getAllProduct', async () => {
-    const res = await axiosClient.get('/api/product');
+    const res = await axiosClient.get('/api/product/allproducts');
     return res;
   }),
   getAllProducts: async () => {
@@ -19,6 +19,12 @@ const productApi = {
   getDetail: async id => {
     const url = `/api/product/${id}`;
     const res = await axiosClient.get(url);
+    return res.data;
+  },
+  searchProduct: async query => {
+    const res = await axiosClient.get('/api/product/search', {
+      params: { query: query },
+    });
     return res.data;
   },
 };

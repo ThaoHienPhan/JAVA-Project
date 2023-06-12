@@ -87,5 +87,14 @@
   "address_1_request": "Please fill address line 1",
   "address_2_request": "Please fill address line 2",
   "city_request": "Please select a city",
-  "phone_request": "Please fill phone number"
+  "phone_request": "Please fill phone number",
+  "cart_empty": "Your cart is empty",
+  "sale_price": "Sale",
+  "high_to_low": "Price high - low",
+  "low_to_high": "Price low - high",
+  "hot_deals": "% deals",
+  "delete_success": "Deleted from cart",
+  "add_cart_success": "Added to cart",
+  "order_success": "Order successful",
+  "order_cancel_success": "Cancelled order"
 }

@@ -37,6 +37,7 @@ const useStyles = makeStyles(() => ({
 function Sale(props) {
   const { t } = useTranslation();
   const { products } = useSelector(state => state.product);
+  console.log(products);
 
   return (
     <div className="container-wrapper text-center text-4xl">

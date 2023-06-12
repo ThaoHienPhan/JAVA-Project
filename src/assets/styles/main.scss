@@ -24,3 +24,26 @@
     max-width: 1280px;
   }
 }
+
+.product__price {
+  position: relative;
+  .product__price--discount {
+    position: absolute;
+    background: url(/src/assets/images/discount.svg) 50% no-repeat;
+    height: 31px;
+    left: -15px;
+    top: -1px;
+    width: 80px;
+    border-radius: 3px;
+    margin: 0 0 10px 10px;
+
+    .product__price--discount-detail {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 5px 0 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+}

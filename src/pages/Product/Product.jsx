@@ -17,6 +17,8 @@ const Product = ({ product, slider }) => {
     productApi.getType(product)
   );
 
+  console.log(data);
+
   const navigate = useNavigate();
 
   return isLoading ? (

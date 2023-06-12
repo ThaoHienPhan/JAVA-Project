@@ -48,7 +48,11 @@ const UserOrder = () => {
                 <div>{expanded[index] ? <ExpandLess /> : <ExpandMore />}</div>
               </div>
               <Collapse in={expanded[index]}>
-                <CollapseData itemId={item.id} cancel={item.cancel} />
+                <CollapseData
+                  itemId={item.id}
+                  cancel={item.cancel}
+                  expanded={expanded}
+                />
               </Collapse>
             </div>
           ))}

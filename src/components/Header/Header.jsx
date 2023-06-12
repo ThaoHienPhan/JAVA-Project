@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  ClickAwayListener,
+  Popper,
+} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +22,8 @@ import Logo from '../Logo';
 import { ShoppingCart } from '@mui/icons-material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMyCart } from '~/api/cartApi';
+import { useDebounce } from '@uidotdev/usehooks';
+import productApi from '~/api/productApi';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -29,7 +37,7 @@ const useStyles = makeStyles(() => ({
     padding: '0 20px',
     justifyContent: 'space-between',
   },
-  left: { display: 'flex', alignItems: 'center', gap: '40px' },
+  left: { display: 'flex', alignItems: 'center', gap: '40px', width: '50%' },
   about: {
     display: 'flex',
     alignItems: 'center',
@@ -64,10 +72,10 @@ const useStyles = makeStyles(() => ({
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: '15px',
-  backgroundColor: '#E5E5E5',
+  borderRadius: '4px',
+  backgroundColor: '#CCC',
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    // backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   width: '100%',
   [theme.breakpoints.up('sm')]: {
@@ -104,10 +112,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const imgUrl = 'http://localhost:8080/files';
+
 function Header() {
   const { t } = useTranslation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const queryClient = useQueryClient();
+
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openPopper, setOpenPopper] = React.useState(false);
+
+  const searchList = useQuery(
+    ['searchProd', debouncedSearchTerm],
+    () => productApi.searchProduct(debouncedSearchTerm),
+    { enabled: !!debouncedSearchTerm }
+  );
+
+  const handleChange = e => {
+    searchTerm && setOpenPopper(true);
+    setSearchTerm(e.target.value);
+    setAnchorEl(e.currentTarget);
+  };
 
   const { data } = useQuery(['userCart'], getMyCart, { retry: 1 });
 
@@ -130,22 +157,73 @@ function Header() {
     },
   });
 
+  const handleClearSearch = id => {
+    setSearchTerm('');
+    setAnchorEl(null);
+    navigate(`/product/detail/${id}`);
+  };
+
   return (
     <>
       <Box className={classes.header}>
         <Box className={classes.left}>
           <Logo />
-          <Box className="search">
+          <Box className="search relative w-1/2">
             <Search>
               <StyledInputBase
-                className="hover:bg-[#E5E5E5] hover:rounded-[15px]"
                 placeholder={t('product_search')}
                 inputProps={{ 'aria-label': 'search' }}
+                value={searchTerm}
+                onChange={handleChange}
+                ref={setAnchorEl}
               />
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
             </Search>
+            {searchTerm && (
+              <ClickAwayListener onClickAway={() => setOpenPopper(false)}>
+                <Popper
+                  open={Boolean(openPopper)}
+                  anchorEl={anchorEl}
+                  placement="bottom-start"
+                  className="z-10 w-[250px] max-w-[250px] bg-white"
+                >
+                  {searchList.isLoading ? (
+                    <div className="flex flex-col justify-center items-center min-h-[200px]">
+                      <CircularProgress />
+                    </div>
+                  ) : (
+                    <>
+                      <div className=" p-2 flex flex-col gap-3">
+                        {searchList.data?.length === 0 ? (
+                          <div className="flex flex-col justify-center items-center">
+                            Không tìm thấy {searchTerm}
+                          </div>
+                        ) : (
+                          searchList.data.slice(0, 5).map((data, i) => (
+                            <div
+                              key={i}
+                              className="flex justify-between gap-2 cursor-pointer hover:bg-slate-300 p-2"
+                              onClick={() => handleClearSearch(data.productId)}
+                            >
+                              <img
+                                src={`${imgUrl}/${data.productUrl}`}
+                                width={40}
+                                className=" object-contain"
+                              />
+                              <div className="flex-1 text-left">
+                                {data.productName}
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </>
+                  )}
+                </Popper>
+              </ClickAwayListener>
+            )}
           </Box>
         </Box>
         <Box className={classes.right}>

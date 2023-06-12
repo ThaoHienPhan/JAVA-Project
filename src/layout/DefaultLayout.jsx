@@ -1,7 +1,7 @@
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import productApi from '~/api/productApi';
 import userApi from '~/api/userApi';
 

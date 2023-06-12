@@ -19,6 +19,10 @@ const updateCart = async ({ id, quantity }) => {
   ]);
 };
 
+const deleteItem = async id => {
+  return await axiosClient.delete(`/api/cart/mycart/delete/${id}`);
+};
+
 const makeOrderFromCart = async ({ address, phoneNumber, receiveName }) => {
   return await axiosClient.post('/api/cart/mycart/makeorder', {
     address,
@@ -27,4 +31,4 @@ const makeOrderFromCart = async ({ address, phoneNumber, receiveName }) => {
   });
 };
 
-export { addToCart, getMyCart, updateCart, makeOrderFromCart };
+export { addToCart, getMyCart, updateCart, makeOrderFromCart, deleteItem };

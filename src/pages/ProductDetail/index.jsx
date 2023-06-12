@@ -6,13 +6,13 @@ import { useLocation, useParams } from 'react-router-dom';
 import productApi from '~/api/productApi';
 import ProductWithPrice from '~/components/Products/ProductItem/ProductWithPrice';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addToCart } from '~/api/cartApi';
+import { toast } from 'react-toastify';
+import toastConfig from '~/assets/toastConfig';
 
 const imgUrl = 'http://localhost:8080/files';
 
@@ -104,6 +104,7 @@ const ProductDetail = () => {
     mutationFn: addToCart,
     onSuccess: () => {
       queryClient.invalidateQueries(['userCart']);
+      toast.success(t('add_cart_success'));
     },
   });
 
@@ -173,6 +174,7 @@ const ProductDetail = () => {
               {appleCareChecked
                 ? (product?.productLastPrice + 4750000)?.toLocaleString()
                 : product?.productLastPrice?.toLocaleString()}
+              đ
             </div>
             <div className="flex gap-3">
               <button
@@ -219,7 +221,9 @@ const ProductDetail = () => {
             </div>
           ))}
         </div>
-        {selectedTab === 0 && <div className="mt-4">{product?.describe}</div>}
+        {selectedTab === 0 && (
+          <div className="mt-4">{product?.productDescribe}</div>
+        )}
         <div className="flex justify-center items-center mt-8 flex-col">
           <h3 className="font-bold text-2xl">{t('suggestion')}</h3>
           <div className="overflow-hidden rounded-xl flex flex-nowrap w-full">

@@ -12,6 +12,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { getMyCart, makeOrderFromCart } from '~/api/cartApi';
 import provinces from '~/assets/province';
@@ -60,6 +61,7 @@ const CheckOut = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['userOrder']);
       queryClient.invalidateQueries(['userCart']);
+      toast.success(t('order_success'));
       navigate('/order/my');
     },
   });
