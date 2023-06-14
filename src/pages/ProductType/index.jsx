@@ -92,7 +92,7 @@ const ProductType = () => {
               key={i}
               className={`ct-sort-btn ${
                 sortType === data && '!bg-red-400'
-              } text-sm sm:text-base md:text-lg`}
+              } text-sm sm:text-base md:text-lg hover:bg-gray-200`}
               onClick={() => handleSort(data)}
             >
               {t(data)}
