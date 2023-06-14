@@ -178,7 +178,7 @@ function Header() {
   };
 
   return (
-    <div className='sticky top-0 z-50 !bg-white'>
+    <div className="sticky top-0 z-50 !bg-white">
       <Box className={`${classes.header}`}>
         <Box className={`${classes.left} !gap-5 md:!gap-10`}>
           <Logo />
@@ -287,7 +287,9 @@ function Header() {
 
         <Box className={`${classes.right} !hidden md:!flex`}>
           <LocationOnIcon fontSize="large" />
-          <HelpOutlineIcon fontSize="large" />
+          <div className="cursor-pointer" onClick={() => navigate('/qa')}>
+            <HelpOutlineIcon fontSize="large" />
+          </div>
           <div className="relative">
             <ShoppingCart
               style={{ color: '#6c757d' }}
@@ -346,7 +348,11 @@ function Header() {
           'airpods',
           'accessories',
         ].map((value, i) => (
-          <button key={i} onClick={() => navigate(`/${value}`)} className='py-5 px-3 text-white uppercase font-semibold hover:!bg-gray-100 hover:!text-black'>
+          <button
+            key={i}
+            onClick={() => navigate(`/${value}`)}
+            className="py-5 px-3 text-white uppercase font-semibold hover:!bg-gray-100 hover:!text-black"
+          >
             {t(value)}
           </button>
         ))}
