@@ -3,10 +3,10 @@ import { Divider } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { executeOrder, getOrderById } from '~/api/orderApi';
+import { executeOrder, getOrderById, rejectOrder } from '~/api/orderApi';
 import LoadingComponent from '~/components/Loading';
 
-const DetailModal = ({ currentId, setIsModalOpen, executed }) => {
+const DetailModal = ({ currentId, setIsModalOpen, executed, cancel }) => {
   const imgUrl = 'http://localhost:8080/files';
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -15,19 +15,32 @@ const DetailModal = ({ currentId, setIsModalOpen, executed }) => {
     getOrderById(currentId)
   );
 
-  console.log(executed);
-
   const execute = useMutation({
     mutationFn: executeOrder,
     onSuccess: () => {
       setIsModalOpen(false);
       queryClient.invalidateQueries(['allOrders']);
+      queryClient.invalidateQueries(['orderDetail']);
+      toast.success('success_common');
+    },
+  });
+
+  const reject = useMutation({
+    mutationFn: rejectOrder,
+    onSuccess: () => {
+      setIsModalOpen(false);
+      queryClient.invalidateQueries(['allOrders']);
+      queryClient.invalidateQueries(['orderDetail']);
       toast.success('success_common');
     },
   });
 
   const handleExecute = () => {
     execute.mutate(currentId);
+  };
+
+  const handleReject = () => {
+    reject.mutate(currentId);
   };
 
   if (isLoading) {
@@ -58,16 +71,23 @@ const DetailModal = ({ currentId, setIsModalOpen, executed }) => {
             {data.orderTotal.toLocaleString()}đ
           </span>
         </div>
+        {cancel && (
+          <div className="text-end text-lg text-red-500 font-semibold">
+            {t('cancelled')}
+          </div>
+        )}
+        {executed && (
+          <div className="text-end text-lg text-green-500 font-semibold">
+            {t('executed')}
+          </div>
+        )}
         <div className="flex justify-end gap-3 text-white">
-          <button
-            className="ct-modal-btn bg-red-500"
-            onClick={() => setIsModalOpen(false)}
-          >
-            {t('cancel_common')}
-          </button>
-          {!executed && (
+          {!executed && !cancel && (
             <>
-              <button className="ct-modal-btn bg-blue-500">
+              <button
+                className="ct-modal-btn bg-blue-500"
+                onClick={handleReject}
+              >
                 {t('reject_order')}
               </button>
               <button

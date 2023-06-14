@@ -76,7 +76,7 @@ function Footer(props) {
             <Box className={classes.text}>
               <Typography>i-Tech Store</Typography>
               <Typography className={classes.text_content}>
-                Apple Authorised Reseller
+                {t('logo_describe')}
               </Typography>
             </Box>
           </Box>

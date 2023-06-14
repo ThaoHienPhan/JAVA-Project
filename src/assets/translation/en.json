@@ -124,5 +124,22 @@
   "reject_order": "Reject order",
   "execute_order": "Execute order",
   "orders": "Orders",
-  "pending": "Pending"
+  "pending": "Pending",
+  "executed": "Executed",
+  "order_by_day": "Order by day",
+  "vietnamese": "Vietnamese",
+  "english": "English",
+  "language": "Language",
+  "products": "Products",
+  "products_list": "List Product",
+  "users": "Users",
+  "Orders": "Orders",
+  "actions": "Actions",
+  "add_products": "Add Product",
+  "stt": "No.",
+  "sort_by": "Sort by",
+  "user_staticstics": "User Statistics",
+  "username": "Username",
+  "name": "Name",
+  "logo_describe": "Apple Authorised Reseller"
 }

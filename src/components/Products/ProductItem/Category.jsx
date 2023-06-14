@@ -12,7 +12,7 @@ const Category = ({ categories }) => {
       {categories ? (
         <>
           <img src={categories ? categories.url : Mac} alt="" className="p-3" />
-          <p className="mt-3 text-lg">{categories.name || 'Mac'}</p>
+          <p className="mt-3 text-lg">{categories.name}</p>
         </>
       ) : null}
     </div>

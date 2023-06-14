@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import React, { useEffect } from 'react';
@@ -12,6 +13,8 @@ const DefaultLayout = ({ children }) => {
     // getProducts();
     dispatch(productApi.getAll());
   }, [dispatch]);
+
+  useQuery(['allProducts'], productApi.getAllProducts);
 
   return (
     <React.Fragment>

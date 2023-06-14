@@ -7,36 +7,14 @@ import CollapseData from './CollapseData';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from 'antd';
+import { useSelector } from 'react-redux';
 
 const UserOrder = () => {
   const userOrder = useQuery(['userOrder'], getMyOrder);
   const { t } = useTranslation();
+  const { language } = useSelector(state => state.language);
 
   const [orders, setOrders] = useState([]);
-
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-  const items = [
-    {
-      key: '1',
-      label: 'This is panel header 1',
-      children: <p>{text}</p>,
-    },
-    {
-      key: '2',
-      label: 'This is panel header 2',
-      children: <p>{text}</p>,
-    },
-    {
-      key: '3',
-      label: 'This is panel header 3',
-      children: <p>{text}</p>,
-    },
-  ];
 
   useEffect(() => {
     const mappedData = userOrder.data?.map(item => ({
@@ -50,7 +28,7 @@ const UserOrder = () => {
       children: <CollapseData itemId={item.id} cancel={item.cancel} />,
     }));
     setOrders(mappedData);
-  }, [userOrder.data]);
+  }, [userOrder.data, language]);
 
   console.log(userOrder.data);
 
@@ -63,7 +41,8 @@ const UserOrder = () => {
   ) : (
     <div className="container-wrapper my-8">
       <div>
-        <Collapse items={orders} onChange={onChange} />;
+        <div className="my-3">{t('orders')}</div>
+        <Collapse items={orders} onChange={onChange} />
       </div>
     </div>
   );

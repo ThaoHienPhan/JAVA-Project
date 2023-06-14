@@ -15,11 +15,11 @@ const OtherProducts = ({ product }) => {
       slidesPerView: 2,
       spaceBetween: 20,
     },
-    768: {
+    769: {
       slidesPerView: 3,
-      spaceBetween: 20,
+      spaceBetween: 60,
     },
-    1196: {
+    960: {
       slidesPerView: 4,
       spaceBetween: 20,
     },

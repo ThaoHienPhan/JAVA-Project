@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  ClickAwayListener,
-  Popper,
-} from '@mui/material';
+import { Box, Button, ClickAwayListener, Popper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -25,6 +19,8 @@ import { getMyCart } from '~/api/cartApi';
 import { useDebounce } from '@uidotdev/usehooks';
 import productApi from '~/api/productApi';
 import LoadingComponent from '../Loading';
+import { MenuOutlined } from '@ant-design/icons';
+import { Divider, Drawer } from 'antd';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -37,8 +33,15 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     padding: '0 20px',
     justifyContent: 'space-between',
+    width: '100%',
   },
-  left: { display: 'flex', alignItems: 'center', gap: '40px', width: '50%' },
+  left: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '40px',
+    width: '100%',
+    '@media (min-width: 780px)': { width: '50%' },
+  },
   about: {
     display: 'flex',
     alignItems: 'center',
@@ -56,10 +59,12 @@ const useStyles = makeStyles(() => ({
     gap: '15px',
   },
   navigate: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-around',
     backgroundColor: '#181818',
-    padding: '0 200px',
+    padding: '0 120px',
+    '@media (min-width: 780px)': { padding: '0 200px' },
     '& .MuiButtonBase-root': {
       color: '#FFFFFF !important',
       textTransform: 'capitalize',
@@ -118,12 +123,20 @@ const imgUrl = 'http://localhost:8080/files';
 function Header() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const { data } = useQuery(['userCart'], getMyCart, { retry: 1 });
+
+  const classes = useStyles();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = React.useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openPopper, setOpenPopper] = React.useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const searchList = useQuery(
     ['searchProd', debouncedSearchTerm],
@@ -136,13 +149,6 @@ function Header() {
     setSearchTerm(e.target.value);
     setAnchorEl(e.currentTarget);
   };
-
-  const { data } = useQuery(['userCart'], getMyCart, { retry: 1 });
-
-  const classes = useStyles();
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
@@ -164,10 +170,17 @@ function Header() {
     navigate(`/product/detail/${id}`);
   };
 
+  const showDrawer = () => {
+    setOpenDrawer(true);
+  };
+  const onClose = () => {
+    setOpenDrawer(false);
+  };
+
   return (
     <>
-      <Box className={classes.header}>
-        <Box className={classes.left}>
+      <Box className={`${classes.header}`}>
+        <Box className={`${classes.left} !gap-5 md:!gap-10`}>
           <Logo />
           <Box className="search relative w-1/2">
             <Search>
@@ -188,7 +201,7 @@ function Header() {
                   open={Boolean(openPopper)}
                   anchorEl={anchorEl}
                   placement="bottom-start"
-                  className="z-10 w-[calc(25%-33px)] bg-white"
+                  className="z-10 w-[calc(50%-33px)] md:w-[calc(25%-33px)] bg-white"
                 >
                   {searchList.isLoading ? (
                     <LoadingComponent />
@@ -224,8 +237,55 @@ function Header() {
               </ClickAwayListener>
             )}
           </Box>
+          <div className="md:hidden" onClick={showDrawer}>
+            <MenuOutlined />
+          </div>
+          <Drawer
+            title="Basic Drawer"
+            placement="right"
+            onClose={onClose}
+            open={openDrawer}
+            width={200}
+          >
+            <div className="flex flex-col justify-start">
+              {[
+                'sale',
+                'mac',
+                'ipad',
+                'iphone',
+                'watch',
+                'airpods',
+                'accessories',
+              ].map((value, i) => (
+                <>
+                  <Button
+                    className="!justify-start !text-black"
+                    key={i}
+                    onClick={() => {
+                      navigate(`/${value}`);
+                      onClose();
+                    }}
+                  >
+                    {t(value)}
+                  </Button>
+                  <Divider className="m-0 text-black" />
+                </>
+              ))}
+              <Button
+                className="!justify-start !text-black"
+                onClick={() => {
+                  navigate(`/cart`);
+                  onClose();
+                }}
+              >
+                {t('cart')}
+              </Button>
+              <Divider className="m-0 text-black" />
+            </div>
+          </Drawer>
         </Box>
-        <Box className={classes.right}>
+
+        <Box className={`${classes.right} !hidden md:!flex`}>
           <LocationOnIcon fontSize="large" />
           <HelpOutlineIcon fontSize="large" />
           <div className="relative">
@@ -239,6 +299,7 @@ function Header() {
               {data?.cartItemList.length}
             </div>
           </div>
+          <LangSelect />
           {!isLoggedIn ? (
             <>
               <div className="w-28">
@@ -272,11 +333,10 @@ function Header() {
               </button>
             </div>
           )}
-
-          <LangSelect />
         </Box>
       </Box>
-      <Box className={classes.navigate}>
+      <div className={`${classes.navigate} min-h-[20px] md:!hidden`}></div>
+      <Box className={`${classes.navigate} !hidden  md:!flex`}>
         {[
           'sale',
           'mac',

@@ -52,9 +52,9 @@ const ProductDetail = () => {
       slidesPerView: 2,
       spaceBetween: 20,
     },
-    768: {
+    769: {
       slidesPerView: 3,
-      spaceBetween: 10,
+      spaceBetween: 60,
     },
     1024: {
       slidesPerView: 4,
@@ -118,15 +118,15 @@ const ProductDetail = () => {
         <div className="ml-8">{product?.productName}</div>
       </div>
       <div className="container-wrapper my-6">
-        <div className="flex justify-center gap-8">
-          <div className="w-1/5">
+        <div className="flex flex-col md:flex-row justify-center gap-8">
+          <div className="w-full md:w-2/5">
             <img
               src={`${imgUrl}/${product?.productUrl}`}
               width={300}
               height={300}
             />
           </div>
-          <div className="flex flex-col gap-4 w-2/5">
+          <div className="flex flex-col gap-4 w-full md:w-2/5">
             <div>
               <div className="text-[#F00101] text-xl">{t('new_product')}</div>
               <div className="font-bold text-2xl">
@@ -144,11 +144,11 @@ const ProductDetail = () => {
             </div>
             <div>
               <div>{t('choose_memory')}</div>
-              <div className="flex justify-between mt-3 gap-3">
+              <div className="grid grid-cols-2 md:flex justify-between mt-3 gap-3">
                 {['128GB', '256GB', '512GB'].map((data, i) => (
                   <div
                     key={i}
-                    className={`py-4 px-8 rounded-md border-black border cursor-pointer ${
+                    className={`py-4 px-8 rounded-md border-black border-2 cursor-pointer border-solid text-center ${
                       selectedRom === i ? 'bg-blue-300' : ''
                     }`}
                     onClick={() => setSelectedRom(i)}
@@ -156,16 +156,6 @@ const ProductDetail = () => {
                     {data}
                   </div>
                 ))}
-              </div>
-            </div>
-            <div>
-              <div>{t('check_apple_care')}</div>
-              <div className="flex gap-3">
-                <Checkbox
-                  checked={appleCareChecked}
-                  onChange={() => setAppleCareChecked(!appleCareChecked)}
-                />{' '}
-                Apple Care+ (4,750,000)
               </div>
             </div>
             <Divider className="bg-[#363636]/[0.83] my-4" />

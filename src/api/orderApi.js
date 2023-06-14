@@ -20,4 +20,15 @@ const cancelOrder = async id => {
 const executeOrder = async id => {
   return await axiosClient.put(`/api/order/execute/${id}`, null);
 };
-export { getMyOrder, getOrderById, cancelOrder, getAllOrder, executeOrder };
+
+const rejectOrder = async id => {
+  return await axiosClient.put(`/api/order/cancel/${id}`, null);
+};
+export {
+  getMyOrder,
+  getOrderById,
+  cancelOrder,
+  getAllOrder,
+  executeOrder,
+  rejectOrder,
+};

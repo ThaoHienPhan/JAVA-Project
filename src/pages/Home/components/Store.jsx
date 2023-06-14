@@ -21,9 +21,9 @@ const Store = () => {
       <h2 className="drop-shadow-lg font-medium text-3xl mb-3">
         {t('come_to_store')}
       </h2>
-      <div className="flex w-full justify-between gap-5">
+      <div className="flex w-full justify-between gap-5 flex-wrap lg:flex-nowrap">
         {stores.map((store, i) => (
-          <div key={i} className="w-1/2 relative">
+          <div key={i} className="w-full lg:w-1/2 relative">
             <img className="w-full object-contain" src={store.photo} alt="" />
             <p className="absolute bottom-2 left-1/2 bg-white/[0.56] p-2 transform -translate-x-1/2 w-4/5 rounded-lg text-center">
               {store.address}

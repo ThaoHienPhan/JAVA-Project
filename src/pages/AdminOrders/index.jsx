@@ -1,4 +1,3 @@
-import { CircularProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Modal, Table } from 'antd';
 import moment from 'moment';
@@ -7,15 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { getAllOrder } from '~/api/orderApi';
 import LoadingComponent from '~/components/Loading';
 import DetailModal from './DetailModal';
+import { useSelector } from 'react-redux';
 
 const AdminOrders = () => {
-  const allOrders = useQuery(['allOrders'], getAllOrder);
+  const { language } = useSelector(state => state.language);
+  const allOrders = useQuery(['allOrders', language], getAllOrder);
   const { t } = useTranslation();
   const imgUrl = 'http://localhost:8080/files';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentId, setCurrentId] = useState();
   const [executed, setExecuted] = useState();
+  const [cancel, setCancel] = useState();
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
@@ -53,7 +55,9 @@ const AdminOrders = () => {
           <>
             <button
               className="bg-blue-400 p-2 px-3 rounded-md text-white"
-              onClick={() => showModal(record.id, record.execute)}
+              onClick={() =>
+                showModal(record.id, record.execute, record.cancel)
+              }
             >
               {t('detail')}
             </button>
@@ -63,17 +67,16 @@ const AdminOrders = () => {
     ]);
   }, [allOrders.data]);
 
-  const showModal = (id, execute) => {
+  const showModal = (id, execute, cancel) => {
     setCurrentId(id);
     setExecuted(execute);
+    setCancel(cancel);
     setIsModalOpen(true);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  console.log(allOrders.data);
 
   if (allOrders.isLoading) {
     return <LoadingComponent />;
@@ -109,7 +112,11 @@ const AdminOrders = () => {
             </div>
             <div className="font-bold text-xl w-3/5 flex flex-col justify-center">
               <div className="text-2xl">
-                {allOrders.data.filter(data => data.execute === false).length}
+                {
+                  allOrders.data.filter(
+                    data => data.execute === false && data.cancel === false
+                  ).length
+                }
               </div>
               <div className="text-gray-500">{t('pending')}</div>
             </div>
@@ -137,6 +144,7 @@ const AdminOrders = () => {
           currentId={currentId}
           setIsModalOpen={setIsModalOpen}
           executed={executed}
+          cancel={cancel}
         />
       </Modal>
     </div>

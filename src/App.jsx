@@ -2,8 +2,7 @@
 import 'assets/styles/main.scss';
 
 import ProjectRoute from 'routes/ProjectRoutes';
-import { Provider } from 'react-redux';
-import store from 'store/store';
+
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -23,22 +22,20 @@ function App() {
 
   return (
     <div className="App">
-      <Provider store={store}>
-        <ProjectRoute />
-        <ToastContainer
-          limit={2}
-          position="top-center"
-          autoClose={500}
-          hideProgressBar={true}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
-      </Provider>
+      <ProjectRoute />
+      <ToastContainer
+        limit={2}
+        position="top-center"
+        autoClose={500}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }

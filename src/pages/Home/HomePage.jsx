@@ -54,7 +54,7 @@ function HomePage() {
         <img src={topSlider} alt="" />{' '}
       </div>
       <div className="container-wrapper my-8">
-        <div className="inline-grid grid-cols-6 gap-10">
+        <div className="inline-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-10">
           {categories.map((cat, i) => (
             <Category key={i} categories={cat} />
           ))}
@@ -67,18 +67,18 @@ function HomePage() {
           <h2 className="drop-shadow-lg font-medium text-3xl mb-3">
             {t('come_to_store')}
           </h2>
-          <div className="flex justify-between gap-14 px-8 py-4 drop-shadow-lg">
-            <Card className="w-1/3">
+          <div className="flex justify-between gap-14 px-8 py-4 drop-shadow-lg flex-wrap lg:flex-nowrap">
+            <Card className="w-full lg:w-1/3">
               <CardContent>
                 <Experience image={FastDeliver} message={t('fast_deli')} />
               </CardContent>
             </Card>
-            <Card className="w-1/3">
+            <Card className="w-full lg:w-1/3">
               <CardContent>
                 <Experience image={Authentic} message={t('auth_commit')} />
               </CardContent>
             </Card>
-            <Card className="w-1/3">
+            <Card className="w-full lg:w-1/3">
               <CardContent>
                 <Experience image={Sale} message={t('sale_programs')} />
               </CardContent>

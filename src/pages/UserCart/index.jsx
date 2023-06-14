@@ -51,8 +51,8 @@ const UserCart = () => {
           <h2 className="font-bold text-xl">{t('user_cart')}</h2>
           <p className="mt-3">{t('cart_ads')}</p>
         </div>
-        <div className="container-wrapper my-8 flex gap-8 justify-between">
-          <div className="w-2/3">
+        <div className="container-wrapper my-8 md:flex gap-8 justify-between">
+          <div className="md:w-2/3 w-full">
             <div
               className={`text-center bg-[#f2f2f2] p-4 relative hidden mb-8 ${
                 appleCard && 'lg:block'
@@ -85,7 +85,7 @@ const UserCart = () => {
             {data?.cartItemList?.map((item, i) => (
               <div key={i}>
                 {i !== 0 && <Divider />}
-                <div className="flex gap-5">
+                <div className="flex flex-col items-center md:items-stretch md:flex-row gap-5">
                   <img
                     src={`${imgUrl}/${item.product.productUrl}`}
                     height={200}
@@ -93,16 +93,16 @@ const UserCart = () => {
                   />
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
-                      <div className="flex justify-between w-full h-fit items-center">
-                        <h3 className="font-bold w-5/6">
+                      <div className="block md:flex justify-between w-full h-fit items-center text-lg">
+                        <h3 className="font-bold w-full md:w-5/6">
                           {item.product.productName}
                         </h3>
-                        <h3 className="font-bold w-1/5 text-end text-red-500">
+                        <h3 className="font-bold mt-3 md:mt-0 md:w-1/5 md:text-end text-red-500 ">
                           {item.total?.toLocaleString()}đ
                         </h3>
                       </div>
                       <div className="mt-6 flex justify-between w-full h-fit items-center">
-                        <Box className="w-1/5">
+                        <Box className="w-full md:w-1/5">
                           <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">
                               {t('quantity')}
@@ -130,14 +130,14 @@ const UserCart = () => {
                         </Box>
                       </div>
                     </div>
-                    <div className="text-end">
+                    <div className="mt-3 md:mt-0 md:text-end">
                       <button
-                        className="text-center bg-red-500 p-3 w-24 rounded-sm"
+                        className="text-center bg-red-500 p-3 md:w-24 rounded-sm w-full"
                         onClick={() => {
                           deleteItemFromCart.mutate(item.id);
                         }}
                       >
-                        <DeleteOutline />
+                        <DeleteOutline className="text-white" />
                       </button>
                     </div>
                   </div>
@@ -145,7 +145,7 @@ const UserCart = () => {
               </div>
             ))}
           </div>
-          <div className="w-1/3">
+          <div className="md:w-1/3 md:mt-0 mt-3 w-full">
             <div className="font-bold text-2xl">{t('summary')}</div>
             <div className="mt-6">
               <div className="flex justify-between">

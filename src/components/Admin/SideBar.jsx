@@ -5,10 +5,12 @@ import {
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { GrUserAdmin } from 'react-icons/gr';
-import { IoMdArrowDropdown } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../Logo';
+import { useTranslation } from 'react-i18next';
+import { Language } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeLanguage } from '~/store/slices/languageSlice';
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -20,31 +22,18 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
-const items = [
-  getItem('Products', 'product', <ShopOutlined />, [
-    getItem(
-      'List Products',
-      'list_products',
-      null,
-      [getItem('Products', '/admin/products')],
-      'group'
-    ),
-    getItem(
-      'Actions',
-      'action_product',
-      null,
-      [getItem('Add Product', '/admin/products/add')],
-      'group'
-    ),
-  ]),
-  getItem('Users', '/admin/users', <UserOutlined />),
-  getItem('Orders', '/admin/orders', <OrderedListOutlined />),
-];
-
 const SideBar = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
   const [activeKey, setActiveKey] = useState([pathname]);
+  const { language } = useSelector(state => state.language);
+
+  console.log(language);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
 
   useEffect(() => {
     setActiveKey(pathname);
@@ -54,10 +43,51 @@ const SideBar = () => {
     setActiveKey([pathname]);
   }, [pathname]);
 
+  const dispatch = useDispatch();
+
   const onClick = ({ key }) => {
     setActiveKey([key]);
-    navigate(key);
+    if (key === 'vietnamese') {
+      dispatch(changeLanguage('VI'));
+    } else if (key === 'english') {
+      dispatch(changeLanguage('EN'));
+    } else {
+      navigate(key);
+    }
   };
+
+  const items = [
+    getItem(t('products'), 'product', <ShopOutlined />, [
+      getItem(
+        t('products_list'),
+        'list_products',
+        null,
+        [getItem(t('products'), '/admin/products')],
+        'group'
+      ),
+      getItem(
+        t('actions'),
+        'action_product',
+        null,
+        [getItem(t('add_product'), '/admin/products/add')],
+        'group'
+      ),
+    ]),
+    getItem(t('users'), '/admin/users', <UserOutlined />),
+    getItem(t('orders'), '/admin/orders', <OrderedListOutlined />),
+    getItem(t('language'), '', <Language />, [
+      getItem(
+        'Language',
+        '.',
+        null,
+        [
+          getItem(t('vietnamese'), 'vietnamese', null),
+          getItem(t('english'), 'english', null),
+        ],
+        'group'
+      ),
+    ]),
+  ];
 
   return (
     <div className="min-h-screen bg-slate-100 min-w-[256px]">

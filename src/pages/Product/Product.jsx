@@ -32,7 +32,9 @@ const Product = ({ product, slider }) => {
       <OtherProducts product={data} />
       <div
         className="flex justify-center w-full"
-        onClick={() => navigate(`/product/type/${product}`)}
+        onClick={() =>
+          navigate(`/product/type/${product}`, { state: { type: product } })
+        }
       >
         <button className=" ct-button !px-6">{t('see_more')}</button>
       </div>
