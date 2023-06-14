@@ -1,4 +1,4 @@
-import { Checkbox, Divider } from 'antd';
+import { Checkbox, Divider, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -8,11 +8,25 @@ import ProductWithPrice from '~/components/Products/ProductItem/ProductWithPrice
 
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { CircularProgress } from '@mui/material';
+import {
+  Autocomplete,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Popper,
+  Select,
+  TextField,
+} from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addToCart } from '~/api/cartApi';
+import { addToCart, buyNow } from '~/api/cartApi';
 import { toast } from 'react-toastify';
 import toastConfig from '~/assets/toastConfig';
+import provinces from '~/assets/province';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import moment from 'moment';
 
 const imgUrl = 'http://localhost:8080/files';
 
@@ -23,6 +37,17 @@ const ProductDetail = () => {
   const { products } = useSelector(state => state.product);
   const [product, setProduct] = useState({});
   const pathname = useLocation();
+
+  const schema = yup
+    .object({
+      firstname: yup.string().required(t('name_request')),
+      lastname: yup.string().required(t('name_request')),
+      addressLine1: yup.string().required(t('address_1_request')),
+      addressLine2: yup.string().required(t('address_2_request')),
+      city: yup.string().required(t('city_request')),
+      phoneNumber: yup.string().min(10).max(10).required(t('phone_request')),
+    })
+    .required();
 
   const productData = useQuery(
     ['productDetail', products, pathname],
@@ -42,6 +67,16 @@ const ProductDetail = () => {
 
   const [selectedRom, setSelectedRom] = useState(0);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpen = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const [breakpoints, setBreakPoints] = useState({
     320: {
@@ -64,6 +99,14 @@ const ProductDetail = () => {
       slidesPerView: 5,
       spaceBetween: 10,
     },
+  });
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
   useEffect(() => {
@@ -93,6 +136,7 @@ const ProductDetail = () => {
   }, [suggestProducts.data]);
 
   const [appleCareChecked, setAppleCareChecked] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     setSelectedRom(0);
@@ -100,13 +144,35 @@ const ProductDetail = () => {
     setAppleCareChecked(false);
   }, [id]);
 
-  const mutation = useMutation({
+  const addCart = useMutation({
     mutationFn: addToCart,
     onSuccess: () => {
       queryClient.invalidateQueries(['userCart']);
       toast.success(t('add_cart_success'));
     },
   });
+
+  const buyRightNow = useMutation({
+    mutationFn: buyNow,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userCart']);
+      toast.success(t('success_common'));
+      setIsModalOpen(false);
+    },
+  });
+
+  const formSubmitHandler = data => {
+    buyRightNow.mutate({
+      productId: product.productId,
+      quantity: quantity,
+      data: {
+        address: `${data.addressLine1} ${data.addressLine2} ${data.city}`,
+        phoneNumber: data.phoneNumber,
+        receiveName: `${data.firstname} ${data.lastname}`,
+      },
+    });
+    reset();
+  };
 
   return productData.isLoading ? (
     <div className="w-full flex justify-center items-center my-8">
@@ -170,13 +236,13 @@ const ProductDetail = () => {
               <button
                 className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold"
                 onClick={() => {
-                  mutation.mutate({
+                  addCart.mutate({
                     productId: product?.productId,
                     quantity: 1,
                   });
                 }}
               >
-                {mutation.isLoading ? (
+                {addCart.isLoading ? (
                   <div className=" w-36">
                     <CircularProgress
                       style={{ width: '18px', height: '18px' }}
@@ -186,9 +252,195 @@ const ProductDetail = () => {
                   t('add_cart')
                 )}
               </button>
-              <button className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold">
+              <button
+                className="p-3 bg-[#F8BF2D]/[.35] rounded-lg font-semibold"
+                onClick={handleOpen}
+              >
                 {t('buy_now')}
               </button>
+              <Modal
+                title="Basic Modal"
+                open={isModalOpen}
+                onCancel={handleCancel}
+                footer={null}
+                width={1000}
+              >
+                <div className="flex w-full gap-16">
+                  <div className="w-3/5">
+                    <form
+                      className="flex flex-col gap-3 "
+                      onSubmit={handleSubmit(formSubmitHandler)}
+                    >
+                      <h4 className="text-xl font-semibold">
+                        {t('request_info')}
+                      </h4>
+                      <div className="flex justify-between gap-5">
+                        {['firstname', 'lastname'].map((data, i) => (
+                          <React.Fragment key={i}>
+                            <div className="w-1/2">
+                              <TextField
+                                label={t(data)}
+                                className="w-full"
+                                variant="outlined"
+                                {...register(data)}
+                              />
+                            </div>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                      <p className="text-red-500">{errors.lastname?.message}</p>
+
+                      <TextField
+                        label={t('address_line_1')}
+                        fullWidth
+                        variant="outlined"
+                        // defaultValue={userInfo.addressLine1}
+                        {...register('addressLine1')}
+                      />
+                      <p className="text-red-500">
+                        {errors.addressLine1?.message}
+                      </p>
+
+                      <TextField
+                        label={t('address_line_2')}
+                        // defaultValue={userInfo.addressLine2}
+                        fullWidth
+                        variant="outlined"
+                        {...register('addressLine2')}
+                      />
+                      <p className="text-red-500">
+                        {errors.addressLine2?.message}
+                      </p>
+
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={provinces}
+                        className="max-h-[200px] w-full"
+                        getOptionLabel={province => province.name}
+                        renderInput={params => (
+                          <TextField
+                            {...params}
+                            label={t('city')}
+                            {...register('city')}
+                          />
+                        )}
+                        PopperComponent={props => (
+                          <Popper
+                            {...props}
+                            className=" max-h-3 z-10"
+                            placement="bottom"
+                          />
+                        )}
+                      />
+                      <p className="text-red-500">{errors.city?.message}</p>
+
+                      <h4 className="font-semibold text-lg">
+                        {t('contact_request')}
+                      </h4>
+                      <TextField
+                        className="mb-2"
+                        label={t('phone_number')}
+                        fullWidth
+                        variant="outlined"
+                        {...register('phoneNumber')}
+                      />
+                      <p className="text-red-500">
+                        {errors.phoneNumber?.message}
+                      </p>
+
+                      <button
+                        type="submit"
+                        className="w-100 bg-black text-white rounded-full py-3 px-4"
+                      >
+                        {t('order')}
+                      </button>
+                    </form>
+                  </div>
+                  <div className="w-2/5">
+                    <div className="font-bold text-2xl">{t('summary')}</div>
+                    <div className="mt-6">
+                      <div className="flex justify-between">
+                        <h2>{t('subtotal')}</h2>
+                        <h2>
+                          {(
+                            product?.productLastPrice * quantity
+                          ).toLocaleString()}
+                          đ
+                        </h2>
+                      </div>
+                      <div className="flex justify-between mt-3">
+                        <h2 className="w-3/5">{t('delivery_handling')}</h2>
+                        <h2>{t('free')}</h2>
+                      </div>
+                    </div>
+                    <Divider />
+                    <div className="mt-6">
+                      <div className="flex justify-between">
+                        <h2>{t('total_price')}</h2>
+                        <h2>
+                          {(
+                            product?.productLastPrice * quantity
+                          ).toLocaleString()}
+                          đ
+                        </h2>
+                      </div>
+                    </div>
+                    <Divider />
+                    <div>
+                      <div className="font-bold text-lg flex justify-between">
+                        <h4>{t('arrives_day')}</h4>
+                        <h4>{moment().add(3, 'days').format('DD/MM/YYYY')}</h4>
+                      </div>
+                      <div className="flex flex-col gap-5 mt-5">
+                        <div>
+                          <div className="flex gap-3 justify-between">
+                            <div className=" w-1/3">
+                              <img
+                                src={`${imgUrl}/${product?.productUrl}`}
+                                alt={''}
+                                className="object-contain w-2/3"
+                              />
+                            </div>
+                            <div className="w-2/3">
+                              <h4 className="font-semibold">
+                                {product?.productName}
+                              </h4>
+                              <div className="my-3">
+                                <FormControl fullWidth>
+                                  <InputLabel id="demo-simple-select-label">
+                                    {t('quantity')}
+                                  </InputLabel>
+                                  <Select
+                                    size="small"
+                                    value={quantity}
+                                    label={t('quantity')}
+                                    onChange={e => {
+                                      setQuantity(e.target.value);
+                                    }}
+                                  >
+                                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+                                      (quantity, i) => (
+                                        <MenuItem key={i} value={quantity}>
+                                          {quantity}
+                                        </MenuItem>
+                                      )
+                                    )}
+                                  </Select>
+                                </FormControl>
+                              </div>
+                              <h2>
+                                {product?.productLastPrice.toLocaleString()}đ
+                              </h2>
+                            </div>
+                          </div>
+                          <Divider />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Modal>
             </div>
           </div>
         </div>
