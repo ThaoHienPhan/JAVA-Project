@@ -50,8 +50,8 @@ function HomePage() {
   ];
   return (
     <>
-      <div className="flex justify-end my-8 ">
-        <img src={topSlider} alt="" />{' '}
+      <div className="flex justify-end my-8 w-full overflow-hidden">
+        <img src={topSlider} alt="" className='banner-zoom'/>{' '}
       </div>
       <div className="container-wrapper my-8">
         <div className="inline-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-10">
