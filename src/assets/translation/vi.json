@@ -64,6 +64,7 @@
   "summary": "Tổng cộng",
   "subtotal": "Tổng phụ",
   "total_price": "Tổng tiền",
+  "payment_method": "Phương thức thanh toán",
   "delivery_handling": "Dự kiến phí giao hàng và xử lí",
   "checkout": "Thanh toán",
   "free": "Miễn phí",
