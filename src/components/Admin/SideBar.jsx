@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Language } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLanguage } from '~/store/slices/languageSlice';
+import logo from 'assets/images/logo.png';
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -69,7 +70,7 @@ const SideBar = () => {
         t('actions'),
         'action_product',
         null,
-        [getItem(t('add_product'), '/admin/products/add')],
+        [getItem(t('add_products'), '/admin/products/add')],
         'group'
       ),
     ]),
@@ -92,7 +93,12 @@ const SideBar = () => {
   return (
     <div className="min-h-screen bg-slate-100 min-w-[256px]">
       <div className="flex justify-center items-center text-xl font-semibold my-8">
-        <Logo />
+        <div className="flex items-center">
+          <img src={logo} alt="" width={50} />
+          <div className="text-base">
+            <p>{t('branch_name')}</p>
+          </div>
+        </div>
       </div>
       <Menu
         onClick={onClick}

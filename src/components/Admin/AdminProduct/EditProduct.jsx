@@ -81,7 +81,7 @@ function EditProduct(props) {
     onSuccess: () => {
       queryClient.invalidateQueries(['allProducts']);
       queryClient.invalidateQueries(['productDetail']);
-      navigate('/admin/products/list');
+      navigate('/admin/products');
       toast.success(t('add_success_common'));
     },
   });
