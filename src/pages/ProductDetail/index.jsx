@@ -268,7 +268,7 @@ const ProductDetail = () => {
                 {t('buy_now')}
               </button>
               <Modal
-                title="Basic Modal"
+                title={t('buy_now')}
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={null}

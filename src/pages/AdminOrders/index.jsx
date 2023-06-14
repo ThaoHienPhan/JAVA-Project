@@ -127,13 +127,15 @@ const AdminOrders = () => {
       <Table
         rowKey="id"
         columns={columns}
-        dataSource={allOrders.data.filter(
-          item => item.tenNguoiNhan !== null && !!item.tenNguoiNhan.trim()
-        )}
+        dataSource={allOrders.data
+          .filter(
+            item => item.tenNguoiNhan !== null && !!item.tenNguoiNhan.trim()
+          )
+          .sort((a, b) => moment(b.timestamp).diff(moment(a.timestamp)))}
         pagination={{ hideOnSinglePage: true, pageSize: 5 }}
       />
       <Modal
-        title="Basic Modal"
+        title={t('detail')}
         open={isModalOpen}
         onCancel={handleCancel}
         className="!w-3/5"
