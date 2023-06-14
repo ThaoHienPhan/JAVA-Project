@@ -10,6 +10,12 @@ const addToCart = async ({ productId, quantity }) => {
   });
 };
 
+const buyNow = async ({ productId, quantity, data }) => {
+  return await axiosClient.post(`/api/order/muangay`, data, {
+    params: { productId: productId, quantity: quantity },
+  });
+};
+
 const updateCart = async ({ id, quantity }) => {
   return await axiosClient.put(`/api/cart/mycart/updateItems`, [
     {
@@ -31,4 +37,11 @@ const makeOrderFromCart = async ({ address, phoneNumber, receiveName }) => {
   });
 };
 
-export { addToCart, getMyCart, updateCart, makeOrderFromCart, deleteItem };
+export {
+  addToCart,
+  getMyCart,
+  updateCart,
+  makeOrderFromCart,
+  deleteItem,
+  buyNow,
+};

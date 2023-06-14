@@ -20,6 +20,7 @@ import UserOrder from '~/pages/UserOrder';
 import AdminProducts from '~/pages/AdminProducts';
 import EditProduct from '~/components/Admin/AdminProduct/EditProduct';
 import AdminOrders from '~/pages/AdminOrders';
+import QAPage from '~/pages/QA';
 
 const publicRoutes = [
   { path: '/', component: HomePage },
@@ -50,6 +51,7 @@ const publicRoutes = [
   { path: '/cart', component: UserCart },
   { path: '/checkout', component: CheckOut },
   { path: '/order/my', component: UserOrder },
+  { path: '/qa', component: QAPage },
 ];
 
 const authRoutes = [
