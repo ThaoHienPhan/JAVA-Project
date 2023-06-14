@@ -182,6 +182,7 @@ function Header() {
       <Box className={`${classes.header}`}>
         <Box className={`${classes.left} !gap-5 md:!gap-10`}>
           <Logo />
+
           <Box className="search relative w-1/2">
             <Search>
               <StyledInputBase
