@@ -7,7 +7,7 @@ const ProductItem = ({ item }) => {
   const navigate = useNavigate();
   return (
     <div
-      className="flex flex-col flex-wrap items-center bg-white p-5 rounded-lg cursor-pointer ct-shadow"
+      className="flex flex-col flex-wrap items-center bg-white p-5 rounded-lg cursor-pointer ct-shadow transform hover:scale-105 transition-all duration-300"
       onClick={() => navigate(`/product/detail/${item.productId || item.id}`)}
     >
       {item ? (

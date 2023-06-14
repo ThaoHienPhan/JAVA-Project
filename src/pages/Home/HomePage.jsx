@@ -50,7 +50,7 @@ function HomePage() {
   ];
   return (
     <>
-      <div className="flex justify-end my-8">
+      <div className="flex justify-end my-8 ">
         <img src={topSlider} alt="" />{' '}
       </div>
       <div className="container-wrapper my-8">
@@ -59,7 +59,7 @@ function HomePage() {
             <Category key={i} categories={cat} />
           ))}
         </div>
-        <div className="mt-8">
+        <div className="mt-8 transform hover:scale-105 transition-all duration-300">
           <img src={middleSlider} alt="" />
         </div>
         <Store />

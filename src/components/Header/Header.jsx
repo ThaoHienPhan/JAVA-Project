@@ -178,7 +178,7 @@ function Header() {
   };
 
   return (
-    <>
+    <div className='sticky top-0 z-50 !bg-white'>
       <Box className={`${classes.header}`}>
         <Box className={`${classes.left} !gap-5 md:!gap-10`}>
           <Logo />
@@ -346,12 +346,12 @@ function Header() {
           'airpods',
           'accessories',
         ].map((value, i) => (
-          <Button key={i} onClick={() => navigate(`/${value}`)}>
+          <button key={i} onClick={() => navigate(`/${value}`)} className='py-5 px-3 text-white uppercase font-semibold hover:!bg-gray-100 hover:!text-black'>
             {t(value)}
-          </Button>
+          </button>
         ))}
       </Box>
-    </>
+    </div>
   );
 }
 

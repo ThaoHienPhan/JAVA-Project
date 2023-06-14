@@ -27,7 +27,7 @@ const Product = ({ product, slider }) => {
     </div>
   ) : (
     <div className="container-wrapper mb-6">
-      <BannerWithBtn banner={slider} />
+      <BannerWithBtn banner={slider}/>
       <HotSale product={data} />
       <OtherProducts product={data} />
       <div
