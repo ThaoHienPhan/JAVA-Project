@@ -8,6 +8,7 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from 'antd';
 import { useSelector } from 'react-redux';
+import LoadingComponent from '~/components/Loading';
 
 const UserOrder = () => {
   const userOrder = useQuery(['userOrder'], getMyOrder);
@@ -36,9 +37,19 @@ const UserOrder = () => {
     console.log(key);
   };
 
-  return userOrder.isLoading ? (
-    <CircularProgress />
-  ) : (
+  if (!localStorage.getItem('accessToken')) {
+    return (
+      <div className="container-wrapper text-center text-2xl mt-8">
+        {t('login_to_access')}
+      </div>
+    );
+  }
+
+  if (userOrder.isLoading) {
+    return <LoadingComponent />;
+  }
+
+  return (
     <div className="container-wrapper my-8">
       <div>
         <div className="my-3">{t('orders')}</div>

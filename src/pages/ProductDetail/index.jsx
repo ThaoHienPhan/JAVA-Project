@@ -273,6 +273,7 @@ const ProductDetail = () => {
                 onCancel={handleCancel}
                 footer={null}
                 width={1000}
+                centered
               >
                 <div className="flex w-full gap-16">
                   <div className="w-3/5">

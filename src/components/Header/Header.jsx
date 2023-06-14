@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useTranslation } from 'react-i18next';
-
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import LangSelect from 'components/LangSelect/LangSelect';
 import { useDispatch } from 'react-redux';
 import { logout } from '~/store/slices/authSlice';
@@ -291,6 +291,10 @@ function Header() {
           <div className="cursor-pointer" onClick={() => navigate('/qa')}>
             <HelpOutlineIcon fontSize="large" />
           </div>
+          <div className="cursor-pointer" onClick={() => navigate('/order/my')}>
+            <ReceiptLongIcon fontSize="large" />
+          </div>
+          
           <div className="relative">
             <ShoppingCart
               style={{ color: '#6c757d' }}
