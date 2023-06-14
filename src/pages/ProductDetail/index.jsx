@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import productApi from '~/api/productApi';
 import ProductWithPrice from '~/components/Products/ProductItem/ProductWithPrice';
+import payment_method from '../../assets/images/payment_method.jpg';
 
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -172,6 +173,14 @@ const ProductDetail = () => {
       },
     });
     reset();
+  };
+  const [momoPayment, setMomoPayment] = useState(false);
+  const handleChecked = e => {
+    if (e.target.id === 'momo' && e.target.checked) {
+      setMomoPayment(true);
+    } else {
+      setMomoPayment(false);
+    }
   };
 
   return productData.isLoading ? (
@@ -386,6 +395,42 @@ const ProductDetail = () => {
                         </h2>
                       </div>
                     </div>
+                    <Divider />
+                    <div className="flex justify-between mt-6">
+                      <p>{t('payment_method')}</p>
+                      <div className="flex flex-col gap-[10px] mb-3">
+                        <div className="flex gap-[5px] items-center">
+                          <input
+                            type="radio"
+                            id="cod"
+                            name="checkout_method"
+                            value="COD"
+                            defaultChecked
+                            onChange={handleChecked}
+                          />
+                          <label htmlFor="cod">Ship COD</label>
+                        </div>{' '}
+                        <div className="flex gap-[5px] items-center">
+                          <input
+                            type="radio"
+                            id="momo"
+                            name="checkout_method"
+                            value="MOMO"
+                            onChange={handleChecked}
+                          />
+                          <label htmlFor="momo">Momo</label>
+                        </div>
+                      </div>
+                    </div>
+                    {momoPayment && (
+                      <div>
+                        <img
+                          className="rounded-md"
+                          src={payment_method}
+                          alt="payment_method"
+                        />
+                      </div>
+                    )}
                     <Divider />
                     <div>
                       <div className="font-bold text-lg flex justify-between">

@@ -201,7 +201,7 @@ table {
 }
 
 .ct-sort-btn {
-  @apply bg-gray-300 p-2 rounded-xl;
+  @apply bg-gray-300 p-3 rounded-xl;
 }
 
 .ct-edit-btn {

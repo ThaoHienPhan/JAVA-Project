@@ -8,7 +8,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Divider } from 'antd';
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -17,11 +17,13 @@ import * as yup from 'yup';
 import { getMyCart, makeOrderFromCart } from '~/api/cartApi';
 import provinces from '~/assets/province';
 import LoadingComponent from '~/components/Loading';
+import payment_method from '../../assets/images/payment_method.jpg';
 
 const imgUrl = 'http://localhost:8080/files';
 
 const CheckOut = () => {
   const { t } = useTranslation();
+  const [momoPayment, setMomoPayment] = useState(false);
 
   const schema = yup
     .object({
@@ -70,6 +72,14 @@ const CheckOut = () => {
   if (isLoading) {
     return <LoadingComponent />;
   }
+
+  const handleChecked = e => {
+    if (e.target.id === 'momo' && e.target.checked) {
+      setMomoPayment(true);
+    } else {
+      setMomoPayment(false);
+    }
+  };
 
   return (
     <div className="container-wrapper max-w-5xl">
@@ -175,6 +185,42 @@ const CheckOut = () => {
                 <h2>{data?.total.toLocaleString()}đ</h2>
               </div>
             </div>
+            <Divider />
+            <div className="flex justify-between mt-6">
+              <p>{t('payment_method')}</p>
+              <div className="flex flex-col gap-[10px] mb-3">
+                <div className="flex gap-[5px] items-center">
+                  <input
+                    type="radio"
+                    id="cod"
+                    name="checkout_method"
+                    value="COD"
+                    defaultChecked
+                    onChange={handleChecked}
+                  />
+                  <label htmlFor="cod">Ship COD</label>
+                </div>{' '}
+                <div className="flex gap-[5px] items-center">
+                  <input
+                    type="radio"
+                    id="momo"
+                    name="checkout_method"
+                    value="MOMO"
+                    onChange={handleChecked}
+                  />
+                  <label htmlFor="momo">Momo</label>
+                </div>
+              </div>
+            </div>
+            {momoPayment && (
+              <div>
+                <img
+                  className="rounded-md"
+                  src={payment_method}
+                  alt="payment_method"
+                />
+              </div>
+            )}
             <Divider />
             <div>
               <div className="font-bold text-lg flex justify-between">

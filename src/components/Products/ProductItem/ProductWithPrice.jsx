@@ -8,7 +8,7 @@ const ProductWithPrice = ({ item }) => {
   const { t } = useTranslation();
   return (
     <div
-      className={`product__price flex flex-col justify-between flex-nowrap items-center bg-white p-5 rounded-2xl ct-shadow cursor-pointer h-[350px] w-56`}
+      className={`product__price flex flex-col justify-between flex-nowrap items-center bg-white p-5 rounded-2xl ct-shadow cursor-pointer h-[350px] w-56 transform hover:scale-105 transition-all duration-300`}
       onClick={() => {
         navigate(`/product/detail/${item.id}`);
       }}
