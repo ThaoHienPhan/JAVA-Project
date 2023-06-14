@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { getMyCart, makeOrderFromCart } from '~/api/cartApi';
 import provinces from '~/assets/province';
+import LoadingComponent from '~/components/Loading';
 
 const imgUrl = 'http://localhost:8080/files';
 
@@ -67,11 +68,7 @@ const CheckOut = () => {
   });
 
   if (isLoading) {
-    return (
-      <div className="container-wrapper flex items-center justify-center">
-        <CircularProgress />
-      </div>
-    );
+    return <LoadingComponent />;
   }
 
   return (

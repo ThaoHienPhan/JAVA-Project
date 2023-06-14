@@ -7,6 +7,9 @@ const productApi = {
     return res;
   }),
   getAllProducts: async () => {
+    return await axiosClient.get('/api/product/allproducts');
+  },
+  getProductsPage: async () => {
     const res = await axiosClient.get('/api/product');
     return res.data;
   },
@@ -26,6 +29,17 @@ const productApi = {
       params: { query: query },
     });
     return res.data;
+  },
+  updateProduct: async ({ id, data }) => {
+    const res = await axiosClient.put(`/api/product/update/${id}`, data);
+    return res.data;
+  },
+  addProduct: async ({ data }) => {
+    const res = await axiosClient.post(`/api/product/add`, data);
+    return res.data;
+  },
+  deleteProduct: async id => {
+    return await axiosClient.delete(`/api/product/delete/${id}`);
   },
 };
 

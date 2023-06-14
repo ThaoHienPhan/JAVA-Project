@@ -24,6 +24,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMyCart } from '~/api/cartApi';
 import { useDebounce } from '@uidotdev/usehooks';
 import productApi from '~/api/productApi';
+import LoadingComponent from '../Loading';
 
 Header.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -187,12 +188,10 @@ function Header() {
                   open={Boolean(openPopper)}
                   anchorEl={anchorEl}
                   placement="bottom-start"
-                  className="z-10 w-[250px] max-w-[250px] bg-white"
+                  className="z-10 w-[calc(25%-33px)] bg-white"
                 >
                   {searchList.isLoading ? (
-                    <div className="flex flex-col justify-center items-center min-h-[200px]">
-                      <CircularProgress />
-                    </div>
+                    <LoadingComponent />
                   ) : (
                     <>
                       <div className=" p-2 flex flex-col gap-3">

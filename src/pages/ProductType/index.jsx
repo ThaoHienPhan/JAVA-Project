@@ -18,20 +18,24 @@ const ProductType = () => {
   useEffect(() => {
     setSortedData(data);
   }, [data]);
+
   const handleSort = sortType => {
     setSortType(sortType);
     const newData = [...data];
     let sortedProducts = [];
 
-    if (sortType === 'high_to_low') {
-      sortedProducts = newData.sort((a, b) => b.price - a.price);
-    } else if (sortType === 'low_to_high') {
-      sortedProducts = newData.sort((a, b) => a.price - b.price);
-    } else if (sortType === 'hot_deals') {
-      // Implement your sorting logic for hot deals
-      sortedProducts = newData.sort((a, b) => b.discount - a.discount);
-    } else if (sortType === 'mostViewed') {
-      // Implement your sorting logic for most viewed
+    switch (sortType) {
+      case 'high_to_low':
+        sortedProducts = newData.sort((a, b) => b.price - a.price);
+        break;
+      case 'low_to_high':
+        sortedProducts = newData.sort((a, b) => a.price - b.price);
+        break;
+      case 'hot_deals':
+        sortedProducts = newData.sort((a, b) => b.discount - a.discount);
+        break;
+      default:
+        break;
     }
 
     setSortedData(sortedProducts);

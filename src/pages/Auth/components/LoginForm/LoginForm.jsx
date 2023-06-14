@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Button, LinearProgress, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Box, LinearProgress, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 LoginForm.propTypes = {};
 const useStyles = makeStyles(() => ({
@@ -66,6 +67,7 @@ const useStyles = makeStyles(() => ({
 function LoginForm(props) {
   const classes = useStyles();
   const { t } = useTranslation();
+  const loginState = useSelector(state => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -90,23 +92,22 @@ function LoginForm(props) {
       await dispatch(
         login({ username: values.username, password: values.password })
       );
-      navigate('/');
     } catch (err) {
-      console.log('Loi ne:', t(err));
+      console.log(err);
     }
   };
 
-  const handleSubmit = values => {
-    dispatch(login({ username: values.username, password: values.password }))
-      .then(() => {
-        // Đăng nhập thành công, điều hướng đến trang '/'
-        navigate('/');
-      })
-      .catch(error => {
-        // Xử lý lỗi nếu có
-        console.log('Đăng nhập thất bại:', error);
-      });
-  };
+  useEffect(() => {
+    if (loginState.loggedIn) {
+      navigate('/');
+    }
+  }, [loginState]);
+
+  useEffect(() => {
+    if (loginState.error) {
+      toast.error(t(loginState.error));
+    }
+  }, [loginState.error]);
 
   const { isSubmitting } = form.formState;
   return (
@@ -117,7 +118,7 @@ function LoginForm(props) {
         <Typography>{t('login_note_1')}</Typography>
       </Box>
       <Box>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(handleLogin)}>
           <Box className={classes.input}>
             <PersonOutlineIcon />
             <InputField name="username" label="Username" form={form} />

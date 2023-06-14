@@ -10,6 +10,7 @@ export default {
       },
       spacing: {
         22: '22%',
+        '10px': '10px',
       },
       maxWidth: {
         img: '300px',

@@ -5,7 +5,6 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/material';
 import { useMatch, useNavigate } from 'react-router-dom';
 import RegisterForm from './components/RegisterForm/RegisterForm';
-import Logo from '~/components/Logo';
 import logo from 'assets/images/logo.png';
 import { useTranslation } from 'react-i18next';
 
@@ -38,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Auth(props) {
+function Auth() {
   const { t } = useTranslation();
   const classes = useStyles();
   const match = useMatch('/login');

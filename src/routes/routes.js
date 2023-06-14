@@ -14,11 +14,12 @@ import ProductType from '~/pages/ProductType';
 import UserCart from '~/pages/UserCart';
 import CheckOut from '~/pages/Checkout';
 
-import AdminLayout from '~/layout/AdminLayout';
 import AdminHome from '~/components/Admin/AdminHome';
-import AdminProduct from '~/components/Admin/AdminProduct';
 import AdminUser from '~/components/Admin/AdminUser';
 import UserOrder from '~/pages/UserOrder';
+import AdminProducts from '~/pages/AdminProducts';
+import EditProduct from '~/components/Admin/AdminProduct/EditProduct';
+import AdminOrders from '~/pages/AdminOrders';
 
 const publicRoutes = [
   { path: '/', component: HomePage },
@@ -58,8 +59,12 @@ const authRoutes = [
 
 const adminRoutes = [
   { path: '/admin', component: AdminHome },
-  { path: '/admin/products', component: AdminProduct },
+  { path: '/admin/products', component: AdminProducts },
+  { path: '/admin/products/add', component: EditProduct },
+  { path: '/admin/products/update/:id', component: EditProduct },
+  { path: '/admin/dashboard', component: AdminUser },
   { path: '/admin/users', component: AdminUser },
+  { path: '/admin/orders', component: AdminOrders },
 ];
 
 export { publicRoutes, authRoutes, adminRoutes };

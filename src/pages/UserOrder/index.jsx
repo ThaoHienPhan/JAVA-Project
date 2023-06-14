@@ -1,61 +1,69 @@
-import { CircularProgress, Collapse } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment/moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMyOrder } from '~/api/orderApi';
 import CollapseData from './CollapseData';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import { Collapse } from 'antd';
 
 const UserOrder = () => {
   const userOrder = useQuery(['userOrder'], getMyOrder);
   const { t } = useTranslation();
 
-  const [expanded, setExpanded] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-  const handleExpandClick = index => {
-    setExpanded(prevExpanded => {
-      const newExpanded = [...prevExpanded];
-      newExpanded[index] = !newExpanded[index];
-      return newExpanded;
-    });
-  };
+  const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
+
+  const items = [
+    {
+      key: '1',
+      label: 'This is panel header 1',
+      children: <p>{text}</p>,
+    },
+    {
+      key: '2',
+      label: 'This is panel header 2',
+      children: <p>{text}</p>,
+    },
+    {
+      key: '3',
+      label: 'This is panel header 3',
+      children: <p>{text}</p>,
+    },
+  ];
+
+  useEffect(() => {
+    const mappedData = userOrder.data?.map(item => ({
+      key: item.id,
+      label: (
+        <div className="flex gap-5">
+          <p className="w-1/2">{`${item.tenNguoiNhan} - ${item.soDienThoai}`}</p>
+          <div className="w-1/2">{`${t('address')}: ${item.diaChi}`}</div>
+        </div>
+      ),
+      children: <CollapseData itemId={item.id} cancel={item.cancel} />,
+    }));
+    setOrders(mappedData);
+  }, [userOrder.data]);
 
   console.log(userOrder.data);
+
+  const onChange = key => {
+    console.log(key);
+  };
+
   return userOrder.isLoading ? (
     <CircularProgress />
   ) : (
     <div className="container-wrapper my-8">
       <div>
-        {!!userOrder.data &&
-          userOrder.data.map((item, index) => (
-            <div key={item.id} className="shadow-lg">
-              <div
-                onClick={() => handleExpandClick(index)}
-                className="w-full flex cursor-pointer p-5 justify-between items-center shadow-sm font-semibold"
-              >
-                <div className="w-1/4">
-                  {`${index + 1}. ${item.tenNguoiNhan}`}
-                </div>
-                <div className="w-1/4">
-                  {`${t('order_time')}: ${moment(item.timestamp).format(
-                    'DD/MM/YYYY'
-                  )}`}
-                </div>
-                <div className="w-1/4">{`${t('phone_number')}: ${
-                  item.soDienThoai
-                }`}</div>
-                <div>{expanded[index] ? <ExpandLess /> : <ExpandMore />}</div>
-              </div>
-              <Collapse in={expanded[index]}>
-                <CollapseData
-                  itemId={item.id}
-                  cancel={item.cancel}
-                  expanded={expanded}
-                />
-              </Collapse>
-            </div>
-          ))}
+        <Collapse items={orders} onChange={onChange} />;
       </div>
     </div>
   );

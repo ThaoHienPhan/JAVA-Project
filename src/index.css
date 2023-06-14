@@ -63,6 +63,14 @@ code {
   @apply bg-gray-300 p-2 rounded-xl;
 }
 
+.ct-edit-btn {
+  @apply px-[30px] py-[10px] border rounded-md hover:bg-blue-500;
+}
+
+.ct-modal-btn {
+  @apply py-2 px-4 border-2 rounded-md;
+}
+
 .swiper-container {
   width: 480px;
 }

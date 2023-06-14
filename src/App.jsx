@@ -12,6 +12,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'react-toastify/dist/ReactToastify.css';
 
+import 'sweetalert2/src/sweetalert2.scss';
+
 function App() {
   const { pathname } = useLocation();
 

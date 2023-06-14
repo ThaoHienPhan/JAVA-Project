@@ -8,7 +8,7 @@ import { cancelOrder, getOrderById } from '~/api/orderApi';
 
 const imgUrl = 'http://localhost:8080/files';
 
-const CollapseData = ({ itemId, cancel, expanded }) => {
+const CollapseData = ({ itemId, cancel }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -17,19 +17,12 @@ const CollapseData = ({ itemId, cancel, expanded }) => {
     () => getOrderById(itemId),
     {
       enabled: !!itemId,
-      staleTime: 5000000,
-      cacheTime: 5000000,
-      refetchOnWindowFocus: false,
       retry: 0,
     }
   );
 
-  useEffect(() => {
-    console.log(expanded);
-  }, []);
-
   const mutation = useMutation({
-    mutationFn: cancelOrder(itemId),
+    mutationFn: cancelOrder,
     onSuccess: () => {
       queryClient.invalidateQueries(['userOrder']);
       queryClient.invalidateQueries(['orderDetails']);
@@ -56,11 +49,6 @@ const CollapseData = ({ itemId, cancel, expanded }) => {
                 <h3 className="font-semibold text-lg">
                   {data.product.productName}
                 </h3>
-                {!!cancel && (
-                  <h3 className="text-red-500 font-semibold text-lg">
-                    {t('cancelled')}
-                  </h3>
-                )}
               </div>
               <div className="flex justify-between pt-3">
                 <h3>{`${t('quantity')}: ${data.quantity}`}</h3>
@@ -84,14 +72,20 @@ const CollapseData = ({ itemId, cancel, expanded }) => {
             {data.orderTotal.toLocaleString()}đ
           </span>
         </div>
-        <button
-          className="mt-3 bg-red-500 p-3 rounded-sm text-white"
-          onClick={() => {
-            mutation.mutate();
-          }}
-        >
-          {t('cancel_order')}
-        </button>
+        {cancel ? (
+          <h3 className="text-red-500 font-semibold text-lg mt-3">
+            {t('cancelled')}
+          </h3>
+        ) : (
+          <button
+            className="mt-3 bg-red-500 p-3 rounded-sm text-white"
+            onClick={() => {
+              mutation.mutate(itemId);
+            }}
+          >
+            {t('cancel_order')}
+          </button>
+        )}
       </div>
     </div>
   );
