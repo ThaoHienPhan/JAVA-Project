@@ -23,9 +23,9 @@ const OtherProducts = ({ product }) => {
       slidesPerView: 4,
       spaceBetween: 20,
     },
-    1296: {
+    1300: {
       slidesPerView: 5,
-      spaceBetween: 10,
+      spaceBetween: 20,
     },
   });
 
@@ -59,11 +59,11 @@ const OtherProducts = ({ product }) => {
       <Swiper
         modules={[Navigation]}
         spaceBetween={0}
-        slidesPerView={product.length}
+        slidesPerView={product?.slice(0, 5).length}
         navigation={true}
         breakpoints={breakpoints}
       >
-        {product?.map((prod, i) => (
+        {product?.slice(0, 5)?.map((prod, i) => (
           <SwiperSlide key={`${prod.id}_${i}`}>
             <ProductWithPrice item={prod} />
           </SwiperSlide>

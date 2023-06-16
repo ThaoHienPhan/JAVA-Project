@@ -6,7 +6,6 @@ import {
 import { Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Logo from '../Logo';
 import { useTranslation } from 'react-i18next';
 import { Language } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';

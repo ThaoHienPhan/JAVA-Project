@@ -64,7 +64,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function LoginForm(props) {
+function LoginForm() {
   const classes = useStyles();
   const { t } = useTranslation();
   const loginState = useSelector(state => state.auth);

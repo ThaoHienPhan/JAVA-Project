@@ -3,15 +3,13 @@ import { makeStyles } from '@mui/styles';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, LinearProgress, Typography } from '@mui/material';
+import { Box, LinearProgress, Typography } from '@mui/material';
 import InputField from 'components/form-control/inputField/InputField';
 import PasswordField from 'components/form-control/passwordField/PasswordField';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LockIcon from '@mui/icons-material/Lock';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import EmailIcon from '@mui/icons-material/Email';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import testComponent from '../TestComponent/TestComponent';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { register } from '~/api/authApi';
@@ -64,7 +62,7 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
-function RegisterForm(props) {
+function RegisterForm() {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();

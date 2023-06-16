@@ -124,6 +124,7 @@ function Header() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { data } = useQuery(['userCart'], getMyCart, { retry: 1 });
+  const [active, setActive] = useState('');
 
   const classes = useStyles();
 
@@ -294,7 +295,7 @@ function Header() {
           <div className="cursor-pointer" onClick={() => navigate('/order/my')}>
             <ReceiptLongIcon fontSize="large" />
           </div>
-          
+
           <div className="relative">
             <ShoppingCart
               style={{ color: '#6c757d' }}
@@ -355,8 +356,13 @@ function Header() {
         ].map((value, i) => (
           <button
             key={i}
-            onClick={() => navigate(`/${value}`)}
-            className="py-5 px-3 text-white uppercase font-semibold hover:!bg-gray-100 hover:!text-black"
+            onClick={() => {
+              navigate(`/${value}`);
+              setActive(value);
+            }}
+            className={`py-5 px-3 text-white uppercase font-semibold hover:!bg-gray-100 hover:!text-black ${
+              active === value && 'bg-gray-100 !text-black'
+            }`}
           >
             {t(value)}
           </button>
