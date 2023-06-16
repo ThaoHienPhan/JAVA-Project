@@ -1,6 +1,8 @@
 {
   "login_btn": "Đăng nhập",
   "signup_btn": "Đăng ký",
+  "already_logged_in": "Chưa có tài khoản?",
+  "dont_have_acc": "Đã có tài khoản?",
   "logout_btn": "Đăng xuất",
   "sale": "Khuyến mãi",
   "mac": "Mac",

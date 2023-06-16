@@ -60,7 +60,7 @@ const authRoutes = [
 ];
 
 const adminRoutes = [
-  { path: '/admin', component: AdminHome },
+  { path: '/admin', component: AdminProducts },
   { path: '/admin/products', component: AdminProducts },
   { path: '/admin/products/add', component: EditProduct },
   { path: '/admin/products/update/:id', component: EditProduct },

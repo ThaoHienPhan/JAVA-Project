@@ -1,6 +1,8 @@
 {
   "login_btn": "Log in",
   "signup_btn": "Sign up",
+  "already_logged_in": "Aready have account?",
+  "dont_have_acc": "Don't have account yet?",
   "logout_btn": "Log out",
   "sale": "Sale",
   "mac": "Mac",

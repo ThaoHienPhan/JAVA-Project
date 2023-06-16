@@ -136,6 +136,15 @@ function LoginForm(props) {
             {t('login_btn')}
           </button>
         </form>
+      <div className='mt-[20px] flex gap-[10px] text-xl pl-[60px]'>
+        <span>{t('already_logged_in')}</span>
+        <button
+          onClick={() => navigate('/register')}
+          className="border-solid font-medium border-black text-blue-900 hover:underline"
+        >
+          {t('signup_btn')}
+        </button>
+      </div>
       </Box>
       <Box className={classes.socialLogin}>
         <Typography>{t('login_note_2')}</Typography>

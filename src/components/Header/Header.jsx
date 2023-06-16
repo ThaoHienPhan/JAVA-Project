@@ -202,7 +202,7 @@ function Header() {
                   open={Boolean(openPopper)}
                   anchorEl={anchorEl}
                   placement="bottom-start"
-                  className="z-10 w-[calc(50%-33px)] md:w-[calc(25%-33px)] bg-white"
+                  className="z-[999] w-[calc(50%-33px)] md:w-[calc(25%-33px)] bg-white"
                 >
                   {searchList.isLoading ? (
                     <LoadingComponent />

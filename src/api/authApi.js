@@ -1,5 +1,7 @@
+import { toast } from 'react-toastify';
 import axiosClient from './axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { t } from 'i18next';
 
 const authUrl = {
   loginUrl: '/auth/login',
@@ -31,6 +33,7 @@ export const register = createAsyncThunk(
         username,
         password,
       });
+      toast.success(t('success_common'));
       return res;
     } catch (error) {
       throw new Error(error);

@@ -81,7 +81,8 @@ function RegisterForm(props) {
       password: yup.string().min(6).required('Please enter your password'),
       retypePassword: yup
         .string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match'),
+        .oneOf([yup.ref('password'), null], 'Passwords must match')
+        .required(),
     })
     .required();
   const form = useForm({
@@ -143,6 +144,15 @@ function RegisterForm(props) {
             {t('signup_btn')}
           </button>
         </form>
+        <div className="mt-[20px] flex gap-[10px] text-xl pl-[60px]">
+          <span>{t('dont_have_acc')}</span>
+          <button
+            onClick={() => navigate('/login')}
+            className="border-solid font-medium border-black text-blue-900 hover:underline"
+          >
+            {t('login_btn')}
+          </button>
+        </div>
       </Box>
       <Box className={classes.socialLogin}>
         <Typography>{t('register_note_2')}</Typography>
