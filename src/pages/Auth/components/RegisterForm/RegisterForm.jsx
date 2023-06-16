@@ -75,14 +75,22 @@ function RegisterForm(props) {
     .object({
       username: yup
         .string()
-        .min(6)
-        .max(20)
-        .required('Please enter your email address'),
-      password: yup.string().min(6).required('Please enter your password'),
+        .min(6, t('username_min'))
+        .max(20, t('username_max'))
+        .required(t('username_require')),
+      password: yup
+        .string()
+        .min(6, t('password_min'))
+        .matches(
+          // eslint-disable-next-line no-useless-escape
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};':\\"\\|,.<>\/?])/,
+          t('password_type')
+        )
+        .required(t('password_required')),
       retypePassword: yup
         .string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
-        .required(),
+        .oneOf([yup.ref('password'), null], t('retype_required'))
+        .required(t('retype_required')),
     })
     .required();
   const form = useForm({
@@ -117,21 +125,25 @@ function RegisterForm(props) {
         <Typography variant="h2">{t('register')}</Typography>
         <Typography>{t('register_note_1')}</Typography>
       </Box>
-      <Box>
+      <Box className="w-[430px]">
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <Box className={classes.input}>
             <PersonOutlineIcon />
-            <InputField name="username" label="Username" form={form} />
+            <InputField
+              name="username"
+              label={t('username_form')}
+              form={form}
+            />
           </Box>
           <Box className={classes.input}>
             <LockIcon />
-            <PasswordField name="password" label="Password" form={form} />
+            <PasswordField name="password" label={t('password')} form={form} />
           </Box>
           <Box className={classes.input}>
             <LockIcon />
             <PasswordField
               name="retypePassword"
-              label="Retype Password"
+              label={t('retype_password')}
               form={form}
             />
           </Box>

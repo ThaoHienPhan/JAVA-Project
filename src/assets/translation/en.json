@@ -158,5 +158,16 @@
   "qa_content_6": "- Products that have hardware defects within the warranty period are eligible for a one-to-one exchange within one month from the date of purchase. From the second to the twelfth month, the products will be covered under Apple's warranty policy.",
   "qa_content_7": "- Free installation of applications/games and maintenance during usage.",
   "qa_content_8": "- I-Tech provides free nationwide delivery and guarantees delivery within 60 minutes. The products are 100% genuine and sealed when they reach you.",
-  "qa_content_9": "- You can click the 'Buy Now' button or call the hotline at 1900 31201 for assistance."
+  "qa_content_9": "- You can click the 'Buy Now' button or call the hotline at 1900 31201 for assistance.",
+  "password_type": "Must contain uppercase, lowercase, number, special character",
+  "username_require": "Please enter your username",
+  "username_min": "Username must be at least 6 characters",
+  "username_max": "Username must be at most 20 characters",
+  "password_min": "Password must be at least 6 characters",
+  "password_required": "Password is required",
+  "retype_required": "Passwords must match",
+  "username_form": "Username",
+  "password": "Password",
+  "retype_password": "Retype password",
+  "Shop": "Shop"
 }

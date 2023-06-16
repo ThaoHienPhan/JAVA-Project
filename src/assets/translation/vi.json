@@ -159,5 +159,16 @@
   "qa_content_6": "- Sản phẩm có lỗi phần cứng thuộc phạm vi bảo hành sẽ được hưởng chính sách 1 đổi 1 trong vòng 01 tháng kể từ ngày mua máy; từ tháng thứ 02 đến tháng thứ 12, sản phẩm sẽ được bảo hành theo đúng chính sách của Hãng Apple.",
   "qa_content_7": "- Miễn phí cài đặt ứng dụng/ game và bảo dưỡng trong quá trình sử dụng.",
   "qa_content_8": "- I-Tech giao hàng miễn phí trên toàn quốc, cam kết giao hàng trong 60 phút. Và chất lượng hoàn toàn đảm bảo, 100% hàng chính hãng - nguyên seal khi đến tận tay Anh/ chị.",
-  "qa_content_9": "- Anh/chị có thể ấn nút Mua Ngay hoặc gọi số tổng đài 1900 31201 để được hỗ trợ."
+  "qa_content_9": "- Anh/chị có thể ấn nút Mua Ngay hoặc gọi số tổng đài 1900 31201 để được hỗ trợ.",
+  "password_type": "Phải có chữ thường, hoa, số và ký tự đặc biệt",
+  "username_require": "Không được để trống tài khoản",
+  "username_min": "Tài khoản phải có ít nhất 6 ký tự",
+  "username_max": "Tài khoản tối đa 20 ký tự",
+  "password_min": "Mật khẩu phải có ít nhất 6 ký tự",
+  "password_required": "Không được để trống mật khẩu",
+  "retype_required": "Mật khẩu không khớp",
+  "username_form": "Tài khoản",
+  "password": "Mật khẩu",
+  "retype_password": "Nhập lại mật khẩu",
+  "shop": "Cửa hàng"
 }

@@ -58,6 +58,7 @@ const SideBar = () => {
   };
 
   const items = [
+    getItem(t('shop'), '/', <ShopOutlined />),
     getItem(t('products'), 'product', <ShopOutlined />, [
       getItem(
         t('products_list'),
@@ -93,9 +94,9 @@ const SideBar = () => {
   return (
     <div className="min-h-screen bg-slate-100 min-w-[256px]">
       <div className="flex justify-center items-center text-xl font-semibold my-8">
-        <div className="flex items-center">
+        <div className="flex items-center cursor-pointer">
           <img src={logo} alt="" width={50} />
-          <div className="text-base">
+          <div className="text-[2rem]">
             <p>{t('branch_name')}</p>
           </div>
         </div>
