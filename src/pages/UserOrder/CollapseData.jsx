@@ -1,14 +1,14 @@
 import { CircularProgress } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Divider } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { cancelOrder, getOrderById } from '~/api/orderApi';
 
 const imgUrl = 'http://localhost:8080/files';
 
-const CollapseData = ({ itemId, cancel }) => {
+const CollapseData = ({ itemId, cancel, execute }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -72,11 +72,17 @@ const CollapseData = ({ itemId, cancel }) => {
             {data.orderTotal.toLocaleString()}đ
           </span>
         </div>
-        {cancel ? (
+        {cancel && (
           <h3 className="text-red-500 font-semibold text-lg mt-3">
             {t('cancelled')}
           </h3>
-        ) : (
+        )}
+        {execute && (
+          <h3 className="text-green-500 font-semibold text-lg mt-3">
+            {t('user_executed')}
+          </h3>
+        )}
+        {!cancel && !execute && (
           <button
             className="mt-3 bg-red-500 p-3 rounded-sm text-white"
             onClick={() => {

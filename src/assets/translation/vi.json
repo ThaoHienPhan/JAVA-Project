@@ -170,5 +170,10 @@
   "username_form": "Tài khoản",
   "password": "Mật khẩu",
   "retype_password": "Nhập lại mật khẩu",
-  "shop": "Cửa hàng"
+  "shop": "Cửa hàng",
+  "live_orders": "Đơn hàng còn lại",
+  "orders_list": "Danh sách đơn hàng",
+  "user_executed": "Đã được duyệt",
+  "status": "Trạng thái",
+  "role": "Vai trò"
 }

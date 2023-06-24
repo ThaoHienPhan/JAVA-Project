@@ -1,10 +1,7 @@
-import { CircularProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import { getMyOrder } from '~/api/orderApi';
 import CollapseData from './CollapseData';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from 'antd';
 import { useSelector } from 'react-redux';
@@ -26,12 +23,16 @@ const UserOrder = () => {
           <div className="w-1/2">{`${t('address')}: ${item.diaChi}`}</div>
         </div>
       ),
-      children: <CollapseData itemId={item.id} cancel={item.cancel} />,
+      children: (
+        <CollapseData
+          itemId={item.id}
+          cancel={item.cancel}
+          execute={item.execute}
+        />
+      ),
     }));
     setOrders(mappedData);
   }, [userOrder.data, language]);
-
-  console.log(userOrder.data);
 
   const onChange = key => {
     console.log(key);

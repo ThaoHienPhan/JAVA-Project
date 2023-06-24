@@ -29,8 +29,6 @@ const SideBar = () => {
   const [activeKey, setActiveKey] = useState([pathname]);
   const { language } = useSelector(state => state.language);
 
-  console.log(language);
-
   useEffect(() => {
     i18n.changeLanguage(language);
   }, [language]);

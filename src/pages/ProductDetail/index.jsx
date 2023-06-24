@@ -204,8 +204,11 @@ const ProductDetail = () => {
           <div className="flex flex-col gap-4 w-full md:w-2/5">
             <div>
               <div className="text-[#F00101] text-xl">{t('new_product')}</div>
-              <div className="font-bold text-2xl">
+              <div className="font-bold text-2xl text-[#F00101] flex">
                 {product?.productLastPrice?.toLocaleString()}đ
+                <span className="ml-3 line-through text-gray-400 text-sm">
+                  {product?.price?.toLocaleString()}đ
+                </span>
               </div>
             </div>
             <div>

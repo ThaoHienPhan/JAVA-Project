@@ -6,6 +6,10 @@ const userApi = {
     const res = await axiosClient.get('/api/user/allUser');
     return res;
   }),
+
+  getUserProfile: async () => {
+    return await axiosClient.get('/api/user/myprofile');
+  },
 };
 
 export default userApi;

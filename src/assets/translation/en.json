@@ -169,5 +169,10 @@
   "username_form": "Username",
   "password": "Password",
   "retype_password": "Retype password",
-  "Shop": "Shop"
+  "shop": "Shop",
+  "live_orders": "Live orders",
+  "orders_list": "Orders",
+  "user_executed": "Executed",
+  "status": "Status",
+  "role": "Role"
 }

@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllOrder } from '~/api/orderApi';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { Switch } from 'antd';
 
 ChartJS.register(
   CategoryScale,
@@ -108,16 +109,16 @@ function AdminUser() {
   return (
     <div className="flex flex-col items-center grow py-[30px] px-[20px]">
       <h1 className="text-3xl font-bold mb-4">{t('user_staticstics')}</h1>
-      <div className="w-full flex justify-center">
+      {/* <div className="w-full flex justify-center">
         <Line options={options} data={data} height={null} />
-      </div>
+      </div> */}
       <div className="bg-white shadow-md rounded-lg overflow-hidden w-3/4 mt-[30px]">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-200">
-              <th className="py-2 px-4 border-r w-[50px]">STT</th>
+              <th className="py-2 px-4 border-r w-[50px]">{t('stt')}</th>
               <th className="py-2 px-4 border-r">{t('username')}</th>
-              <th className="py-2 px-4">{t('name')}</th>
+              <th className="py-2 px-4">{t('role')}</th>
             </tr>
           </thead>
           <tbody>
@@ -127,8 +128,18 @@ function AdminUser() {
                 className={index % 2 === 0 ? 'bg-gray-100' : ''}
               >
                 <td className="py-2 px-4 border-r text-center">{index + 1}</td>
-                <td className="py-2 px-4 border-r">{user.username}</td>
-                <td className="py-2 px-4">{user.name}</td>
+                <td className="py-2 px-4 border-r text-center">
+                  {user.username}
+                </td>
+                <td className="py-2 px-4 text-center user_table">
+                  <Switch
+                    checkedChildren="Admin"
+                    unCheckedChildren="User"
+                    defaultChecked={user.admin}
+                    onChange={checked => console.log(checked)}
+                    className=""
+                  />
+                </td>
               </tr>
             ))}
           </tbody>

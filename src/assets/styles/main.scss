@@ -47,3 +47,12 @@
     }
   }
 }
+
+.user_table {
+  .ant-switch:not(.ant-switch-disabled) {
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+  .ant-switch.ant-switch-checked:not(.ant-switch-disabled) {
+    background: #4096ff;
+  }
+}

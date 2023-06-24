@@ -21,7 +21,7 @@ const DetailModal = ({ currentId, setIsModalOpen, executed, cancel }) => {
       setIsModalOpen(false);
       queryClient.invalidateQueries(['allOrders']);
       queryClient.invalidateQueries(['orderDetail']);
-      toast.success('success_common');
+      toast.success(t('success_common'));
     },
   });
 
@@ -31,7 +31,7 @@ const DetailModal = ({ currentId, setIsModalOpen, executed, cancel }) => {
       setIsModalOpen(false);
       queryClient.invalidateQueries(['allOrders']);
       queryClient.invalidateQueries(['orderDetail']);
-      toast.success('success_common');
+      toast.success(t('success_common'));
     },
   });
 

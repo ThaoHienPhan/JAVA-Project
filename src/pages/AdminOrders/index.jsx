@@ -49,7 +49,18 @@ const AdminOrders = () => {
         render: text => <p>{moment(text).format('DD/MM/YYYY')}</p>,
       },
       {
-        title: 'Actions',
+        title: t('status'),
+        dataIndex: '',
+        key: 'status',
+        render: text => (
+          <>
+            {text?.cancel && <p className="text-red-500">{t('cancelled')}</p>}
+            {text?.execute && <p className="text-green-500">{t('executed')}</p>}
+          </>
+        ),
+      },
+      {
+        title: t('actions'),
         key: 'id',
         render: (text, record) => (
           <>
@@ -84,7 +95,7 @@ const AdminOrders = () => {
 
   return (
     <div className="px-16 my-8 bg-[#fff9f9] w-full">
-      <h2 className="text-xl font-semibold">Live order</h2>
+      <h2 className="text-xl font-semibold">{t('live_orders')}</h2>
       <div className="mt-8 flex justify-between items-center w-full gap-32">
         <div className="bg-white border-2 w-1/2 py-2 px-10">
           <div className="gap-5 rounded-md flex justify-between">
@@ -96,7 +107,7 @@ const AdminOrders = () => {
               />
             </div>
             <div className="font-bold text-xl w-3/5 flex flex-col justify-center">
-              <div className="text-2xl">{allOrders.data.length}</div>
+              <div className="text-2xl">{allOrders.data?.length}</div>
               <div className="text-gray-500">{t('orders')}</div>
             </div>
           </div>
@@ -113,7 +124,7 @@ const AdminOrders = () => {
             <div className="font-bold text-xl w-3/5 flex flex-col justify-center">
               <div className="text-2xl">
                 {
-                  allOrders.data.filter(
+                  allOrders.data?.filter(
                     data => data.execute === false && data.cancel === false
                   ).length
                 }
@@ -123,12 +134,12 @@ const AdminOrders = () => {
           </div>
         </div>
       </div>
-      <h2 className="mt-8 text-xl font-semibold">Orders</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t('orders_list')}</h2>
       <Table
         rowKey="id"
         columns={columns}
         dataSource={allOrders.data
-          .filter(
+          ?.filter(
             item => item.tenNguoiNhan !== null && !!item.tenNguoiNhan.trim()
           )
           .sort((a, b) => moment(b.timestamp).diff(moment(a.timestamp)))}
