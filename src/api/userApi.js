@@ -10,6 +10,12 @@ const userApi = {
   getUserProfile: async () => {
     return await axiosClient.get('/api/user/myprofile');
   },
+
+  switchRole: async ({ id, role }) => {
+    return await axiosClient.put(`/api/user/update/role/${id}`, null, {
+      params: { role: role },
+    });
+  },
 };
 
 export default userApi;

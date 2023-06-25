@@ -168,7 +168,7 @@ const UserCart = () => {
             <button
               className="rounded-full border-2 border-solid bg-black text-white w-full px-3 py-2 text-lg border-black"
               onClick={() => {
-                data.cartItemList?.length > 0
+                data?.cartItemList?.length > 0
                   ? navigate('/checkout')
                   : console.warn('Chua co gi');
               }}

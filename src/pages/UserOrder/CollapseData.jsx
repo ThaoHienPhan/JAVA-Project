@@ -40,23 +40,23 @@ const CollapseData = ({ itemId, cancel, execute }) => {
         <div key={i}>
           <div key={i} className="flex gap-5">
             <img
-              src={`${imgUrl}/${data.product.productUrl}`}
+              src={`${imgUrl}/${data?.product.productUrl}`}
               width={150}
               height={150}
             />
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <h3 className="font-semibold text-lg">
-                  {data.product.productName}
+                  {data?.product.productName}
                 </h3>
               </div>
               <div className="flex justify-between pt-3">
-                <h3>{`${t('quantity')}: ${data.quantity}`}</h3>
+                <h3>{`${t('quantity')}: ${data?.quantity}`}</h3>
                 <h3 className="text-red-500">
                   <span className="text-gray-500 line-through pr-2">
-                    {(data.product.price * data.quantity).toLocaleString()}đ
+                    {(data?.product.price * data?.quantity).toLocaleString()}đ
                   </span>
-                  {data.orderItemtotal.toLocaleString()}đ
+                  {data?.orderItemtotal.toLocaleString()}đ
                 </h3>
               </div>
             </div>
@@ -69,7 +69,7 @@ const CollapseData = ({ itemId, cancel, execute }) => {
           {t('total')}
           {': '}
           <span className="text-red-500">
-            {data.orderTotal.toLocaleString()}đ
+            {data?.orderTotal.toLocaleString()}đ
           </span>
         </div>
         {cancel && (

@@ -46,7 +46,7 @@ function EditProduct() {
     onSuccess: res => {
       if (id) {
         handleUpdateProduct.mutate({
-          id: productDetails.data.productId,
+          id: productDetails.data?.productId,
           data: {
             url: res.message ? res.message : productDetails.data?.productUrl,
             ...submitData,

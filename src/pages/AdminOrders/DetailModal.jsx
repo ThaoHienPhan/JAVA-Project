@@ -50,15 +50,15 @@ const DetailModal = ({ currentId, setIsModalOpen, executed, cancel }) => {
   return (
     <div className="w-full pt-3">
       <div className="flex flex-col gap-8">
-        {data.iteamsDTOList.map((item, i) => (
+        {data?.iteamsDTOList.map((item, i) => (
           <div className="flex gap-3" key={i}>
-            <img src={`${imgUrl}/${item.product.productUrl}`} width={100} />
+            <img src={`${imgUrl}/${item?.product.productUrl}`} width={100} />
             <div className="text-lg w-full">
-              <h2 className="font-semibold">{item.product.productName}</h2>
+              <h2 className="font-semibold">{item?.product.productName}</h2>
               <div className="flex justify-between w-full mt-2">
-                <div>{`${t('quantity')}: ${item.quantity}`}</div>
+                <div>{`${t('quantity')}: ${item?.quantity}`}</div>
                 <div className="text-red-500">
-                  {item.product.productLastPrice.toLocaleString()}đ
+                  {item?.product.productLastPrice.toLocaleString()}đ
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@ const DetailModal = ({ currentId, setIsModalOpen, executed, cancel }) => {
         <div className="text-end text-xl font-semibold">
           {t('total')}:{' '}
           <span className="text-red-500">
-            {data.orderTotal.toLocaleString()}đ
+            {data?.orderTotal.toLocaleString()}đ
           </span>
         </div>
         {cancel && (

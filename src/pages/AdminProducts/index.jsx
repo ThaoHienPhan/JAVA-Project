@@ -56,25 +56,25 @@ const AdminProducts = () => {
     let productTypes = [];
     switch (key) {
       case 'accessories':
-        productTypes = newData.filter(data => data.type === 'ACCESSORIES');
+        productTypes = newData?.filter(data => data?.type === 'ACCESSORIES');
         break;
       case 'airpods':
-        productTypes = newData.filter(data => data.type === 'AIRPODS');
+        productTypes = newData?.filter(data => data?.type === 'AIRPODS');
         break;
       case 'iphone':
-        productTypes = newData.filter(data => data.type === 'IPHONE');
+        productTypes = newData?.filter(data => data?.type === 'IPHONE');
         break;
       case 'ipad':
-        productTypes = newData.filter(data => data.type === 'IPAD');
+        productTypes = newData?.filter(data => data?.type === 'IPAD');
         break;
       case 'macbook':
-        productTypes = newData.filter(data => data.type === 'MACBOOK');
+        productTypes = newData?.filter(data => data?.type === 'MACBOOK');
         break;
       case 'watch':
-        productTypes = newData.filter(data => data.type === 'WATCH');
+        productTypes = newData?.filter(data => data?.type === 'WATCH');
         break;
       default:
-        productTypes = newData.filter(data => data.type === key);
+        productTypes = newData?.filter(data => data?.type === key);
         break;
     }
     setProductType(productTypes);

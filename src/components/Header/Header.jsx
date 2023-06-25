@@ -215,19 +215,19 @@ function Header() {
                             Không tìm thấy {searchTerm}
                           </div>
                         ) : (
-                          searchList.data.slice(0, 5).map((data, i) => (
+                          searchList.data?.slice(0, 5).map((data, i) => (
                             <div
                               key={i}
                               className="flex justify-between gap-2 cursor-pointer hover:bg-slate-300 p-2"
-                              onClick={() => handleClearSearch(data.productId)}
+                              onClick={() => handleClearSearch(data?.productId)}
                             >
                               <img
-                                src={`${imgUrl}/${data.productUrl}`}
+                                src={`${imgUrl}/${data?.productUrl}`}
                                 width={40}
                                 className=" object-contain"
                               />
                               <div className="flex-1 text-left">
-                                {data.productName}
+                                {data?.productName}
                               </div>
                             </div>
                           ))

@@ -52,9 +52,9 @@ const CheckOut = () => {
 
   const formSubmitHandler = data => {
     mutation.mutate({
-      address: `${data.addressLine1} ${data.addressLine2} ${data.city}`,
-      phoneNumber: data.phoneNumber,
-      receiveName: `${data.firstname} ${data.lastname}`,
+      address: `${data?.addressLine1} ${data?.addressLine2} ${data?.city}`,
+      phoneNumber: data?.phoneNumber,
+      receiveName: `${data?.firstname} ${data?.lastname}`,
     });
     reset();
   };
@@ -228,22 +228,22 @@ const CheckOut = () => {
                 <h4>{moment().add(3, 'days').format('DD/MM/YYYY')}</h4>
               </div>
               <div className="flex flex-col gap-5 mt-5">
-                {data.cartItemList.map((data, i) => (
-                  <div key={`${data.productName}_${i}`}>
+                {data?.cartItemList.map((data, i) => (
+                  <div key={`${data?.productName}_${i}`}>
                     <div className="flex gap-3 justify-between">
                       <div className=" w-1/2">
                         <img
-                          src={`${imgUrl}/${data.product.productUrl}`}
+                          src={`${imgUrl}/${data?.product.productUrl}`}
                           alt={''}
                           className="object-contain"
                         />
                       </div>
                       <div className="w-1/2">
                         <h4 className="font-semibold">
-                          {data.product.productName}
+                          {data?.product.productName}
                         </h4>
-                        <p>{`${t('quantity')} ${data.quantity}`}</p>
-                        <p>{data.total?.toLocaleString()}đ</p>
+                        <p>{`${t('quantity')} ${data?.quantity}`}</p>
+                        <p>{data?.total?.toLocaleString()}đ</p>
                       </div>
                     </div>
                     <Divider />

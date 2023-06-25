@@ -12,11 +12,13 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { getAllOrder } from '~/api/orderApi';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Switch } from 'antd';
+import { toast } from 'react-toastify';
+import LineChart from './LineChart';
 
 ChartJS.register(
   CategoryScale,
@@ -40,19 +42,15 @@ function AdminUser() {
     dispatch(userApi.getAll());
   }, [!users]);
 
-  const options = {
-    responsive: true,
-    aspectRatio: 3,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: t('order_by_day'),
-      },
+  const switchRole = useMutation({
+    mutationFn: userApi.switchRole,
+    onSuccess: () => {
+      toast.success(t('success_common'), {
+        toastId: 'toastAvoidsDuplicates',
+      });
+      dispatch(userApi.getAll());
     },
-  };
+  });
 
   const [mergedDates, setMergedDates] = useState([]);
   const [mergedOrderCounts, setMergedOrderCounts] = useState([]);
@@ -106,12 +104,20 @@ function AdminUser() {
     ],
   };
 
+  const handleSwitchRole = (userId, role) => {
+    if (role) {
+      switchRole.mutate({ id: userId, role: 1 });
+    } else {
+      switchRole.mutate({ id: userId, role: 3 });
+    }
+  };
+
   return (
     <div className="flex flex-col items-center grow py-[30px] px-[20px]">
       <h1 className="text-3xl font-bold mb-4">{t('user_staticstics')}</h1>
-      {/* <div className="w-full flex justify-center">
-        <Line options={options} data={data} height={null} />
-      </div> */}
+      <div className="w-full flex justify-center">
+        <LineChart />
+      </div>
       <div className="bg-white shadow-md rounded-lg overflow-hidden w-3/4 mt-[30px]">
         <table className="w-full">
           <thead>
@@ -136,7 +142,7 @@ function AdminUser() {
                     checkedChildren="Admin"
                     unCheckedChildren="User"
                     defaultChecked={user.admin}
-                    onChange={checked => console.log(checked)}
+                    onChange={role => handleSwitchRole(user.id, role)}
                     className=""
                   />
                 </td>

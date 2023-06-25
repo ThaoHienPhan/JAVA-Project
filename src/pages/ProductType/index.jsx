@@ -29,13 +29,13 @@ const ProductType = () => {
 
     switch (sortType) {
       case 'high_to_low':
-        sortedProducts = newData.sort((a, b) => b.price - a.price);
+        sortedProducts = newData?.sort((a, b) => b?.price - a?.price);
         break;
       case 'low_to_high':
-        sortedProducts = newData.sort((a, b) => a.price - b.price);
+        sortedProducts = newData?.sort((a, b) => a?.price - b?.price);
         break;
       case 'hot_deals':
-        sortedProducts = newData.sort((a, b) => b.discount - a.discount);
+        sortedProducts = newData?.sort((a, b) => b?.discount - a?.discount);
         break;
       default:
         break;

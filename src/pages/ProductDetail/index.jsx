@@ -63,7 +63,7 @@ const ProductDetail = () => {
   );
 
   useEffect(() => {
-    setProduct(productData.data);
+    setProduct(productData?.data);
   }, [productData]);
 
   const [selectedRom, setSelectedRom] = useState(0);
@@ -167,9 +167,9 @@ const ProductDetail = () => {
       productId: product.productId,
       quantity: quantity,
       data: {
-        address: `${data.addressLine1} ${data.addressLine2} ${data.city}`,
-        phoneNumber: data.phoneNumber,
-        receiveName: `${data.firstname} ${data.lastname}`,
+        address: `${data?.addressLine1} ${data?.addressLine2} ${data?.city}`,
+        phoneNumber: data?.phoneNumber,
+        receiveName: `${data?.firstname} ${data?.lastname}`,
       },
     });
     reset();

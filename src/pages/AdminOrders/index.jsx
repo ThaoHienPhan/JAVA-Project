@@ -125,7 +125,7 @@ const AdminOrders = () => {
               <div className="text-2xl">
                 {
                   allOrders.data?.filter(
-                    data => data.execute === false && data.cancel === false
+                    data => data?.execute === false && data?.cancel === false
                   ).length
                 }
               </div>
