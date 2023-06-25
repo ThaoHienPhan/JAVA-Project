@@ -1,16 +1,24 @@
 #How to start:
 
 B1:  Open terminal:
-```yarn```
+```
+yarn
+```
 
 or 
 
-```npm i```
+```
+npm i
+```
 
 B2: 
 
-```yarn start```
+```
+yarn start
+```
 
 Or
 
-```npm start```
+```
+npm start
+```
